@@ -344,7 +344,7 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
     model Inductor
       extends BloodFlowOnePort;
       parameter Real inertance_NonSI "inertance in mmHg s2/ml";
-      Real inertance = inertance_NonSI*133.322387415/1e-6 "Iinertance in Pa s2/m3";
+      Real inertance = inertance_NonSI*133.322387415/1e-6 "Inertance in Pa s2/m3";
     equation
       pressureDrop = der(bloodFlow) * inertance;
       annotation (
@@ -834,7 +834,7 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
             extent={{-10,-10},{10,10}},
             rotation=180,
             origin={50,0})));
-      Inductor aorticFlowInertia(inertance_NonSI=0.0007) annotation (Placement(
+      Inductor aorticFlowInertia(inertance_NonSI=0.0017) annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
@@ -1131,6 +1131,48 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
             coordinateSystem(preserveAspectRatio=false)));
     end TestOptionalElasticCompartment;
 
+    model TestVanMeursHemodynamicsModel
+      Components.Heart heart
+        annotation (Placement(transformation(extent={{-22,-22},{20,24}})));
+      Components.SystemicCirculation systemicCirculation
+        annotation (Placement(transformation(extent={{-30,-84},{30,-24}})));
+      Components.PulmonaryCirculation pulmonaryCirculation
+        annotation (Placement(transformation(extent={{-30,14},{30,74}})));
+    equation
+      connect(systemicCirculation.bloodFlowOutflow, heart.rightAtriumFlowInflow)
+        annotation (Line(
+          points={{-30.6,-54},{-40,-54},{-40,3.3},{-16.12,3.3}},
+          color={28,108,200},
+          thickness=1));
+      connect(heart.pulmonaryArteryOutflow, pulmonaryCirculation.bloodFlowInflow)
+        annotation (Line(
+          points={{-7.72,11.58},{-40,11.58},{-40,44},{-30.6,44}},
+          color={28,108,200},
+          thickness=1));
+      connect(systemicCirculation.bloodFlowInflow, heart.aortaOutflow)
+        annotation (Line(
+          points={{28.8,-54},{40,-54},{40,3.3},{15.38,3.3}},
+          color={255,0,0},
+          thickness=1));
+      connect(heart.leftAtriumFlowInflow, pulmonaryCirculation.bloodFlowOutflow)
+        annotation (Line(
+          points={{6.14,11.58},{40,11.58},{40,44},{30,44}},
+          color={238,46,47},
+          thickness=1));
+      annotation (
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={Ellipse(
+              extent={{-62,62},{64,-64}},
+              lineColor={255,0,0},
+              pattern=LinePattern.None,
+              lineThickness=1,
+              fillPattern=FillPattern.Sphere,
+              fillColor={244,125,35})}),
+        Diagram(coordinateSystem(preserveAspectRatio=false)),
+        experiment(
+          StopTime=10,
+          __Dymola_NumberOfIntervals=50000,
+          __Dymola_Algorithm="Dassl"));
+    end TestVanMeursHemodynamicsModel;
   end Model;
 
   package Types
@@ -1663,8 +1705,8 @@ Connector with one output signal of type Real.
               rotation=180,
               origin={48,0})));
         Physiolibrary.Hydraulic.Components.Inertia aorticFlowInertia(
-            volumeFlow_start(displayUnit="m3/s"), I(displayUnit="mmHg.s2/ml")
-             = 226648.0586055)
+            volumeFlow_start(displayUnit="m3/s"), I(displayUnit="mmHg.s2/ml")=
+               226648.0586055)
                               annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
