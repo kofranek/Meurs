@@ -1073,9 +1073,9 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
 
       Modelica.Blocks.Interfaces.RealInput RR "Respiration rate - breaths per minute"
         annotation (Placement(transformation(extent={{-124,-20},{-84,20}})));
-       Modelica.Blocks.Interfaces.RealOutput Pm "realtive pressure of braeth muscle (from 0 to 1)" annotation (Placement(transformation(extent={{100,-10},
+       Modelica.Blocks.Interfaces.RealOutput Pm "realtive pressure of breath muscle (from 0 to 1)" annotation (Placement(transformation(extent={{100,-10},
                 {120,10}}),     iconTransformation(extent={{100,-10},{120,10}})));
-      Real HB(start=0) "heart period - duration of breath cycle in sec";
+      Real HB(start=0) "breath period - duration of breath cycle in sec";
       Boolean b;
 
       Real Ti "length of inspiration";
@@ -1085,7 +1085,7 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
       b=time - pre(T0) >= pre(HB);
      when {initial(),b} then
         T0 = time;
-        HB = RR/60;
+        HB = 60/RR;
         Ti = HB/3;
         Te = Ti*2;
      end when;
