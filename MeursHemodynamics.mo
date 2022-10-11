@@ -1069,6 +1069,59 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
           __Dymola_Algorithm="Dassl"));
     end vanMeursHemodynamicsModel;
 
+    model BreathInterval
+
+      Modelica.Blocks.Interfaces.RealInput RR "Respiration rate - breaths per minute"
+        annotation (Placement(transformation(extent={{-124,-20},{-84,20}})));
+       Modelica.Blocks.Interfaces.RealOutput Pm "realtive pressure of braeth muscle (from 0 to 1)" annotation (Placement(transformation(extent={{100,-10},
+                {120,10}}),     iconTransformation(extent={{100,-10},{120,10}})));
+      Real HB(start=0) "heart period - duration of breath cycle in sec";
+      Boolean b;
+
+      Real Ti "length of inspiration";
+      Real Te "length of expiration";
+      Real T0 "start time of current breath in sec";
+    equation
+      b=time - pre(T0) >= pre(HB);
+     when {initial(),b} then
+        T0 = time;
+        HB = RR/60;
+        Ti = HB/3;
+        Te = Ti*2;
+     end when;
+
+     if (time-T0) < Ti then
+       Pm=(time-T0)/Ti;
+     else
+       Pm=(exp(-(time-(T0+Ti))/Te/0.4)-exp(-1/0.4))/(1-exp(-1/0.4));
+     end if;
+
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+              Rectangle(
+              extent={{-100,100},{100,-100}},
+              lineColor={28,108,200},
+              fillColor={255,255,0},
+              fillPattern=FillPattern.Solid),
+            Text(
+              extent={{-92,12},{-42,-12}},
+              lineColor={28,108,200},
+              fillColor={255,255,0},
+              fillPattern=FillPattern.None,
+              textString="HR"),
+            Text(
+              extent={{34,16},{102,-12}},
+              lineColor={28,108,200},
+              fillColor={255,255,0},
+              fillPattern=FillPattern.None,
+              textString="Pm"),
+            Text(
+              extent={{-100,-106},{108,-132}},
+              lineColor={28,108,200},
+              fillColor={255,255,0},
+              fillPattern=FillPattern.None,
+              textString="%name")}),                                 Diagram(
+            coordinateSystem(preserveAspectRatio=false)));
+    end BreathInterval;
   end Components;
 
   package Model
@@ -1173,6 +1226,18 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
           __Dymola_NumberOfIntervals=50000,
           __Dymola_Algorithm="Dassl"));
     end TestVanMeursHemodynamicsModel;
+
+    model TestBreathInterval
+      Components.BreathInterval breathInterval
+        annotation (Placement(transformation(extent={{-26,-6},{-6,14}})));
+      Modelica.Blocks.Sources.Constant BreathRate(k=12)
+        annotation (Placement(transformation(extent={{-70,-6},{-50,14}})));
+    equation
+      connect(BreathRate.y, breathInterval.RR)
+        annotation (Line(points={{-49,4},{-26.4,4}}, color={0,0,127}));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+            coordinateSystem(preserveAspectRatio=false)));
+    end TestBreathInterval;
   end Model;
 
   package Types
