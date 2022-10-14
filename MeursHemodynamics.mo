@@ -2493,10 +2493,10 @@ Connector with one output signal of type Real.
           ZeroPressureVolume=5e-05,
           ExternalPressure=-533.28954966,
           Elastance=31064116.267695)
-          annotation (Placement(transformation(extent={{-94,84},{-66,112}})));
+          annotation (Placement(transformation(extent={{-94,122},{-66,150}})));
         Physiolibrary.Hydraulic.Components.Resistor Rpp(useConductanceInput=false,
             Resistance(displayUnit="(mmHg.s)/ml") = 14665462.61565)
-          annotation (Placement(transformation(extent={{-56,85},{-22,111}})));
+          annotation (Placement(transformation(extent={{-56,123},{-22,149}})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance Epv(
           useV0Input=false,
           useExternalPressureInput=false,
@@ -2505,10 +2505,10 @@ Connector with one output signal of type Real.
           ZeroPressureVolume=0.00035,
           ExternalPressure=-533.28954966,
           Elastance=6066168.6273825)
-          annotation (Placement(transformation(extent={{-10,84},{24,112}})));
+          annotation (Placement(transformation(extent={{-10,122},{24,150}})));
         Physiolibrary.Hydraulic.Components.Resistor Rlain(useConductanceInput=false,
             Resistance(displayUnit="(mmHg.s)/ml") = 399967.162245)
-          annotation (Placement(transformation(extent={{26,86},{56,110}})));
+          annotation (Placement(transformation(extent={{26,124},{56,148}})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance LeftAtrium(
           useComplianceInput=true,
           useV0Input=false,
@@ -2516,7 +2516,7 @@ Connector with one output signal of type Real.
           volume_start=9.31e-05,
           ZeroPressureVolume=3e-05,
           ExternalPressure=-533.28954966)
-          annotation (Placement(transformation(extent={{74,50},{102,78}})));
+          annotation (Placement(transformation(extent={{74,88},{102,116}})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance LeftVentricle(
           useComplianceInput=true,
           useV0Input=false,
@@ -2524,25 +2524,27 @@ Connector with one output signal of type Real.
           volume_start=0.000144,
           ZeroPressureVolume=6e-05,
           ExternalPressure=-533.28954966)
-          annotation (Placement(transformation(extent={{150,50},{178,78}})));
+          annotation (Placement(transformation(extent={{150,88},{178,116}})));
         Physiolibrary.Hydraulic.Components.IdealValveResistance AorticValve(
           _Goff(displayUnit="ml/(mmHg.s)") = 0,
-          _Ron(displayUnit= "(mmHg.min)/ml") = 1066579.09932, chatteringProtectionTime = 0.01, lastChange(displayUnit = "s"), useChatteringProtection = true,
+          _Ron(displayUnit="(mmHg.s)/ml") = 399967.162245,
+          chatteringProtectionTime=0.01,                                                       lastChange(displayUnit = "s"), useChatteringProtection = true,
           useLimitationInputs=false)
-          annotation (Placement(transformation(extent={{184,76},{208,52}})));
+          annotation (Placement(transformation(extent={{182,114},{206,90}})));
         Physiolibrary.Hydraulic.Examples.MeursModel2011.Parts.AtrialElastance LAtrialElastance(
           Tav(displayUnit="s"),
           EMIN=15998686.4898,
           EMAX=37330268.4762)
-          annotation (Placement(transformation(extent={{80,92},{118,124}})));
+          annotation (Placement(transformation(extent={{80,130},{118,162}})));
         Physiolibrary.Hydraulic.Examples.MeursModel2011.Parts.VentricularElastance
           LVentricularElastance(EMIN=11999014.86735, EMAX=533289549.66)
-          annotation (Placement(transformation(extent={{164,88},{200,120}})));
+          annotation (Placement(transformation(extent={{164,126},{200,158}})));
         Physiolibrary.Hydraulic.Components.IdealValveResistance MitralValve(
           _Goff(displayUnit="ml/(mmHg.s)") = 0,
-          _Ron(displayUnit= "(mmHg.min)/ml") = 399967.162245, chatteringProtectionTime = 0.01, lastChange(displayUnit = "s"), useChatteringProtection = true,useLimitationInputs=false)
+          _Ron(displayUnit="(mmHg.s)/ml") = 399967.162245,
+          chatteringProtectionTime=0.01,                                                       lastChange(displayUnit = "s"), useChatteringProtection = true,useLimitationInputs=false)
                               annotation (Placement(transformation(
-              origin={127,64},
+              origin={127,102},
               extent={{-13,12},{13,-12}})));
 
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance Eitha(
@@ -2553,7 +2555,7 @@ Connector with one output signal of type Real.
           ZeroPressureVolume=0.00014,
           ExternalPressure=-533.28954966,
           Elastance=190651014.00345)
-          annotation (Placement(transformation(extent={{168,6},{190,28}})));
+          annotation (Placement(transformation(extent={{168,44},{190,66}})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance Eetha(
           volume_start(displayUnit="ml") = 0.000526,
           useV0Input=false,
@@ -2561,24 +2563,24 @@ Connector with one output signal of type Real.
           useComplianceInput=false,
           ZeroPressureVolume=0.00037,
           Elastance=74127247.40274)
-          annotation (Placement(transformation(extent={{56,4},{82,30}})));
+          annotation (Placement(transformation(extent={{56,42},{82,68}})));
         Physiolibrary.Hydraulic.Components.Inertia inertia(I(displayUnit=
                 "mmHg.s2/ml") = 226648.0586055,
             volumeFlow_start(displayUnit="ml/min") = 2.1666666666667e-05)                                                                                                  annotation(Placement(transformation(extent={{-11,-11},
-                  {11,11}},                                                                                                    rotation = 180, origin={141,17})));
+                  {11,11}},                                                                                                    rotation = 180, origin={141,55})));
         Physiolibrary.Hydraulic.Components.Resistor Retha(useConductanceInput=false,
             Resistance(displayUnit="(mmHg.s)/ml") = 7999343.2449)
-          annotation (Placement(transformation(extent={{90,6},{112,28}})));
+          annotation (Placement(transformation(extent={{90,44},{112,66}})));
         Physiolibrary.Hydraulic.Components.Resistor Rsart(useConductanceInput=false,
             Resistance(displayUnit="(mmHg.s)/ml") = 106657909.932) annotation (
             Placement(transformation(
               extent={{14,-13},{-14,13}},
-              origin={24,17})));
+              origin={24,55})));
         Physiolibrary.Hydraulic.Components.Resistor Rsven(useConductanceInput=false,
             Resistance(displayUnit="(mmHg.s)/ml") = 26664477.483) annotation (
             Placement(transformation(
               extent={{14,-13},{-14,13}},
-              origin={-60,17})));
+              origin={-60,55})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance Est(
           useV0Input=false,
           useExternalPressureInput=false,
@@ -2586,13 +2588,13 @@ Connector with one output signal of type Real.
           volume_start=0.000283,
           ZeroPressureVolume=0.000185,
           Elastance=34930465.50273)
-          annotation (Placement(transformation(extent={{-28,6},{-4,28}})));
+          annotation (Placement(transformation(extent={{-28,44},{-4,66}})));
         Physiolibrary.Hydraulic.Components.Resistor Rethv(useConductanceInput=false,
             Resistance(displayUnit="(mmHg.s)/ml") = 11999014.86735)
-          annotation (Placement(transformation(extent={{-120,4},{-146,30}})));
+          annotation (Placement(transformation(extent={{-120,42},{-146,68}})));
         Physiolibrary.Hydraulic.Components.Resistor Rrain(useConductanceInput=false,
             Resistance(displayUnit="(mmHg.s)/ml") = 399967.162245)
-          annotation (Placement(transformation(extent={{-208,4},{-236,30}})));
+          annotation (Placement(transformation(extent={{-208,42},{-236,68}})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance Eithv(
           useV0Input=false,
           useExternalPressureInput=false,
@@ -2601,7 +2603,7 @@ Connector with one output signal of type Real.
           ZeroPressureVolume=0.00119,
           ExternalPressure=-533.28954966,
           Elastance=2426467.450953)
-          annotation (Placement(transformation(extent={{-194,4},{-166,30}})));
+          annotation (Placement(transformation(extent={{-194,42},{-166,68}})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance Eethv(
           useV0Input=false,
           useExternalPressureInput=false,
@@ -2609,7 +2611,7 @@ Connector with one output signal of type Real.
           volume_start=0.00153,
           ZeroPressureVolume=0.001,
           Elastance=2253148.3473135)
-          annotation (Placement(transformation(extent={{-108,4},{-82,30}})));
+          annotation (Placement(transformation(extent={{-108,42},{-82,68}})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance RightAtrium(
           useComplianceInput=true,
           useV0Input=false,
@@ -2617,7 +2619,7 @@ Connector with one output signal of type Real.
           volume_start=0.000135,
           ZeroPressureVolume=3e-05,
           ExternalPressure=-533.28954966)
-          annotation (Placement(transformation(extent={{-242,44},{-214,72}})));
+          annotation (Placement(transformation(extent={{-242,82},{-214,110}})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance RightVentricle(
           useComplianceInput=true,
           useV0Input=false,
@@ -2625,462 +2627,409 @@ Connector with one output signal of type Real.
           volume_start=0.000131,
           ZeroPressureVolume=4e-05,
           ExternalPressure=-533.28954966)
-          annotation (Placement(transformation(extent={{-170,42},{-140,72}})));
+          annotation (Placement(transformation(extent={{-170,80},{-140,110}})));
         Physiolibrary.Hydraulic.Components.IdealValveResistance PulmonaryValve(
           Pknee = Modelica.Constants.eps,_Goff(displayUnit="ml/(mmHg.s)") = 0,
-          _Ron(displayUnit= "(mmHg.min)/ml") = 399967.162245, chatteringProtectionTime = 0.01, lastChange(displayUnit = "s"), useChatteringProtection = true,
+          _Ron(displayUnit="(mmHg.s)/ml") = 399967.162245,
+          chatteringProtectionTime=0.01,                                                       lastChange(displayUnit = "s"), useChatteringProtection = true,
           useLimitationInputs=false)
-          annotation (Placement(transformation(extent={{-132,70},{-106,44}})));
+          annotation (Placement(transformation(extent={{-132,108},{-106,82}})));
         Physiolibrary.Hydraulic.Examples.MeursModel2011.Parts.AtrialElastance RAtrialElastance(EMIN=
               6666119.37075, EMAX=19998358.11225)
-          annotation (Placement(transformation(extent={{-244,86},{-206,118}})));
+          annotation (Placement(transformation(extent={{-244,124},{-206,156}})));
         Physiolibrary.Hydraulic.Examples.MeursModel2011.Parts.VentricularElastance
           RVentricularElastance(EMIN=7599376.082655, EMAX=65327969.83335)
-          annotation (Placement(transformation(extent={{-180,88},{-150,122}})));
+          annotation (Placement(transformation(extent={{-180,126},{-150,160}})));
         Physiolibrary.Hydraulic.Components.IdealValveResistance TricuspidValve(
           _Goff=0,
-          _Ron(displayUnit= "(mmHg.min)/ml") = 399967.162245, chatteringProtectionTime = 0.01, lastChange(displayUnit = "s"), open(fixed = true, start = true), useChatteringProtection = true,
+          _Ron(displayUnit="(mmHg.s)/ml") = 399967.162245,
+          chatteringProtectionTime=0.01,                                                       lastChange(displayUnit = "s"), open(fixed = true, start = true), useChatteringProtection = true,
           useLimitationInputs=false)
                               annotation (Placement(transformation(
-              origin={-189,58},
+              origin={-189,96},
               extent={{-13,12},{13,-12}})));
-        replaceable Physiolibrary.Types.Constants.FrequencyConst HeartRate(k(displayUnit = "1/min") = 1.2) annotation(Placement(transformation(origin = {-243, 128.5}, extent = {{-11, -6.5}, {11, 6.5}})));
-        Physiolibrary.Hydraulic.Components.IdealValveResistance AorticValve1(
-          _Goff(displayUnit="ml/(mmHg.s)") = 0,
-          _Ron(displayUnit="(mmHg.min)/ml") = 1066579.09932,
-          chatteringProtectionTime=0.01,
-          lastChange(displayUnit="s"),
-          useChatteringProtection=true,
-          useLimitationInputs=false)
-          annotation (Placement(transformation(extent={{206,-68},{230,-92}})));
-        Physiolibrary.Hydraulic.Examples.MeursModel2011.Parts.AtrialElastance LAtrialElastance1(
-          Tav(displayUnit="s"),
-          EMIN=15998686.4898,
-          EMAX=37330268.4762)
-          annotation (Placement(transformation(extent={{102,-52},{140,-20}})));
-        Physiolibrary.Hydraulic.Examples.MeursModel2011.Parts.VentricularElastance
-          LVentricularElastance1(EMIN=11999014.86735, EMAX=533289549.66)
-          annotation (Placement(transformation(extent={{186,-56},{222,-24}})));
-        Physiolibrary.Hydraulic.Components.IdealValveResistance MitralValve1(
-          _Goff(displayUnit="ml/(mmHg.s)") = 0,
-          _Ron(displayUnit="(mmHg.min)/ml") = 399967.162245,
-          chatteringProtectionTime=0.01,
-          lastChange(displayUnit="s"),
-          useChatteringProtection=true,
-          useLimitationInputs=false)
-                              annotation (Placement(transformation(
-              origin={149,-80},
-              extent={{-13,12},{13,-12}})));
-        Physiolibrary.Hydraulic.Components.IdealValveResistance PulmonaryValve1(
-          Pknee=Modelica.Constants.eps,
-          _Goff(displayUnit="ml/(mmHg.s)") = 0,
-          _Ron(displayUnit="(mmHg.min)/ml") = 399967.162245,
-          chatteringProtectionTime=0.01,
-          lastChange(displayUnit="s"),
-          useChatteringProtection=true,
-          useLimitationInputs=false)
-          annotation (Placement(transformation(extent={{-110,-74},{-84,-100}})));
-        Physiolibrary.Hydraulic.Examples.MeursModel2011.Parts.AtrialElastance RAtrialElastance1(EMIN=
-              6666119.37075, EMAX=19998358.11225) annotation (Placement(
-              transformation(extent={{-252,-58},{-214,-26}})));
-        Physiolibrary.Hydraulic.Examples.MeursModel2011.Parts.VentricularElastance
-          RVentricularElastance1(EMIN=7599376.082655, EMAX=65327969.83335)
-          annotation (Placement(transformation(extent={{-158,-56},{-128,-22}})));
-        Physiolibrary.Hydraulic.Components.IdealValveResistance TricuspidValve1(
-          _Goff=0,
-          _Ron(displayUnit="(mmHg.min)/ml") = 399967.162245,
-          chatteringProtectionTime=0.01,
-          lastChange(displayUnit="s"),
-          open(fixed=true, start=true),
-          useChatteringProtection=true,
-          useLimitationInputs=false)
-                              annotation (Placement(transformation(
-              origin={-167,-86},
-              extent={{-13,12},{13,-12}})));
-        replaceable Physiolibrary.Types.Constants.FrequencyConst HeartRate1(k(
-              displayUnit="1/min") = 1.2)                                                                  annotation(Placement(transformation(origin={-255,
-                  -9.5},                                                                                                                                               extent = {{-11, -6.5}, {11, 6.5}})));
+        replaceable Physiolibrary.Types.Constants.FrequencyConst HeartRate(k(displayUnit = "1/min") = 1.2) annotation(Placement(transformation(origin={-257,
+                  166.5},                                                                                                                                              extent = {{-11, -6.5}, {11, 6.5}})));
         MeursHemodynamics.Components.ElasticCompartment
                            intrathoracicArteries(
           elastance_NonSI=1.43,
           unstressedVolume_NonSI=140,
           externalPressure_NonSI=-4,
           V0_NonSI=204)
-          annotation (Placement(transformation(extent={{214,-164},{234,-144}})));
+          annotation (Placement(transformation(extent={{218,-126},{238,-106}})));
         MeursHemodynamics.Components.BloodResistor
                       extrathoracicArterialResistance(bloodResistance_NonSI=
               0.06)
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
-              origin={134,-120})));
+              origin={136,-98})));
         MeursHemodynamics.Components.Inductor
                  aorticFlowInertia(inertance_NonSI=0.0017) annotation (Placement(
               transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
-              origin={182,-120})));
+              origin={184,-98})));
         MeursHemodynamics.Components.BloodResistor
                       systemicArteriolarResistance(bloodResistance_NonSI=0.8)
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
-              origin={66,-120})));
+              origin={48,-98})));
         MeursHemodynamics.Components.ElasticCompartment
                            extrathoracicArteries(
           elastance_NonSI=0.556,
           unstressedVolume_NonSI=370,
           externalPressure_NonSI=0,
           V0_NonSI=526)
-          annotation (Placement(transformation(extent={{86,-158},{106,-138}})));
+          annotation (Placement(transformation(extent={{88,-128},{108,-108}})));
         MeursHemodynamics.Components.ElasticCompartment
                            SystemicTissues(
           elastance_NonSI=0.262,
           unstressedVolume_NonSI=185,
           externalPressure_NonSI=0,
           V0_NonSI=283)
-          annotation (Placement(transformation(extent={{24,-150},{44,-130}})));
+          annotation (Placement(transformation(extent={{-4,-126},{16,-106}})));
         MeursHemodynamics.Components.BloodResistor
                       smallVenuleResistance(bloodResistance_NonSI=0.2)
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
-              origin={-4,-120})));
+              origin={-54,-98})));
         MeursHemodynamics.Components.BloodResistor
                       venousResistance(bloodResistance_NonSI=0.09) annotation (
             Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
-              origin={-98,-120})));
+              origin={-130,-98})));
         MeursHemodynamics.Components.ElasticCompartment
                            intrathoracicVeins(
           elastance_NonSI=0.0182,
           unstressedVolume_NonSI=1190,
           externalPressure_NonSI=-4,
           V0_NonSI=1480)
-          annotation (Placement(transformation(extent={{-150,-148},{-130,-128}})));
+          annotation (Placement(transformation(extent={{-196,-122},{-176,-102}})));
         MeursHemodynamics.Components.ElasticCompartment
                            extrathoracicVeins(
           elastance_NonSI=0.0169,
           unstressedVolume_NonSI=1000,
           externalPressure_NonSI=0,
           V0_NonSI=1530)
-          annotation (Placement(transformation(extent={{-48,-150},{-28,-130}})));
+          annotation (Placement(transformation(extent={{-106,-128},{-86,-108}})));
         MeursHemodynamics.Components.BloodResistor
                       centralVenousResistance(bloodResistance_NonSI=0.003)
           annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
-              origin={-166,-120})));
-        MeursHemodynamics.Components.BloodFlowInflow
-                        bloodFlowInflow annotation (Placement(transformation(
-                extent={{228,-122},{232,-118}}),
-                                           iconTransformation(extent={{86,-10},{
-                  106,10}})));
-        MeursHemodynamics.Components.BloodFlowOutflow
-                         bloodFlowOutflow annotation (Placement(transformation(
-                extent={{-208,-122},{-204,-118}}),
-                                             iconTransformation(extent={{-112,-10},
-                  {-92,10}})));
-        Physiolibrary.Blocks.Math.Reciprocal rec1
-          annotation (Placement(transformation(extent={{-108,-46},{-88,-26}})));
-        Physiolibrary.Blocks.Math.Reciprocal rec annotation (Placement(
-              transformation(extent={{-192,-52},{-172,-32}})));
-        Physiolibrary.Blocks.Math.Reciprocal rec2
-          annotation (Placement(transformation(extent={{154,-46},{174,-26}})));
-        Physiolibrary.Blocks.Math.Reciprocal rec3
-          annotation (Placement(transformation(extent={{244,-46},{264,-26}})));
+              origin={-222,-98})));
         MeursHemodynamics.Components.VariableElasticCompartment rightAtrium(
           unstressedVolume_NonSI=30,
           externalPressure_NonSI=-4,
-          V0_NonSI=135) annotation (Placement(transformation(extent={{-214,-96},
-                  {-194,-76}})));
+          V0_NonSI=135) annotation (Placement(transformation(extent={{-236,-64},
+                  {-212,-40}})));
         MeursHemodynamics.Components.VariableElasticCompartment rightVentricle(
           unstressedVolume_NonSI=40,
           externalPressure_NonSI=-4,
-          V0_NonSI=131) annotation (Placement(transformation(extent={{-140,-96},
-                  {-120,-76}})));
+          V0_NonSI=131) annotation (Placement(transformation(extent={{-148,-66},
+                  {-122,-40}})));
         MeursHemodynamics.Components.VariableElasticCompartment leftAtrium(
           unstressedVolume_NonSI=30,
           externalPressure_NonSI=-4,
           V0_NonSI=93.1)
-          annotation (Placement(transformation(extent={{100,-88},{120,-68}})));
+          annotation (Placement(transformation(extent={{94,-60},{120,-34}})));
         MeursHemodynamics.Components.VariableElasticCompartment leftVentricle(
           unstressedVolume_NonSI=60,
           externalPressure_NonSI=-4,
           V0_NonSI=144)
-          annotation (Placement(transformation(extent={{174,-90},{194,-70}})));
+          annotation (Placement(transformation(extent={{172,-62},{198,-36}})));
         MeursHemodynamics.Components.ElasticCompartment
                            pulmonaryArteries(
           elastance_NonSI=0.233,
           unstressedVolume_NonSI=50,
           externalPressure_NonSI=-4,
           V0_NonSI=106)
-          annotation (Placement(transformation(extent={{-50,-104},{-30,-84}})));
+          annotation (Placement(transformation(extent={{-74,-40},{-54,-20}})));
         MeursHemodynamics.Components.BloodResistor
                       pulmonaryResistance(bloodResistance_NonSI=0.11)
-          annotation (Placement(transformation(extent={{-20,-84},{0,-64}})));
+          annotation (Placement(transformation(extent={{-34,-18},{-14,2}})));
         MeursHemodynamics.Components.ElasticCompartment
                            pulmonaryVeins(
           elastance_NonSI=0.0455,
           unstressedVolume_NonSI=350,
           externalPressure_NonSI=-4,
           V0_NonSI=518)
-          annotation (Placement(transformation(extent={{10,-104},{30,-84}})));
+          annotation (Placement(transformation(extent={{-4,-38},{16,-18}})));
         MeursHemodynamics.Components.BloodResistor
                       pulmonaryVenousResistance(bloodResistance_NonSI=0.003)
-          annotation (Placement(transformation(extent={{40,-84},{60,-64}})));
-        MeursHemodynamics.Components.BloodFlowInflow
-                        bloodFlowInflow1
-                                        annotation (Placement(transformation(
-                extent={{-62,-76},{-58,-72}}),
-                                            iconTransformation(extent={{-112,-10},
-                  {-92,10}})));
-        MeursHemodynamics.Components.BloodFlowOutflow
-                         bloodFlowOutflow1
-                                          annotation (Placement(transformation(
-                extent={{78,-76},{82,-72}}),
-                                          iconTransformation(extent={{90,-10},{
-                  110,10}})));
+          annotation (Placement(transformation(extent={{36,-18},{56,2}})));
+        Modelica.Blocks.Sources.Constant HeartRate1(k=72)
+          annotation (Placement(transformation(extent={{-264,2},{-244,22}})));
+        MeursHemodynamics.Components.CardiacElastance
+                         rightCardiacElastance(
+          atrialElmin=0.05,
+          atrialElmax=0.15,
+          ventricularElmin=0.057,
+          ventricularElmax=0.49) annotation (Placement(transformation(
+              extent={{-17,-10},{17,10}},
+              rotation=0,
+              origin={-187,-4})));
+        MeursHemodynamics.Components.CardiacElastance
+                         leftCardiacElastance(
+          atrialElmin=0.12,
+          atrialElmax=0.28,
+          ventricularElmin=0.09,
+          ventricularElmax=4) annotation (Placement(transformation(
+              extent={{-17,-12},{17,12}},
+              rotation=0,
+              origin={109,0})));
+        MeursHemodynamics.Components.CardiacValve
+                     tricuspidalValve(outflowResistance=0.003,
+            backflowConductance=0)
+          annotation (Placement(transformation(extent={{-192,-62},{-172,-42}})));
+        MeursHemodynamics.Components.CardiacValve
+                     pulmonicValve(outflowResistance=0.003)
+          annotation (Placement(transformation(extent={{-112,-64},{-92,-44}})));
+        MeursHemodynamics.Components.CardiacValve
+                     mitralValve(outflowResistance=0.003, backflowConductance=0)
+          annotation (Placement(transformation(extent={{132,-58},{152,-38}})));
+        MeursHemodynamics.Components.CardiacValve
+                     aorticValve(outflowResistance=0.003, backflowConductance=0)
+          annotation (Placement(transformation(extent={{208,-62},{232,-38}})));
       equation
         connect(Epa.q_in, Rpp.q_in) annotation (Line(
-            points={{-80,98},{-56,98}},
+            points={{-80,136},{-56,136}},
             thickness=1));
         connect(Rpp.q_out, Epv.q_in) annotation (Line(
-            points={{-22,98},{7,98}},
+            points={{-22,136},{7,136}},
             thickness=1));
         connect(Epv.q_in, Rlain.q_in) annotation (Line(
-            points={{7,98},{26,98}},
+            points={{7,136},{26,136}},
             thickness=1));
         connect(LeftAtrium.q_in, MitralValve.q_in) annotation (Line(
-            points={{88,64},{114,64}},
+            points={{88,102},{114,102}},
             thickness=1));
         connect(LeftVentricle.q_in, MitralValve.q_out) annotation (Line(
-            points={{164,64},{140,64}},
+            points={{164,102},{140,102}},
             thickness=1));
         connect(LeftVentricle.q_in, AorticValve.q_in) annotation (Line(
-            points={{164,64},{184,64}},
+            points={{164,102},{182,102}},
             thickness=1));
         connect(LeftVentricle.compliance, LVentricularElastance.Ct) annotation (
            Line(
-            points={{164,75.2},{164,74},{212,74},{212,107.68},{203.42,107.68}},
+            points={{164,113.2},{164,112},{212,112},{212,145.68},{203.42,145.68}},
             color={0,0,127}));
         connect(Rlain.q_out, LeftAtrium.q_in) annotation (Line(
-            points={{56,98},{74,98},{74,64},{88,64}},
+            points={{56,136},{74,136},{74,102},{88,102}},
             thickness=1));
         connect(Retha.q_in, Eetha.q_in) annotation (Line(
-            points={{90,17},{69,17}},
+            points={{90,55},{69,55}},
             thickness=1));
         connect(Retha.q_out, inertia.q_out) annotation (Line(
-            points={{112,17},{130,17}},
+            points={{112,55},{130,55}},
             thickness=1));
         connect(inertia.q_in, Eitha.q_in) annotation (Line(
-            points={{152,17},{179,17}},
+            points={{152,55},{179,55}},
             thickness=1));
         connect(Eitha.q_in, AorticValve.q_out) annotation (Line(
-            points={{179,17},{216,17},{216,64},{208,64}},
+            points={{179,55},{216,55},{216,102},{206,102}},
             thickness=1));
         connect(Rrain.q_in, Eithv.q_in) annotation (Line(
-            points={{-208,17},{-180,17}},
+            points={{-208,55},{-180,55}},
             thickness=1));
         connect(Eithv.q_in, Rethv.q_out) annotation (Line(
-            points={{-180,17},{-146,17}},
+            points={{-180,55},{-146,55}},
             thickness=1));
         connect(Rethv.q_in, Eethv.q_in) annotation (Line(
-            points={{-120,17},{-95,17}},
+            points={{-120,55},{-95,55}},
             thickness=1));
         connect(RightAtrium.q_in, TricuspidValve.q_in) annotation (Line(
-            points={{-228,58},{-202,58}},
+            points={{-228,96},{-202,96}},
             thickness=1));
         connect(RightVentricle.q_in, TricuspidValve.q_out) annotation (Line(
-            points={{-155,57},{-164.5,57},{-164.5,58},{-176,58}},
+            points={{-155,95},{-164.5,95},{-164.5,96},{-176,96}},
             thickness=1));
         connect(RightVentricle.q_in, PulmonaryValve.q_in) annotation (Line(
-            points={{-155,57},{-132,57}},
+            points={{-155,95},{-132,95}},
             thickness=1));
         connect(Rrain.q_out, RightAtrium.q_in) annotation (Line(
-            points={{-236,17},{-250,17},{-250,58},{-228,58}},
+            points={{-236,55},{-250,55},{-250,96},{-228,96}},
             thickness=1));
-        connect(RightAtrium.compliance,RAtrialElastance. Ct) annotation(Line(points = {{-228, 69.2}, {-228, 92}, {-202.39, 92}, {-202.39, 101.84}}, color = {0, 0, 127}));
+        connect(RightAtrium.compliance,RAtrialElastance. Ct) annotation(Line(points={{-228,
+                107.2},{-228,130},{-202.39,130},{-202.39,139.84}},                                                                                  color = {0, 0, 127}));
         connect(PulmonaryValve.q_out, Epa.q_in) annotation (Line(
-            points={{-106,57},{-92,57},{-92,98},{-80,98}},
+            points={{-106,95},{-92,95},{-92,136},{-80,136}},
             thickness=1));
-        connect(RightVentricle.compliance,RVentricularElastance. Ct) annotation(Line(points={{-155,69},
-                {-155,80},{-126,80},{-126,108.91},{-147.15,108.91}},                                                                                                   color = {0, 0, 127}));
+        connect(RightVentricle.compliance,RVentricularElastance. Ct) annotation(Line(points={{-155,
+                107},{-155,118},{-126,118},{-126,146.91},{-147.15,146.91}},                                                                                            color = {0, 0, 127}));
         connect(LeftAtrium.compliance, LAtrialElastance.Ct) annotation (Line(
-            points={{88,75.2},{88,74},{121.61,74},{121.61,107.84}},
+            points={{88,113.2},{88,112},{121.61,112},{121.61,145.84}},
             color={0,0,127}));
-        connect(HeartRate.y,RAtrialElastance. HR) annotation(Line(points = {{-229.25, 128.5}, {-225, 128.5}, {-225, 114.8}}, color = {0, 0, 127}));
-        connect(RVentricularElastance.HR, HeartRate.y) annotation(Line(points = {{-165, 118.6}, {-165, 128.5}, {-229.25, 128.5}}, color = {0, 0, 127}));
+        connect(HeartRate.y,RAtrialElastance. HR) annotation(Line(points={{-243.25,
+                166.5},{-225,166.5},{-225,152.8}},                                                                           color = {0, 0, 127}));
+        connect(RVentricularElastance.HR, HeartRate.y) annotation(Line(points={{-165,
+                156.6},{-165,166.5},{-243.25,166.5}},                                                                             color = {0, 0, 127}));
         connect(LAtrialElastance.HR, HeartRate.y) annotation (Line(
-            points={{99,120.8},{99,128.5},{-229.25,128.5}},
+            points={{99,158.8},{99,166.5},{-243.25,166.5}},
             color={0,0,127}));
         connect(LVentricularElastance.HR, HeartRate.y) annotation (Line(
-            points={{182,116.8},{182,128.5},{-229.25,128.5}},
+            points={{182,154.8},{182,166.5},{-243.25,166.5}},
             color={0,0,127}));
         connect(Est.q_in, Rsart.q_out) annotation (Line(
-            points={{-16,17},{10,17}},
+            points={{-16,55},{10,55}},
             thickness=1));
         connect(Rsart.q_in, Eetha.q_in) annotation (Line(
-            points={{38,17},{69,17}},
+            points={{38,55},{69,55}},
             thickness=1));
         connect(Eethv.q_in, Rsven.q_out) annotation (Line(
-            points={{-95,17},{-74,17}},
+            points={{-95,55},{-74,55}},
             thickness=1));
         connect(Rsven.q_in, Est.q_in) annotation (Line(
-            points={{-46,17},{-16,17}},
+            points={{-46,55},{-16,55}},
             thickness=1));
         connect(aorticFlowInertia.bloodFlowInflow,intrathoracicArteries. bloodFlowInflow)
           annotation (Line(
-            points={{192.4,-120},{224,-120},{224,-154}},
-            color={238,46,47},
-            thickness=1));
-        connect(intrathoracicArteries.bloodFlowInflow,bloodFlowInflow)
-          annotation (Line(
-            points={{224,-154},{224,-120},{230,-120}},
-            color={238,46,47},
+            points={{194.4,-98},{228,-98},{228,-116}},
+            color={0,0,0},
             thickness=1));
         connect(aorticFlowInertia.bloodFlowOutflow,
           extrathoracicArterialResistance.bloodFlowInflow) annotation (Line(
-            points={{172.4,-120},{144.4,-120}},
-            color={238,46,47},
+            points={{174.4,-98},{146.4,-98}},
+            color={0,0,0},
             thickness=1));
         connect(extrathoracicArterialResistance.bloodFlowOutflow,
           extrathoracicArteries.bloodFlowInflow) annotation (Line(
-            points={{124.4,-120},{96,-120},{96,-148}},
-            color={238,46,47},
+            points={{126.4,-98},{98,-98},{98,-118}},
+            color={0,0,0},
             thickness=1));
         connect(extrathoracicArteries.bloodFlowInflow,
           systemicArteriolarResistance.bloodFlowInflow) annotation (Line(
-            points={{96,-148},{96,-120},{76.4,-120}},
-            color={255,0,0},
+            points={{98,-118},{98,-98},{58.4,-98}},
+            color={0,0,0},
             thickness=1));
         connect(SystemicTissues.bloodFlowInflow,systemicArteriolarResistance. bloodFlowOutflow)
           annotation (Line(
-            points={{34,-140},{34,-120},{56.4,-120}},
-            color={238,46,47},
+            points={{6,-116},{6,-98},{38.4,-98}},
+            color={0,0,0},
             thickness=1));
         connect(smallVenuleResistance.bloodFlowInflow,SystemicTissues. bloodFlowInflow)
           annotation (Line(
-            points={{6.4,-120},{34,-120},{34,-140}},
+            points={{-43.6,-98},{6,-98},{6,-116}},
             color={28,108,200},
             thickness=1));
         connect(smallVenuleResistance.bloodFlowOutflow,extrathoracicVeins. bloodFlowInflow)
           annotation (Line(
-            points={{-13.6,-120},{-38,-120},{-38,-140}},
-            color={28,108,200},
-            thickness=1));
-        connect(bloodFlowOutflow,centralVenousResistance. bloodFlowOutflow)
-          annotation (Line(
-            points={{-206,-120},{-175.6,-120}},
+            points={{-63.6,-98},{-96,-98},{-96,-118}},
             color={28,108,200},
             thickness=1));
         connect(smallVenuleResistance.bloodFlowOutflow,venousResistance. bloodFlowInflow)
           annotation (Line(
-            points={{-13.6,-120},{-87.6,-120}},
+            points={{-63.6,-98},{-119.6,-98}},
             color={28,108,200},
             thickness=1));
         connect(centralVenousResistance.bloodFlowInflow,venousResistance. bloodFlowOutflow)
           annotation (Line(
-            points={{-155.6,-120},{-107.6,-120}},
+            points={{-211.6,-98},{-139.6,-98}},
             color={28,108,200},
             thickness=1));
         connect(centralVenousResistance.bloodFlowInflow,intrathoracicVeins. bloodFlowInflow)
           annotation (Line(
-            points={{-155.6,-120},{-140,-120},{-140,-138}},
-            color={28,108,200},
-            thickness=1));
-        connect(AorticValve1.q_out, bloodFlowInflow) annotation (Line(
-            points={{230,-80},{246,-80},{246,-120},{230,-120}},
-            color={0,0,0},
-            thickness=1));
-        connect(RAtrialElastance1.HR, HeartRate1.y) annotation (Line(points={{
-                -233,-29.2},{-233,-9.5},{-241.25,-9.5}}, color={0,0,127}));
-        connect(RAtrialElastance1.Ct, rec.u) annotation (Line(points={{-210.39,
-                -42.16},{-210.39,-42},{-194,-42}}, color={0,0,127}));
-        connect(RVentricularElastance1.Ct, rec1.u) annotation (Line(points={{
-                -125.15,-35.09},{-102,-35.09},{-102,-36},{-110,-36}}, color={0,
-                0,127}));
-        connect(LAtrialElastance1.Ct, rec2.u) annotation (Line(points={{143.61,
-                -36.16},{152,-36}}, color={0,0,127}));
-        connect(LVentricularElastance1.Ct, rec3.u) annotation (Line(points={{
-                225.42,-36.32},{242,-36}}, color={0,0,127}));
-        connect(RVentricularElastance1.HR, HeartRate1.y) annotation (Line(
-              points={{-143,-25.4},{-143,-10},{-233,-10},{-233,-9.5},{-241.25,
-                -9.5}}, color={0,0,127}));
-        connect(LAtrialElastance1.HR, HeartRate1.y) annotation (Line(points={{
-                121,-23.2},{121,-10},{-233,-10},{-233,-9.5},{-241.25,-9.5}},
-              color={0,0,127}));
-        connect(LVentricularElastance1.HR, HeartRate1.y) annotation (Line(
-              points={{204,-27.2},{204,-10},{-233,-10},{-233,-9.5},{-241.25,
-                -9.5}}, color={0,0,127}));
-        connect(TricuspidValve1.q_in, rightAtrium.bloodFlowInflow) annotation (
-            Line(
-            points={{-180,-86},{-204,-86}},
-            color={0,0,0},
-            thickness=1));
-        connect(TricuspidValve1.q_out, rightVentricle.bloodFlowInflow)
-          annotation (Line(
-            points={{-154,-86},{-130,-86}},
-            color={0,0,0},
-            thickness=1));
-        connect(rightVentricle.bloodFlowInflow, PulmonaryValve1.q_in)
-          annotation (Line(points={{-130,-86},{-122,-86},{-122,-87},{-110,-87}},
-              color={0,0,0}));
-        connect(bloodFlowOutflow, rightAtrium.bloodFlowInflow) annotation (Line(
-              points={{-206,-120},{-242,-120},{-242,-86},{-204,-86}}, color={0,
-                0,0}));
-        connect(rightAtrium.inputElastance, rec.y) annotation (Line(points={{
-                -204,-75},{-204,-64},{-166,-64},{-166,-42},{-171,-42}}, color={
-                0,0,127}));
-        connect(rightVentricle.inputElastance, rec1.y) annotation (Line(points=
-                {{-130,-75},{-130,-66},{-80,-66},{-80,-36},{-87,-36}}, color={0,
-                0,127}));
-        connect(leftAtrium.bloodFlowInflow, MitralValve1.q_in) annotation (Line(
-              points={{110,-78},{128,-78},{128,-80},{136,-80}}, color={0,0,0}));
-        connect(leftAtrium.inputElastance, rec2.y) annotation (Line(points={{
-                110,-67},{110,-60},{160,-60},{160,-52},{180,-52},{180,-36},{175,
-                -36}}, color={0,0,127}));
-        connect(MitralValve1.q_out, leftVentricle.bloodFlowInflow) annotation (
-            Line(
-            points={{162,-80},{184,-80}},
-            color={0,0,0},
-            thickness=1));
-        connect(leftVentricle.bloodFlowInflow, AorticValve1.q_in) annotation (
-            Line(points={{184,-80},{168,-80},{168,-100},{206,-100},{206,-80}},
-              color={0,0,0}));
-        connect(leftVentricle.inputElastance, rec3.y) annotation (Line(points={
-                {184,-69},{184,-60},{276,-60},{276,-36},{265,-36}}, color={0,0,
-                127}));
-        connect(bloodFlowInflow1, pulmonaryArteries.bloodFlowInflow)
-          annotation (Line(
-            points={{-60,-74},{-40,-74},{-40,-94}},
+            points={{-211.6,-98},{-186,-98},{-186,-112}},
             color={28,108,200},
             thickness=1));
         connect(pulmonaryResistance.bloodFlowInflow,pulmonaryArteries. bloodFlowInflow)
           annotation (Line(
-            points={{-20.4,-74},{-40,-74},{-40,-94}},
+            points={{-34.4,-8},{-64,-8},{-64,-30}},
             color={28,108,200},
             thickness=1));
         connect(pulmonaryResistance.bloodFlowOutflow,pulmonaryVeins. bloodFlowInflow)
           annotation (Line(
-            points={{-0.4,-74},{20,-74},{20,-94}},
-            color={238,46,47},
+            points={{-14.4,-8},{6,-8},{6,-28}},
+            color={0,0,0},
             thickness=1));
         connect(pulmonaryVenousResistance.bloodFlowInflow,pulmonaryVeins. bloodFlowInflow)
           annotation (Line(
-            points={{39.6,-74},{20,-74},{20,-94}},
-            color={238,46,47},
+            points={{35.6,-8},{6,-8},{6,-28}},
+            color={0,0,0},
             thickness=1));
-        connect(pulmonaryVenousResistance.bloodFlowOutflow, bloodFlowOutflow1)
+        connect(centralVenousResistance.bloodFlowOutflow, rightAtrium.bloodFlowInflow)
           annotation (Line(
-            points={{59.6,-74},{80,-74}},
-            color={238,46,47},
+            points={{-231.6,-98},{-254,-98},{-254,-52},{-224,-52}},
+            color={0,0,0},
             thickness=1));
-        connect(bloodFlowOutflow1, leftAtrium.bloodFlowInflow) annotation (Line(
-              points={{80,-74},{80,-78},{110,-78}}, color={0,0,0}));
-        connect(PulmonaryValve1.q_out, bloodFlowInflow1) annotation (Line(
-            points={{-84,-87},{-70,-87},{-70,-74},{-60,-74}},
+        connect(pulmonaryVenousResistance.bloodFlowOutflow, leftAtrium.bloodFlowInflow)
+          annotation (Line(
+            points={{55.6,-8},{76,-8},{76,-47},{107,-47}},
+            color={0,0,0},
+            thickness=1));
+        connect(HeartRate1.y, rightCardiacElastance.HR) annotation (Line(
+            points={{-243,12},{-214,12},{-214,-4},{-205.7,-4}},
+            color={0,0,127},
+            thickness=1));
+        connect(rightAtrium.inputElastance, rightCardiacElastance.Eta)
+          annotation (Line(
+            points={{-224,-38.8},{-224,-24},{-160,-24},{-160,-7.6},{-168.3,-7.6}},
+
+            color={0,0,127},
+            thickness=1));
+        connect(rightCardiacElastance.Etv, rightVentricle.inputElastance)
+          annotation (Line(
+            points={{-168.3,2.2},{-135,2.2},{-135,-38.7}},
+            color={0,0,127},
+            thickness=1));
+        connect(leftCardiacElastance.HR, rightCardiacElastance.HR) annotation (
+            Line(
+            points={{90.3,0},{76,0},{76,12},{-214,12},{-214,-4},{-205.7,-4}},
+            color={0,0,127},
+            thickness=1));
+        connect(leftCardiacElastance.Eta, leftAtrium.inputElastance)
+          annotation (Line(
+            points={{127.7,-4.32},{146,-4.32},{146,-20},{106,-20},{106,-32.7},{
+                107,-32.7}},
+            color={0,0,127},
+            thickness=1));
+        connect(leftVentricle.inputElastance, leftCardiacElastance.Etv)
+          annotation (Line(
+            points={{185,-34.7},{186,-34.7},{186,7.44},{127.7,7.44}},
+            color={0,0,127},
+            thickness=1));
+        connect(rightAtrium.bloodFlowInflow, tricuspidalValve.bloodFlowInflow)
+          annotation (Line(
+            points={{-224,-52},{-192,-52}},
+            color={0,0,0},
+            thickness=1));
+        connect(tricuspidalValve.bloodFlowOutflow, rightVentricle.bloodFlowInflow)
+          annotation (Line(
+            points={{-172,-52},{-135,-53}},
+            color={0,0,0},
+            thickness=1));
+        connect(rightVentricle.bloodFlowInflow, pulmonicValve.bloodFlowInflow)
+          annotation (Line(
+            points={{-135,-53},{-112,-53},{-112,-54}},
+            color={0,0,0},
+            thickness=1));
+        connect(pulmonicValve.bloodFlowOutflow, pulmonaryArteries.bloodFlowInflow)
+          annotation (Line(
+            points={{-92,-54},{-82,-54},{-82,-8},{-64,-8},{-64,-30}},
+            color={0,0,0},
+            thickness=1));
+        connect(leftAtrium.bloodFlowInflow, mitralValve.bloodFlowInflow)
+          annotation (Line(
+            points={{107,-47},{108,-47},{108,-48},{132,-48}},
+            color={0,0,0},
+            thickness=1));
+        connect(mitralValve.bloodFlowOutflow, leftVentricle.bloodFlowInflow)
+          annotation (Line(
+            points={{152,-48},{185,-49}},
+            color={0,0,0},
+            thickness=1));
+        connect(leftVentricle.bloodFlowInflow, aorticValve.bloodFlowInflow)
+          annotation (Line(
+            points={{185,-49},{186,-49},{186,-50},{208,-50}},
+            color={0,0,0},
+            thickness=1));
+        connect(aorticValve.bloodFlowOutflow, intrathoracicArteries.bloodFlowInflow)
+          annotation (Line(
+            points={{232,-50},{244,-50},{244,-98},{228,-98},{228,-116}},
             color={0,0,0},
             thickness=1));
         annotation(Diagram(coordinateSystem(extent={{-280,-140},{280,180}},      preserveAspectRatio=false)),             Icon(coordinateSystem(extent = {{-280, -140}, {280, 180}}, preserveAspectRatio = false), graphics),
