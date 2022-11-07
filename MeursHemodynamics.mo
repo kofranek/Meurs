@@ -3718,8 +3718,8 @@ Connector with one output signal of type Real.
         Modelica.Blocks.Sources.Constant BreathRate(k=12)
           annotation (Placement(transformation(extent={{-86,-28},{-66,-8}})));
         Physiolibrary.Types.Constants.PressureConst RespiratoryMuscleAmplitude(
-            k(displayUnit="cmH2O") = 441.29925)
-          annotation (Placement(transformation(extent={{-28,2},{-20,10}})));
+            k(displayUnit="cmH2O") = -441.29925)
+          annotation (Placement(transformation(extent={{-28,4},{-20,12}})));
         Modelica.Blocks.Math.Product product1
           annotation (Placement(transformation(extent={{0,-20},{20,0}})));
       equation
@@ -3740,7 +3740,7 @@ Connector with one output signal of type Real.
         connect(breathInterval1.Pm, product1.u2) annotation (Line(points={{-19,
                 -18},{-8,-18},{-8,-16},{-2,-16}}, color={0,0,127}));
         connect(RespiratoryMuscleAmplitude.y, product1.u1) annotation (Line(
-              points={{-19,6},{-8,6},{-8,-4},{-2,-4}}, color={0,0,127}));
+              points={{-19,8},{-8,8},{-8,-4},{-2,-4}}, color={0,0,127}));
         connect(product1.y, Cw.externalPressure) annotation (Line(points={{21,
                 -10},{36,-10},{36,14},{58,14},{58,10},{58.4,10}}, color={0,0,
                 127}));
