@@ -1114,7 +1114,7 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
               lineColor={28,108,200},
               fillColor={255,255,0},
               fillPattern=FillPattern.None,
-              textString="HR"),
+              textString="RR"),
             Text(
               extent={{34,16},{102,-12}},
               lineColor={28,108,200},
@@ -3463,7 +3463,7 @@ Connector with one output signal of type Real.
           annotation (Line(points={{45.5,-11.9},{45.5,-30},{76,-30},{76,56},{50,
                 56},{50,44}}, color={0,0,127}));
         connect(elasticVesselWithInnerVolume.InnerVolume, CL.volume)
-          annotation (Line(points={{40,-0.8},{20,-0.8},{20,14},{48,14},{48,26}},
+          annotation (Line(points={{40,-0.6},{20,-0.6},{20,14},{48,14},{48,26}},
               color={0,0,127}));
         annotation (
           Icon(coordinateSystem(preserveAspectRatio=false)),
@@ -3576,7 +3576,7 @@ Connector with one output signal of type Real.
         PhysiolibraryExpantion.ElasticVessel CL2(
           volume_start=0.0023,
           ZeroPressureVolume=0.0023,
-          Compliance(displayUnit="l/cmH2O") = 5.0985810648896e-06,
+          Compliance(displayUnit="l/cmH2O") = 2.0394324259559e-06,
           useExternalPressureInput=true,
           hardElastance=true)
           annotation (Placement(transformation(extent={{54,70},{74,90}})));
@@ -3585,12 +3585,12 @@ Connector with one output signal of type Real.
           annotation (Placement(transformation(extent={{-28,80},{-8,100}})));
         PhysiolibraryExpantion.OuterElasticVessel outerElasticVessel(
           outer_volume_start=0,
-          useV0Input=true,
-          ZeroPressureVolume=0.0023,
-          useComplianceInput=true,                                   Compliance(
-              displayUnit="l/cmH2O") = 2.0394324259559e-06,
-          useExternalPressureInput=true,                    hardElastance=true)
-          annotation (Placement(transformation(extent={{56,44},{76,64}})));
+          useV0Input=false,
+          ZeroPressureVolume=0.0036,
+          useComplianceInput=false,
+          Compliance(displayUnit="l/cmH2O") = 2.4881075596661e-06,
+          useExternalPressureInput=false,                   hardElastance=true)
+          annotation (Placement(transformation(extent={{58,46},{78,66}})));
         Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
           annotation (Placement(transformation(extent={{72,78},{92,98}})));
         Modelica.Blocks.Math.Feedback feedback
@@ -3670,9 +3670,9 @@ Connector with one output signal of type Real.
             color={0,0,0},
             thickness=1));
         connect(outerElasticVessel.InnerVolume, CL2.volume) annotation (Line(
-              points={{72.2,52},{70,52},{70,70}}, color={0,0,127}));
+              points={{74.2,54},{70,54},{70,70}}, color={0,0,127}));
         connect(outerElasticVessel.pressure, CL2.externalPressure) annotation (
-            Line(points={{78.1,52.9},{78.1,92},{72,92},{72,88}}, color={0,0,127}));
+            Line(points={{80.1,54.9},{80.1,92},{72,92},{72,88}}, color={0,0,127}));
         connect(CL2.q_in, pressureMeasure.q_in) annotation (Line(
             points={{64,80},{72,80},{72,82},{78,82}},
             color={0,0,0},
@@ -3689,6 +3689,69 @@ Connector with one output signal of type Real.
             __Dymola_NumberOfIntervals=5000,
             __Dymola_Algorithm="Dassl"));
       end TestSimpleRespirationMechnaicsExtens;
+
+      model TestSimpleRespirationMechachanics
+        PhysiolibraryExpantion.ElasticVessel CL(
+          volume_start=0.0023,
+          ZeroPressureVolume=0.0013,
+          Compliance(displayUnit="l/cmH2O") = 2.0394324259559e-06,
+          useExternalPressureInput=true,
+          hardElastance=true)
+          annotation (Placement(transformation(extent={{46,20},{66,40}})));
+        Physiolibrary.Hydraulic.Sources.UnlimitedVolume unlimitedVolume2(
+            usePressureInput=false)
+          annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+        PhysiolibraryExpantion.OuterElasticVessel Cw(
+          outer_volume_start=0,
+          useV0Input=false,
+          ZeroPressureVolume=0.00352,
+          useComplianceInput=false,
+          Compliance(displayUnit="l/cmH2O") = 2.4881075596661e-06,
+          useExternalPressureInput=true,
+          hardElastance=true)
+          annotation (Placement(transformation(extent={{50,-4},{70,16}})));
+        Physiolibrary.Hydraulic.Components.Resistor resistor(Resistance(
+              displayUnit="(cmH2O.s)/l") = 362846.05)
+          annotation (Placement(transformation(extent={{16,20},{36,40}})));
+        MeursHemodynamics.Components.BreathInterval breathInterval1
+          annotation (Placement(transformation(extent={{-40,-28},{-20,-8}})));
+        Modelica.Blocks.Sources.Constant BreathRate(k=12)
+          annotation (Placement(transformation(extent={{-86,-28},{-66,-8}})));
+        Physiolibrary.Types.Constants.PressureConst RespiratoryMuscleAmplitude(
+            k(displayUnit="cmH2O") = 441.29925)
+          annotation (Placement(transformation(extent={{-28,2},{-20,10}})));
+        Modelica.Blocks.Math.Product product1
+          annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+      equation
+        connect(Cw.InnerVolume, CL.volume)
+          annotation (Line(points={{66.2,4},{62,4},{62,20}}, color={0,0,127}));
+        connect(Cw.pressure, CL.externalPressure) annotation (Line(points={{
+                72.1,4.9},{72.1,42},{64,42},{64,38}}, color={0,0,127}));
+        connect(unlimitedVolume2.y, resistor.q_in) annotation (Line(
+            points={{8.88178e-16,30},{16,30}},
+            color={0,0,0},
+            thickness=1));
+        connect(resistor.q_out, CL.q_in) annotation (Line(
+            points={{36,30},{56,30}},
+            color={0,0,0},
+            thickness=1));
+        connect(BreathRate.y, breathInterval1.RR)
+          annotation (Line(points={{-65,-18},{-40.4,-18}}, color={0,0,127}));
+        connect(breathInterval1.Pm, product1.u2) annotation (Line(points={{-19,
+                -18},{-8,-18},{-8,-16},{-2,-16}}, color={0,0,127}));
+        connect(RespiratoryMuscleAmplitude.y, product1.u1) annotation (Line(
+              points={{-19,6},{-8,6},{-8,-4},{-2,-4}}, color={0,0,127}));
+        connect(product1.y, Cw.externalPressure) annotation (Line(points={{21,
+                -10},{36,-10},{36,14},{58,14},{58,10},{58.4,10}}, color={0,0,
+                127}));
+        annotation (
+          Icon(coordinateSystem(preserveAspectRatio=false)),
+          Diagram(coordinateSystem(preserveAspectRatio=false)),
+          experiment(
+            StopTime=4,
+            __Dymola_NumberOfIntervals=5000,
+            __Dymola_Algorithm="Dassl"));
+      end TestSimpleRespirationMechachanics;
     end Model;
 
     package PhysiolibraryExpantion
