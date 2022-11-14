@@ -276,46 +276,44 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
                                    Diagram(coordinateSystem(preserveAspectRatio=false)));
     end CardiacElastance;
 
-    connector BloodFlowConnector "Connector for blood flow"
+    connector VolumeFlowConnector "Connector for blood flow"
       flow Types.VolumeFlowRate q "blood flow in m3/sec";
       Types.Pressure pressure "Pressure in Pa";
-    end BloodFlowConnector;
+    end VolumeFlowConnector;
 
-    connector BloodFlowInflow "Blood flow inflow"
-      extends BloodFlowConnector;
+    connector VolumeFlowInflow "Blood flow inflow"
+      extends VolumeFlowConnector;
       annotation (
         Icon(graphics={  Rectangle(visible = true, origin = {2.04082, -1.0101}, fillColor = {255, 0, 0},
                 fillPattern =                                                                                          FillPattern.Solid, extent = {{-102.041, -98.9899}, {97.9592, 101.01}})}, coordinateSystem(extent = {{-100.0, -100.0}, {100.0, 100.0}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10})));
-    end BloodFlowInflow;
+    end VolumeFlowInflow;
 
-    connector BloodFlowOutflow "Blood flow inflow"
-      extends BloodFlowConnector;
+    connector VolumeFlowOutflow "Blood flow inflow"
+      extends VolumeFlowConnector;
       annotation (
         Icon(graphics={  Rectangle(extent = {{-100, 100}, {100, -100}}, lineColor = {0, 0, 0}, fillColor = {255, 255, 255},
                 fillPattern =                                                                                                    FillPattern.Solid)}));
-    end BloodFlowOutflow;
+    end VolumeFlowOutflow;
 
-    partial model BloodFlowOnePort
+    partial model VolumeFlowOnePort
       Types.Pressure pressureDrop;
       Types.VolumeFlowRate bloodFlow;
-      BloodFlowInflow bloodFlowInflow annotation (
-          Placement(transformation(extent={{-374,20},{
-                -354,40}}), iconTransformation(extent=
-               {{-114,-10},{-94,10}})));
-      BloodFlowOutflow bloodFlowOutflow annotation (
-          Placement(transformation(extent={{-374,44},{
-                -354,64}}), iconTransformation(extent=
-               {{86,-10},{106,10}})));
+      VolumeFlowInflow bloodFlowInflow annotation (Placement(transformation(
+              extent={{-374,20},{-354,40}}), iconTransformation(extent={{-114,-10},
+                {-94,10}})));
+      VolumeFlowOutflow bloodFlowOutflow annotation (Placement(transformation(
+              extent={{-374,44},{-354,64}}), iconTransformation(extent={{86,-10},
+                {106,10}})));
     equation
       pressureDrop = bloodFlowInflow.pressure - bloodFlowOutflow.pressure;
       bloodFlowInflow.q + bloodFlowOutflow.q = 0;
       bloodFlow = bloodFlowInflow.q;
       annotation (
         Icon(graphics));
-    end BloodFlowOnePort;
+    end VolumeFlowOnePort;
 
-    model BloodResistor
-      extends BloodFlowOnePort;
+    model Resistor
+      extends VolumeFlowOnePort;
       parameter Real bloodResistance_NonSI  "resistance in mmHg s/ml";
       Real bloodResistance = bloodResistance_NonSI * 133.322387415/1e-6 "resistance in Pa s/m3";
     equation
@@ -326,10 +324,10 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
                 fillPattern =                                                                                                    FillPattern.Solid), Polygon(points = {{100, 100}, {100, -100}, {0, 0}, {100, 100}}, lineColor = {0, 0, 255}, smooth = Smooth.None, fillColor = {215, 215, 215},
                 fillPattern =                                                                                                    FillPattern.Solid), Text(extent = {{-50, -40}, {50, -100}}, lineColor = {0, 0, 255}, textString = "R")}),
         Diagram(coordinateSystem(extent = {{-148.5, -105.0}, {148.5, 105.0}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
-    end BloodResistor;
+    end Resistor;
 
-    model BloodConductance
-      extends BloodFlowOnePort;
+    model Conductance
+      extends VolumeFlowOnePort;
       parameter Real bloodConductance_NonSI  "conductance in ml/(mmHg s)";
       Real bloodConductance = bloodConductance_NonSI * 1e-6/133.322387415 "conductance in m3/(Pa s)";
     equation
@@ -339,10 +337,10 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
                 fillPattern =                                                                                                    FillPattern.Solid), Polygon(points = {{100, 100}, {100, -100}, {0, 0}, {100, 100}}, lineColor = {0, 0, 255}, smooth = Smooth.None, fillColor = {215, 215, 215},
                 fillPattern =                                                                                                    FillPattern.Solid), Text(extent = {{-30, -40}, {40, -90}}, lineColor = {0, 0, 255}, textString = "G")}),
         Diagram(coordinateSystem(extent = {{-148.5, -105.0}, {148.5, 105.0}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5}), graphics={  Rectangle(visible = true, fillColor = {255, 255, 255}, extent = {{-60.0, -20.0}, {60.0, 20.0}}), Rectangle(visible = true, origin = {-80.0, 0.0}, fillColor = {255, 255, 255}, extent = {{-20.0, 0.0}, {20.0, 0.0}}), Rectangle(visible = true, origin = {80.0, 0.0}, fillColor = {255, 255, 255}, extent = {{-20.0, 0.0}, {20.0, 0.0}})}));
-    end BloodConductance;
+    end Conductance;
 
     model Inductor
-      extends BloodFlowOnePort;
+      extends VolumeFlowOnePort;
       parameter Real inertance_NonSI "inertance in mmHg s2/ml";
       Real inertance = inertance_NonSI*133.322387415/1e-6 "Inertance in Pa s2/m3";
     equation
@@ -365,14 +363,12 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
       Real pressureDrop;
       Real S "parametric independent variable";
       Boolean open;
-      BloodFlowInflow bloodFlowInflow annotation (
-          Placement(transformation(extent={{-10,-10},{10,10}}),
-                            iconTransformation(extent=
-               {{-100,-10},{-80,10}})));
-      BloodFlowOutflow bloodFlowOutflow annotation (
-          Placement(transformation(extent={{-80,-30},{-60,-10}}),
-                            iconTransformation(extent=
-               {{80,-10},{100,10}})));
+      VolumeFlowInflow bloodFlowInflow annotation (Placement(transformation(
+              extent={{-10,-10},{10,10}}), iconTransformation(extent={{-100,-10},
+                {-80,10}})));
+      VolumeFlowOutflow bloodFlowOutflow annotation (Placement(transformation(
+              extent={{-80,-30},{-60,-10}}), iconTransformation(extent={{80,-10},
+                {100,10}})));
     equation
       bloodFlowInflow.q + bloodFlowOutflow.q = 0;
       bloodFlow = bloodFlowInflow.q;
@@ -402,19 +398,19 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
             extent={{-20,-20},{20,20}},
             rotation=180,
             origin={-34,-40})));
-      BloodFlowInflow bloodFlowInflow annotation (Placement(transformation(
-              extent={{-98,-10},{-78,10}}),  iconTransformation(extent={{-110,
-                -10},{-90,10}})));
-      BloodFlowOutflow bloodFlowOutflow annotation (Placement(transformation(
-              extent={{78,-10},{98,10}}),  iconTransformation(extent={{90,-10},
-                {110,10}})));
-      BloodConductance backflowBloodConductance( bloodConductance_NonSI=backflowConductance) annotation (Placement(
-          transformation(
-          extent={{-18,-18},{18,18}},
-          rotation=180,
-          origin={22,-40})));
-      BloodResistor outflowBloodResistor(bloodResistance_NonSI=outflowResistance)
-      annotation (Placement(transformation(extent={{4,22},{40,58}})));
+      VolumeFlowInflow bloodFlowInflow annotation (Placement(transformation(
+              extent={{-98,-10},{-78,10}}), iconTransformation(extent={{-110,-10},
+                {-90,10}})));
+      VolumeFlowOutflow bloodFlowOutflow annotation (Placement(transformation(
+              extent={{78,-10},{98,10}}), iconTransformation(extent={{90,-10},{
+                110,10}})));
+      Conductance backflowBloodConductance(bloodConductance_NonSI=
+            backflowConductance) annotation (Placement(transformation(
+            extent={{-18,-18},{18,18}},
+            rotation=180,
+            origin={22,-40})));
+      Resistor outflowBloodResistor(bloodResistance_NonSI=outflowResistance)
+        annotation (Placement(transformation(extent={{4,22},{40,58}})));
   equation
       connect(outflowValve.bloodFlowInflow, bloodFlowInflow) annotation (Line(
             points={{-54,40},{-66,40},{-66,0},{-88,0}},  color={0,0,0},
@@ -456,9 +452,9 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
   end CardiacValve;
 
   model ElasticCompartment
-    BloodFlowInflow bloodFlowInflow annotation (
-        Placement(transformation(extent={{-50,-35},{-30,-15}}),
-                          iconTransformation(extent={{-10,-10},{10,10}})));
+      VolumeFlowInflow bloodFlowInflow annotation (Placement(transformation(
+              extent={{-50,-35},{-30,-15}}), iconTransformation(extent={{-10,-10},
+                {10,10}})));
     parameter Real elastance_NonSI "elastance in mmHg/ml";
     Types.HydraulicElastance elastance = elastance_NonSI *133.322387415/1e-6 "elastance in Pa/m3";
 
@@ -474,6 +470,11 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
     Types.Volume stressedVolume "volume in m3";
     Types.Pressure transmuralPressure "pressure in Pa";
     Types.Pressure pressure "pressure in Pa";
+      Types.VolumeOutput y annotation (Placement(transformation(extent={{-200,
+                -40},{-180,-20}}), iconTransformation(
+            extent={{-10,-10},{10,10}},
+            rotation=270,
+            origin={90,-60})));
   equation
     bloodFlowInflow.pressure = pressure;
     transmuralPressure = pressure - externalPressure;
@@ -498,9 +499,9 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
   end ElasticCompartment;
 
   model VariableElasticCompartment
-    BloodFlowInflow bloodFlowInflow annotation (
-        Placement(transformation(extent={{-50,-35},{-30,-15}}),
-                          iconTransformation(extent={{-10,-10},{10,10}})));
+      VolumeFlowInflow bloodFlowInflow annotation (Placement(transformation(
+              extent={{-50,-35},{-30,-15}}), iconTransformation(extent={{-10,-10},
+                {10,10}})));
     Types.HydraulicElastanceInput inputElastance annotation (Placement(
           transformation(extent={{-120,60},{-80,100}}), iconTransformation(
           extent={{-20,-20},{20,20}},
@@ -547,15 +548,19 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
   end VariableElasticCompartment;
 
   model ElasticCompartmentWithOptionalInputs
-    Components.BloodFlowInflow bloodFlowInflow annotation (Placement(
-            transformation(extent={{-50,-35},{-30,-15}}), iconTransformation(
-              extent={{-10,-10},{10,10}})));
+      VolumeFlowInflow bloodFlowInflow annotation (Placement(transformation(
+              extent={{-50,-35},{-30,-15}}), iconTransformation(extent={{-10,-10},
+                {10,10}})));
     Types.PressureInput externalPressureInput=externalPressure if useExternalPressureInput annotation (Placement(
-          transformation(extent={{-95,20},{-55,60}}),   iconTransformation(extent={{-120,
-                -80},{-80,-40}})));
+          transformation(extent={{-95,20},{-55,60}}),   iconTransformation(extent={{-20,-20},
+                {20,20}},
+            rotation=270,
+            origin={40,100})));
     Types.VolumeInput UnstressedVolumeInput=unstressedVolume if useUnstressedVolumeInput annotation (Placement(transformation(extent={{-140,45},
               {-100,85}}),
-                     iconTransformation(extent={{-120,40},{-80,80}})));
+                     iconTransformation(extent={{-20,-20},{20,20}},
+            rotation=270,
+            origin={-40,100})));
       Types.HydraulicElastanceInput hydraulicElastanceInput=elastance if     useHydraulicElastanceInput
         annotation (Placement(transformation(extent={{-400,30},{-360,70}}),
             iconTransformation(
@@ -563,15 +568,15 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
             rotation=270,
             origin={0,100})));
     parameter Real elastance_NonSI "elastance in mmHg/ml";
-    parameter Real unstressedVolume_NonSI "volume in ml";
-    parameter Real externalPressure_NonSI "external pressure in mmHg";
+    parameter Real unstressedVolume_NonSI=0 "volume in ml";
+    parameter Real externalPressure_NonSI=0 "external pressure in mmHg";
     parameter Boolean useExternalPressureInput = false;
     parameter Boolean useUnstressedVolumeInput = false;
     parameter Boolean useHydraulicElastanceInput = false;
     Types.HydraulicElastance elastance;
     Types.Pressure externalPressure;
     Types.Volume unstressedVolume;
-    parameter Real V0_NonSI "initial volume in ml";
+    parameter Real V0_NonSI=0 "initial volume in ml";
     Types.Volume volume(start = V0_NonSI*1e-6);
     Types.Volume stressedVolume "volume in m3";
     Types.Pressure transmuralPressure "pressure in Pa";
@@ -614,9 +619,10 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
       Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
   end ElasticCompartmentWithOptionalInputs;
 
-    model UnlimitedBloodSource "unlimited blood source with given pressure"
-      BloodFlowOutflow bloodFlowOutflow annotation (Placement(transformation(extent=
-               {{-216,52},{-196,72}}), iconTransformation(extent={{78,-10},{98,10}})));
+    model UnlimitedVolumeSource "unlimited blood source with given pressure"
+      VolumeFlowOutflow bloodFlowOutflow annotation (Placement(transformation(
+              extent={{-216,52},{-196,72}}), iconTransformation(extent={{78,-10},
+                {98,10}})));
     parameter Real pressure_NonSI "in mmHg";
     Types.Pressure pressure = pressure_NonSI*133.322387415 "pressure in Pa";
     equation
@@ -644,12 +650,12 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
               fillPattern=FillPattern.Solid)}),
                                     Diagram(coordinateSystem(
               preserveAspectRatio=false)));
-    end UnlimitedBloodSource;
+    end UnlimitedVolumeSource;
 
-    model UnlimitedBloodSink
-      "unlimited blood outflow with given pressure"
-      BloodFlowInflow bloodFlowInflow annotation (Placement(transformation(extent={{
-                -216,44},{-196,64}}), iconTransformation(extent={{-98,-10},{-78,10}})));
+    model UnlimitedVolumeSink "unlimited blood outflow with given pressure"
+      VolumeFlowInflow bloodFlowInflow annotation (Placement(transformation(
+              extent={{-216,44},{-196,64}}), iconTransformation(extent={{-98,-10},
+                {-78,10}})));
     parameter Real pressure_NonSI "in mmHg";
     Types.Pressure pressure = pressure_NonSI*133.322387415 "pressure in Pa";
 
@@ -679,18 +685,22 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
               origin={-27,-2},
               rotation=360)}),      Diagram(coordinateSystem(
               preserveAspectRatio=false)));
-    end UnlimitedBloodSink;
+    end UnlimitedVolumeSink;
 
     model Heart
       parameter Real currentHeartRate=72 "heart rate in beats per min";
-      BloodFlowInflow rightAtriumFlowInflow annotation (Placement(transformation(
-              extent={{-98,-4},{-90,4}}), iconTransformation(extent={{-82,0},{-62,20}})));
-      BloodFlowOutflow pulmonaryArteryOutflow annotation (Placement(transformation(
-              extent={{-10,-4},{-2,4}}), iconTransformation(extent={{-42,36},{-22,56}})));
-      BloodFlowInflow leftAtriumFlowInflow annotation (Placement(transformation(
-              extent={{2,-4},{10,4}}), iconTransformation(extent={{24,36},{44,56}})));
-      BloodFlowOutflow aortaOutflow annotation (Placement(transformation(extent={{92,
-                -4},{100,4}}), iconTransformation(extent={{68,0},{88,20}})));
+      VolumeFlowInflow rightAtriumFlowInflow annotation (Placement(
+            transformation(extent={{-98,-4},{-90,4}}), iconTransformation(
+              extent={{-82,0},{-62,20}})));
+      VolumeFlowOutflow pulmonaryArteryOutflow annotation (Placement(
+            transformation(extent={{-10,-4},{-2,4}}), iconTransformation(extent=
+               {{-42,36},{-22,56}})));
+      VolumeFlowInflow leftAtriumFlowInflow annotation (Placement(
+            transformation(extent={{2,-4},{10,4}}), iconTransformation(extent={
+                {24,36},{44,56}})));
+      VolumeFlowOutflow aortaOutflow annotation (Placement(transformation(
+              extent={{92,-4},{100,4}}), iconTransformation(extent={{68,0},{88,
+                20}})));
       VariableElasticCompartment rightAtrium(
         unstressedVolume_NonSI=30,
         externalPressure_NonSI=-4,
@@ -817,10 +827,10 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
     end Heart;
 
     model SystemicCirculation
-      BloodFlowInflow bloodFlowInflow annotation (Placement(transformation(
+      VolumeFlowInflow bloodFlowInflow annotation (Placement(transformation(
               extent={{96,-2},{100,2}}), iconTransformation(extent={{86,-10},{
                 106,10}})));
-      BloodFlowOutflow bloodFlowOutflow annotation (Placement(transformation(
+      VolumeFlowOutflow bloodFlowOutflow annotation (Placement(transformation(
               extent={{-100,-2},{-96,2}}), iconTransformation(extent={{-112,-10},
                 {-92,10}})));
       ElasticCompartment intrathoracicArteries(
@@ -829,17 +839,17 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
         externalPressure_NonSI=-4,
         V0_NonSI=204)
         annotation (Placement(transformation(extent={{82,-32},{102,-12}})));
-      BloodResistor extrathoracicArterialResistance(bloodResistance_NonSI=0.06)
+      Resistor extrathoracicArterialResistance(bloodResistance_NonSI=0.06)
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
-            origin={50,0})));
+            origin={48,0})));
       Inductor aorticFlowInertia(inertance_NonSI=0.0017) annotation (Placement(
             transformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
             origin={78,0})));
-      BloodResistor systemicArteriolarResistance(bloodResistance_NonSI=0.8)
+      Resistor systemicArteriolarResistance(bloodResistance_NonSI=0.8)
         annotation (Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
@@ -856,12 +866,12 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
         externalPressure_NonSI=0,
         V0_NonSI=283)
         annotation (Placement(transformation(extent={{-16,-32},{4,-12}})));
-      BloodResistor smallVenuleResistance(bloodResistance_NonSI=0.2)
-        annotation (Placement(transformation(
+      Resistor smallVenuleResistance(bloodResistance_NonSI=0.2) annotation (
+          Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
             origin={-24,0})));
-      BloodResistor venousResistance(bloodResistance_NonSI=0.09) annotation (
+      Resistor venousResistance(bloodResistance_NonSI=0.09) annotation (
           Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
@@ -878,8 +888,8 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
         externalPressure_NonSI=0,
         V0_NonSI=1530)
         annotation (Placement(transformation(extent={{-48,-32},{-28,-12}})));
-      BloodResistor centralVenousResistance(bloodResistance_NonSI=0.003)
-        annotation (Placement(transformation(
+      Resistor centralVenousResistance(bloodResistance_NonSI=0.003) annotation (
+         Placement(transformation(
             extent={{-10,-10},{10,10}},
             rotation=180,
             origin={-82,0})));
@@ -900,12 +910,13 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
           thickness=1));
       connect(aorticFlowInertia.bloodFlowOutflow,
         extrathoracicArterialResistance.bloodFlowInflow) annotation (Line(
-          points={{68.4,6.66134e-16},{62,6.66134e-16},{62,0},{60.4,0}},
+          points={{68.4,6.66134e-16},{62,6.66134e-16},{62,-1.77636e-15},{58.4,
+              -1.77636e-15}},
           color={238,46,47},
           thickness=1));
       connect(extrathoracicArterialResistance.bloodFlowOutflow,
         extrathoracicArteries.bloodFlowInflow) annotation (Line(
-          points={{40.4,0},{30,0},{30,-22}},
+          points={{38.4,4.44089e-16},{30,4.44089e-16},{30,-22}},
           color={238,46,47},
           thickness=1));
       connect(extrathoracicArteries.bloodFlowInflow,
@@ -971,10 +982,10 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
 
 
 
-      BloodFlowInflow bloodFlowInflow annotation (Placement(transformation(
+      VolumeFlowInflow bloodFlowInflow annotation (Placement(transformation(
               extent={{-62,-2},{-58,2}}), iconTransformation(extent={{-112,-10},
                 {-92,10}})));
-      BloodFlowOutflow bloodFlowOutflow annotation (Placement(transformation(
+      VolumeFlowOutflow bloodFlowOutflow annotation (Placement(transformation(
               extent={{78,-2},{82,2}}), iconTransformation(extent={{90,-10},{
                 110,10}})));
       ElasticCompartment pulmonaryArteries(
@@ -983,7 +994,7 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
         externalPressure_NonSI=-4,
         V0_NonSI=99)
         annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
-      BloodResistor pulmonaryResistance(bloodResistance_NonSI=0.11)
+      Resistor pulmonaryResistance(bloodResistance_NonSI=0.11)
         annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
       ElasticCompartment pulmonaryVeins(
         elastance_NonSI=0.0455,
@@ -991,7 +1002,7 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
         externalPressure_NonSI=-4,
         V0_NonSI=516)
         annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
-      BloodResistor pulmonaryVenousResistance(bloodResistance_NonSI=0.003)
+      Resistor pulmonaryVenousResistance(bloodResistance_NonSI=0.003)
         annotation (Placement(transformation(extent={{40,-10},{60,10}})));
     equation
       connect(bloodFlowInflow, pulmonaryArteries.bloodFlowInflow) annotation (
@@ -1129,9 +1140,328 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
               textString="%name")}),                                 Diagram(
             coordinateSystem(preserveAspectRatio=false)));
     end BreathInterval;
+
+  model ComplianceCompartment
+      VolumeFlowInflow bloodFlowInflow annotation (Placement(transformation(
+              extent={{-50,-35},{-30,-15}}), iconTransformation(extent={{-10,-10},
+                {10,10}})));
+    parameter Real compliance_NonSI "compliance in ml/mmHg";
+    Types.HydraulicCompliance compliance = compliance_NonSI *1E-6/133.322387415 "compliance in m3/Pa";
+
+    parameter Real unstressedVolume_NonSI "volume in ml";
+    Types.Volume unstressedVolume=unstressedVolume_NonSI*1e-6 "unstressed volume from ml to m3";
+
+    parameter Real externalPressure_NonSI "external pressure in mmHg";
+    Types.Pressure externalPressure=externalPressure_NonSI*133.322387415 "external pressure from mmHg to Pa";
+
+    parameter Real V0_NonSI "initial volume in ml";
+    parameter Boolean hardElastance=false;
+
+    //Types.Volume volume(start = V0_NonSI*1e-6);
+
+    Types.VolumeOutput volume(start = V0_NonSI*1e-6) annotation (Placement(transformation(extent={{-200,0},{-180,
+              20}}), iconTransformation(
+          extent={{-10,-10},{10,10}},
+          rotation=270,
+          origin={70,-70})));
+
+    Types.Volume stressedVolume "volume in m3";
+    Types.Pressure transmuralPressure "pressure in Pa";
+    Types.Pressure pressure "pressure in Pa";
+
+  equation
+    bloodFlowInflow.pressure = pressure;
+    transmuralPressure = pressure - externalPressure;
+    der(volume) = bloodFlowInflow.q;
+    stressedVolume = volume - unstressedVolume;
+    if hardElastance then
+      transmuralPressure = stressedVolume/compliance;
+    else
+      if stressedVolume > 0 then
+        transmuralPressure = stressedVolume/compliance;
+      else
+        transmuralPressure = 0;
+      end if;
+    end if;
+
+    annotation (Icon(coordinateSystem(
+          extent={{-100,-100},{100,100}},
+          preserveAspectRatio=true,
+          initialScale=0.1,
+          grid={10,10}), graphics={Ellipse(
+            origin={0,0},
+            fillColor={215,215,215},
+            fillPattern=FillPattern.Solid,
+            extent={{-100,-100},{100,100}},
+            lineColor={0,0,0}), Text(
+            origin={8.837,-90.936},
+            extent={{-147.185,-57.4195},{151.163,-29.0642}},
+            fontName="Arial",
+            lineColor={0,0,0},
+            textString="%name")}), Diagram(coordinateSystem(
+          extent={{-148.5,-105},{148.5,105}},
+          preserveAspectRatio=true,
+          initialScale=0.1,
+          grid={5,5})));
+  end ComplianceCompartment;
+
+  model ComplianceCompartmentWithOptionalInputs
+    VolumeFlowInflow bloodFlowInflow annotation (Placement(transformation(extent={
+              {-50,-35},{-30,-15}}), iconTransformation(extent={{-10,-10},{10,10}})));
+    Types.PressureInput externalPressureInput=externalPressure if useExternalPressureInput annotation (Placement(
+          transformation(extent={{-95,20},{-55,60}}),   iconTransformation(extent={{-20,-20},
+              {20,20}},
+          rotation=270,
+          origin={40,100})));
+    Types.VolumeInput UnstressedVolumeInput=unstressedVolume if useUnstressedVolumeInput annotation (Placement(transformation(extent={{-140,45},
+              {-100,85}}),
+                     iconTransformation(extent={{-20,-20},{20,20}},
+          rotation=270,
+          origin={-40,100})));
+      Types.HydraulicComplianceInput hydraulicComplianceInput=compliance if     useHydraulicComplianceInput
+        annotation (Placement(transformation(extent={{-400,30},{-360,70}}),
+            iconTransformation(
+            extent={{-20,-20},{20,20}},
+            rotation=270,
+            origin={0,100})));
+    parameter Real compliance_NonSI = 1 "compliance in ml/mmHg";
+    parameter Real unstressedVolume_NonSI= 0 "volume in ml";
+    parameter Real externalPressure_NonSI= 0 "external pressure in mmHg";
+    parameter Boolean useExternalPressureInput = false;
+    parameter Boolean useUnstressedVolumeInput = false;
+    parameter Boolean useHydraulicComplianceInput = false;
+    parameter Boolean hardElastance=false;
+    Types.HydraulicCompliance compliance;
+    Types.Pressure externalPressure;
+    Types.Volume unstressedVolume;
+    parameter Real V0_NonSI= 0 "initial volume in ml";
+    //Types.Volume volume(start = V0_NonSI*1e-6);
+    Types.VolumeOutput volume(start = V0_NonSI*1e-6) annotation (Placement(transformation(extent={{-145,-5},{-125,
+              15}}), iconTransformation(
+          extent={{-10,-10},{10,10}},
+          rotation=270,
+          origin={70,-70})));
+    Types.Volume stressedVolume "volume in m3";
+    Types.Pressure transmuralPressure "pressure in Pa";
+    Types.Pressure pressure "pressure in Pa";
+  equation
+    if not useExternalPressureInput then
+      externalPressure = externalPressure_NonSI*133.322387415 "external pressure from mmHg to Pa";
+    end if;
+    if not useUnstressedVolumeInput then
+      unstressedVolume = unstressedVolume_NonSI*1e-6 "unstressed volume from ml to m3";
+    end if;
+    if not useHydraulicComplianceInput then
+      compliance = 1E-6*compliance_NonSI /133.322387415 "compliance in m3/Pa";
+    end if;
+    bloodFlowInflow.pressure = pressure;
+    transmuralPressure = pressure - externalPressure;
+    der(volume) = bloodFlowInflow.q;
+    stressedVolume = volume - unstressedVolume;
+    if hardElastance then
+      transmuralPressure = stressedVolume/compliance;
+    else
+      if stressedVolume > 0 then
+        transmuralPressure = stressedVolume/compliance;
+      else
+        transmuralPressure = 0;
+      end if;
+    end if;
+
+    annotation (
+      Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics={  Ellipse(                origin={0,
+                  0},                                                                                                                                                                          fillColor=
+                  {215,215,215},
+              fillPattern=FillPattern.Solid,                                                                                                      extent={{
+                  -100,-100},{100,100}},
+            lineColor={0,0,0}),                                                                                                                                                                       Text(                origin={
+                8.837,-90.936},                                                                                                                                                                                                        extent = {{-147.185, -57.4195}, {151.163, -29.0642}}, fontName=
+                "Arial",                                                                                                                                                                                                        lineColor=
+                {0,0,0},
+            textString="%name"),
+          Ellipse(
+            extent={{-100,40},{100,-40}},
+            lineColor={0,0,0},
+            startAngle=0,
+            endAngle=360)}),
+      Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
+  end ComplianceCompartmentWithOptionalInputs;
+
+  model OuterElasticVessel
+    VolumeFlowInflow bloodFlowInflow annotation (Placement(transformation(extent={
+              {-50,-35},{-30,-15}}), iconTransformation(extent={{-10,-90},{10,-70}})));
+    Types.PressureInput externalPressureInput=externalPressure if useExternalPressureInput annotation (Placement(
+          transformation(extent={{-95,20},{-55,60}}),   iconTransformation(extent={{-20,-20},
+              {20,20}},
+          rotation=270,
+          origin={-20,10})));
+    Types.VolumeInput UnstressedVolumeInput=unstressedVolume if useUnstressedVolumeInput annotation (Placement(transformation(extent={{-140,45},
+              {-100,85}}),
+                     iconTransformation(extent={{-20,-20},{20,20}},
+          rotation=270,
+          origin={-100,10})));
+      Types.HydraulicComplianceInput hydraulicComplianceInput=compliance if     useHydraulicComplianceInput
+        annotation (Placement(transformation(extent={{-400,30},{-360,70}}),
+            iconTransformation(
+            extent={{-20,-20},{20,20}},
+            rotation=270,
+            origin={-60,10})));
+    parameter Real compliance_NonSI "compliance in mmHg/ml";
+    parameter Real unstressedVolume_NonSI "volume in ml";
+    parameter Real externalPressure_NonSI "external pressure in mmHg";
+    parameter Boolean useExternalPressureInput = false;
+    parameter Boolean useUnstressedVolumeInput = false;
+    parameter Boolean useHydraulicComplianceInput = false;
+    parameter Boolean hardElastance=false;
+    Types.HydraulicCompliance compliance;
+    Types.Pressure externalPressure;
+    Types.Volume unstressedVolume;
+    parameter Real V0_NonSI "initial inner volume in ml";
+    //Types.Volume volume(start = V0_NonSI*1e-6);
+    Types.VolumeOutput volume(start=OuterVolume+InnerVolume) annotation (Placement(transformation(extent={{-145,-5},{-125,
+              15}}), iconTransformation(
+          extent={{-10,-10},{10,10}},
+          rotation=270,
+          origin={70,-70})));
+    Types.Volume OuterVolume( start = V0_NonSI*1e-6, fixed=true);
+    Types.Volume stressedVolume "volume in m3";
+    Types.Pressure transmuralPressure "pressure in Pa";
+    //Types.Pressure pressure "pressure in Pa";
+    Types.VolumeInput InnerVolume
+      annotation (Placement(transformation(extent={{-140,45},{-100,85}}),
+          iconTransformation(
+          extent={{-20,-20},{20,20}},
+          rotation=270,
+          origin={70,-30})));
+    Types.PressureOutput pressure "pressure in Pa" annotation (Placement(transformation(extent={{-200,
+              -40},{-180,-20}}), iconTransformation(extent={{100,-30},{120,-10}})));
+  equation
+    if not useExternalPressureInput then
+      externalPressure = externalPressure_NonSI*133.322387415 "external pressure from mmHg to Pa";
+    end if;
+    if not useUnstressedVolumeInput then
+      unstressedVolume = unstressedVolume_NonSI*1e-6 "unstressed volume from ml to m3";
+    end if;
+    if not useHydraulicComplianceInput then
+      compliance = 1E-6*compliance_NonSI /133.322387415 "compliance in m3/Pa";
+    end if;
+    bloodFlowInflow.pressure = pressure;
+    transmuralPressure = pressure - externalPressure;
+
+    der(OuterVolume) = bloodFlowInflow.q;
+    volume=OuterVolume+InnerVolume;
+
+    stressedVolume = volume - unstressedVolume;
+    if hardElastance then
+      transmuralPressure = stressedVolume/compliance;
+    else
+      if stressedVolume > 0 then
+        transmuralPressure = stressedVolume/compliance;
+      else
+        transmuralPressure = 0;
+      end if;
+    end if;
+
+    annotation (
+      Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {10, 10}), graphics={                                                         Text(                origin={
+                8.837,-90.936},                                                                                                                                                                                                        extent = {{-147.185, -57.4195}, {151.163, -29.0642}}, fontName=
+                "Arial",                                                                                                                                                                                                        lineColor=
+                {0,0,0},
+            textString="%name"),
+          Ellipse(
+            extent={{-100,100},{100,-100}},
+            lineColor={0,0,0},
+            fillColor={215,215,215},
+            fillPattern=FillPattern.Solid,
+            closure=EllipseClosure.Chord,
+            startAngle=180,
+            endAngle=360,
+            origin={0,0},
+            rotation=180),
+          Ellipse(
+            extent={{-100,60},{100,-60}},
+            lineColor={255,255,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid,
+            closure=EllipseClosure.Chord,
+            startAngle=180,
+            endAngle=360,
+            origin={0,7.10543e-15},
+            rotation=180)}),
+      Diagram(coordinateSystem(extent = {{-148.5, -105}, {148.5, 105}}, preserveAspectRatio = true, initialScale = 0.1, grid = {5, 5})));
+  end OuterElasticVessel;
+
+    model WattMeter
+      extends Modelica.Icons.RoundSensor;
+      MeursHemodynamics.Components.VolumeFlowInflow volumeFlowInflow annotation (
+          Placement(transformation(extent={{-108,-10},{-88,10}}),
+            iconTransformation(extent={{-110,-8},{-90,12}})));
+      MeursHemodynamics.Components.VolumeFlowOutflow volumeFlowOutflow annotation (
+          Placement(transformation(extent={{92,-10},{112,10}}), iconTransformation(
+              extent={{90,-6},{110,14}})));
+      Types.PowerOutput power annotation (Placement(transformation(extent={{-192,-54},
+                {-172,-34}}), iconTransformation(
+            extent={{-10,-10},{10,10}},
+            rotation=270,
+            origin={0,-94})));
+    equation
+      volumeFlowInflow.q+volumeFlowOutflow.q=0;
+      volumeFlowInflow.pressure=volumeFlowOutflow.pressure;
+      power=volumeFlowInflow.q*volumeFlowInflow.pressure;
+
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+            Text(
+              extent={{-58,-14},{70,-70}},
+              textColor={28,108,200},
+              textString="W")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+    end WattMeter;
+
+    model FlowMeter
+      extends Modelica.Icons.RoundSensor;
+      MeursHemodynamics.Components.VolumeFlowInflow volumeFlowInflow annotation (
+          Placement(transformation(extent={{-108,-10},{-88,10}}),
+            iconTransformation(extent={{-110,-8},{-90,12}})));
+      MeursHemodynamics.Components.VolumeFlowOutflow volumeFlowOutflow annotation (
+          Placement(transformation(extent={{92,-10},{112,10}}), iconTransformation(
+              extent={{90,-6},{110,14}})));
+      Types.VolumeFlowRateOutput volumeFlow annotation (Placement(transformation(extent={{-248,
+                -36},{-228,-16}}), iconTransformation(
+            extent={{-10,-10},{10,10}},
+            rotation=270,
+            origin={0,-102})));
+    equation
+      volumeFlowInflow.q+volumeFlowOutflow.q=0;
+      volumeFlowInflow.pressure=volumeFlowOutflow.pressure;
+      volumeFlow=volumeFlowInflow.q;
+
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+            Text(
+              extent={{-68,-12},{70,-76}},
+              textColor={28,108,200},
+              textString="Q"), Line(points={{-90,82},{80,82},{60,90},{60,74},{
+                  80,82}}, color={0,0,0})}),
+                                 Diagram(coordinateSystem(preserveAspectRatio=false)));
+    end FlowMeter;
+
+    model PressureMeter
+      extends Modelica.Icons.RoundSensor;
+      MeursHemodynamics.Components.VolumeFlowInflow volumeFlowInflow annotation (
+          Placement(transformation(extent={{-108,-10},{-88,10}}),
+            iconTransformation(extent={{-10,-96},{10,-76}})));
+      Types.PressureOutput pressure annotation (Placement(transformation(extent={{-240,-16},
+                {-220,4}}), iconTransformation(extent={{76,-14},{104,14}})));
+    equation
+      pressure=volumeFlowInflow.pressure
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+            Text(
+              extent={{-68,-12},{70,-76}},
+              textColor={28,108,200},
+              textString="P")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+
+    end PressureMeter;
   end Components;
 
-  package Model
+  package Tests
     model TestCardiacElastances
       Modelica.Blocks.Sources.Constant HeartRate(k=72)
         annotation (Placement(transformation(extent={{-96,10},{-76,30}})));
@@ -1246,15 +1576,274 @@ ventricular systole in sec"     annotation (Placement(transformation(extent={{10
             coordinateSystem(preserveAspectRatio=false)));
     end TestBreathInterval;
 
-  end Model;
+    model testElasticCompartments
+      MeursHemodynamicsPhysiolibrary.PhysiolibraryExpantion.ElasticVessel CL(
+        volume_start=0.0023,
+        ZeroPressureVolume=0.0013,
+        Compliance(displayUnit="ml/mmHg") = 2.0394324259559e-06,
+        useExternalPressureInput=true,
+        hardElastance=true)
+        annotation (Placement(transformation(extent={{56,-42},{76,-22}})));
+      Physiolibrary.Hydraulic.Sources.UnlimitedVolume unlimitedVolume2(
+          usePressureInput=false)
+        annotation (Placement(transformation(extent={{-38,-42},{-18,-22}})));
+      MeursHemodynamicsPhysiolibrary.PhysiolibraryExpantion.OuterElasticVessel
+                                                Cw(
+        outer_volume_start=0,
+        useV0Input=false,
+        ZeroPressureVolume=0.00352,
+        useComplianceInput=false,
+        Compliance(displayUnit="ml/mmHg") = 2.4881075596661e-06,
+        useExternalPressureInput=false,
+        hardElastance=false)
+        annotation (Placement(transformation(extent={{60,-66},{80,-46}})));
+      Physiolibrary.Hydraulic.Components.Resistor resistor(Resistance(
+            displayUnit="(mmHg.s)/ml") = 362846.05)
+        annotation (Placement(transformation(extent={{26,-42},{46,-22}})));
+      Components.BreathInterval                   breathInterval1
+        annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
+      Modelica.Blocks.Sources.Constant BreathRate(k=6)
+        annotation (Placement(transformation(extent={{-76,-90},{-56,-70}})));
+      Physiolibrary.Types.Constants.PressureConst RespiratoryMuscleAmplitude(k(
+            displayUnit="cmH2O") = -441.29925)
+        annotation (Placement(transformation(extent={{-20,-58},{-12,-50}})));
+      Modelica.Blocks.Math.Product product1
+        annotation (Placement(transformation(extent={{10,-82},{30,-62}})));
+      Components.UnlimitedVolumeSource unlimitedVolumeSource(pressure_NonSI=0)
+        annotation (Placement(transformation(extent={{-60,34},{-40,54}})));
+      Components.Resistor resistor1(bloodResistance_NonSI=0.0027215688005237)
+        annotation (Placement(transformation(extent={{-26,34},{-6,54}})));
+      Components.ComplianceCompartmentWithOptionalInputs CL1(
+        compliance_NonSI=271.902,
+        unstressedVolume_NonSI=1300,
+        externalPressure_NonSI=-3.6777956,
+        useExternalPressureInput=false,
+        useUnstressedVolumeInput=false,
+        useHydraulicComplianceInput=false,
+        hardElastance=true,
+        V0_NonSI=2300)
+        annotation (Placement(transformation(extent={{22,34},{42,54}})));
+      Components.UnlimitedVolumeSource unlimitedVolumeSource1(pressure_NonSI=0)
+        annotation (Placement(transformation(extent={{-62,62},{-42,82}})));
+      Components.Resistor resistor2(bloodResistance_NonSI=0.0027215688005237)
+        annotation (Placement(transformation(extent={{-32,62},{-12,82}})));
+      Components.ComplianceCompartment CL0(
+        compliance_NonSI=271.902,
+        unstressedVolume_NonSI=1300,
+        externalPressure_NonSI=-3.6777956,
+        V0_NonSI=2300,
+        hardElastance=true)
+        annotation (Placement(transformation(extent={{18,62},{38,82}})));
+      Components.UnlimitedVolumeSource unlimitedVolumeSource2(pressure_NonSI=0)
+        annotation (Placement(transformation(extent={{-52,-4},{-32,16}})));
+      Components.Resistor resistor3(bloodResistance_NonSI=0.0027215688005237)
+        annotation (Placement(transformation(extent={{-18,-4},{2,16}})));
+      Components.ComplianceCompartmentWithOptionalInputs CL2(
+        compliance_NonSI=271.902,
+        unstressedVolume_NonSI=1300,
+        externalPressure_NonSI=-3.6777956,
+        useExternalPressureInput=true,
+        hardElastance=true,
+        V0_NonSI=2300)
+        annotation (Placement(transformation(extent={{30,-4},{50,16}})));
+    equation
+      connect(Cw.InnerVolume,CL. volume)
+        annotation (Line(points={{76.2,-58},{72,-58},{72,-42}},
+                                                           color={0,0,127}));
+      connect(Cw.pressure,CL. externalPressure) annotation (Line(points={{82.1,
+              -57.1},{82.1,-20},{74,-20},{74,-24}},
+                                          color={0,0,127}));
+      connect(resistor.q_out,CL. q_in) annotation (Line(
+          points={{46,-32},{66,-32}},
+          color={0,0,0},
+          thickness=1));
+      connect(BreathRate.y,breathInterval1. RR)
+        annotation (Line(points={{-55,-80},{-30.4,-80}}, color={0,0,127}));
+      connect(breathInterval1.Pm,product1. u2) annotation (Line(points={{-9,-80},
+              {2,-80},{2,-78},{8,-78}},color={0,0,127}));
+      connect(RespiratoryMuscleAmplitude.y,product1. u1) annotation (Line(points={{-11,-54},
+              {2,-54},{2,-66},{8,-66}},   color={0,0,127}));
+      connect(unlimitedVolume2.y, resistor.q_in) annotation (Line(
+          points={{-18,-32},{26,-32}},
+          color={0,0,0},
+          thickness=1));
+      connect(unlimitedVolumeSource.bloodFlowOutflow, resistor1.bloodFlowInflow)
+        annotation (Line(points={{-41.2,44},{-26.4,44}}, color={0,0,0}));
+      connect(resistor1.bloodFlowOutflow, CL1.bloodFlowInflow)
+        annotation (Line(points={{-6.4,44},{32,44}}, color={0,0,0}));
+      connect(unlimitedVolumeSource1.bloodFlowOutflow, resistor2.bloodFlowInflow)
+        annotation (Line(points={{-43.2,72},{-32.4,72}}, color={0,0,0}));
+      connect(resistor2.bloodFlowOutflow, CL0.bloodFlowInflow)
+        annotation (Line(points={{-12.4,72},{28,72}}, color={0,0,0}));
+      connect(unlimitedVolumeSource2.bloodFlowOutflow, resistor3.bloodFlowInflow)
+        annotation (Line(points={{-33.2,6},{-18.4,6}}, color={0,0,0}));
+      connect(resistor3.bloodFlowOutflow,CL2. bloodFlowInflow)
+        annotation (Line(points={{1.6,6},{40,6}},    color={0,0,0}));
+      connect(CL2.externalPressureInput, CL.externalPressure) annotation (Line(
+            points={{44,16},{44,24},{80,24},{80,-20},{74,-20},{74,-24}}, color=
+              {0,0,127}));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+            coordinateSystem(preserveAspectRatio=false)));
+    end testElasticCompartments;
+
+    model testRespiration
+      MeursHemodynamicsPhysiolibrary.PhysiolibraryExpantion.ElasticVessel CL(
+        volume_start=0.0023,
+        ZeroPressureVolume=0.0013,
+        Compliance(displayUnit="ml/mmHg") = 2.0394324259559e-06,
+        useExternalPressureInput=true,
+        hardElastance=true)
+        annotation (Placement(transformation(extent={{56,-42},{76,-22}})));
+      Physiolibrary.Hydraulic.Sources.UnlimitedVolume unlimitedVolume2(
+          usePressureInput=false)
+        annotation (Placement(transformation(extent={{-38,-42},{-18,-22}})));
+      MeursHemodynamicsPhysiolibrary.PhysiolibraryExpantion.OuterElasticVessel
+                                                Cw(
+        outer_volume_start=0,
+        useV0Input=false,
+        ZeroPressureVolume=0.00352,
+        useComplianceInput=false,
+        Compliance(displayUnit="ml/mmHg") = 2.4881075596661e-06,
+        useExternalPressureInput=true,
+        hardElastance=false)
+        annotation (Placement(transformation(extent={{60,-66},{80,-46}})));
+      Physiolibrary.Hydraulic.Components.Resistor resistor(Resistance(
+            displayUnit="(mmHg.s)/ml") = 362846.05)
+        annotation (Placement(transformation(extent={{26,-42},{46,-22}})));
+      Components.BreathInterval                   breathInterval1
+        annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
+      Modelica.Blocks.Sources.Constant BreathRate(k=12)
+        annotation (Placement(transformation(extent={{-76,-90},{-56,-70}})));
+      Physiolibrary.Types.Constants.PressureConst RespiratoryMuscleAmplitude(k(
+            displayUnit="cmH2O") = -441.29925)
+        annotation (Placement(transformation(extent={{-20,-58},{-12,-50}})));
+      Modelica.Blocks.Math.Product product1
+        annotation (Placement(transformation(extent={{10,-82},{30,-62}})));
+      Components.UnlimitedVolumeSource unlimitedVolumeSource(pressure_NonSI=0)
+        annotation (Placement(transformation(extent={{-92,34},{-72,54}})));
+      Components.Resistor resistor1(bloodResistance_NonSI=0.0027215688005237)
+        annotation (Placement(transformation(extent={{-40,34},{-20,54}})));
+      Components.ComplianceCompartmentWithOptionalInputs CL1(
+        compliance_NonSI=271.902,
+        unstressedVolume_NonSI=1300,
+        externalPressure_NonSI=0,
+        useExternalPressureInput=true,
+        hardElastance=true,
+        V0_NonSI=2300)
+        annotation (Placement(transformation(extent={{22,34},{42,54}})));
+      Components.OuterElasticVessel Cw1(
+        compliance_NonSI=331.72044,
+        unstressedVolume_NonSI=3520,
+        externalPressure_NonSI=0,
+        useExternalPressureInput=true,
+        hardElastance=true,
+        V0_NonSI=0)
+        annotation (Placement(transformation(extent={{22,6},{42,26}})));
+      Components.FlowMeter flowMeter
+        annotation (Placement(transformation(extent={{-10,34},{10,54}})));
+      Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure
+        annotation (Placement(transformation(extent={{-6,-42},{14,-22}})));
+    equation
+      connect(Cw.InnerVolume,CL. volume)
+        annotation (Line(points={{76.2,-58},{72,-58},{72,-42}},
+                                                           color={0,0,127}));
+      connect(Cw.pressure,CL. externalPressure) annotation (Line(points={{82.1,
+              -57.1},{82.1,-20},{74,-20},{74,-24}},
+                                          color={0,0,127}));
+      connect(resistor.q_out,CL. q_in) annotation (Line(
+          points={{46,-32},{66,-32}},
+          color={0,0,0},
+          thickness=1));
+      connect(BreathRate.y,breathInterval1. RR)
+        annotation (Line(points={{-55,-80},{-30.4,-80}}, color={0,0,127}));
+      connect(breathInterval1.Pm,product1. u2) annotation (Line(points={{-9,-80},
+              {2,-80},{2,-78},{8,-78}},color={0,0,127}));
+      connect(RespiratoryMuscleAmplitude.y,product1. u1) annotation (Line(points={{-11,-54},
+              {2,-54},{2,-66},{8,-66}},   color={0,0,127}));
+      connect(unlimitedVolumeSource.bloodFlowOutflow, resistor1.bloodFlowInflow)
+        annotation (Line(points={{-73.2,44},{-40.4,44}}, color={0,0,0}));
+      connect(product1.y, Cw.externalPressure) annotation (Line(points={{31,-72},
+              {42,-72},{42,-48},{68.4,-48},{68.4,-52}}, color={0,0,127}));
+      connect(Cw1.pressure, CL1.externalPressureInput) annotation (Line(points=
+              {{43,14},{64,14},{64,60},{36,60},{36,54}}, color={0,0,127}));
+      connect(CL1.volume, Cw1.InnerVolume)
+        annotation (Line(points={{39,37},{39,13}}, color={0,0,127}));
+      connect(Cw1.externalPressureInput, Cw.externalPressure) annotation (Line(
+            points={{30,17},{30,22},{12,22},{12,-48},{68,-48},{68,-52},{68.4,-52}},
+            color={0,0,127}));
+      connect(resistor1.bloodFlowOutflow, flowMeter.volumeFlowInflow)
+        annotation (Line(points={{-20.4,44},{-16,44},{-16,44.2},{-10,44.2}},
+            color={0,0,0}));
+      connect(flowMeter.volumeFlowOutflow, CL1.bloodFlowInflow)
+        annotation (Line(points={{10,44.4},{32,44}}, color={0,0,0}));
+      connect(unlimitedVolume2.y, flowMeasure.q_in) annotation (Line(
+          points={{-18,-32},{-6,-32}},
+          color={0,0,0},
+          thickness=1));
+      connect(flowMeasure.q_out, resistor.q_in) annotation (Line(
+          points={{14,-32},{26,-32}},
+          color={0,0,0},
+          thickness=1));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+            coordinateSystem(preserveAspectRatio=false)));
+    end testRespiration;
+
+    model TestVanMeursHemodynamicsModelWattMeasure
+      Components.Heart heart
+        annotation (Placement(transformation(extent={{-22,-22},{20,24}})));
+      Components.SystemicCirculation systemicCirculation
+        annotation (Placement(transformation(extent={{-30,-84},{30,-24}})));
+      Components.PulmonaryCirculation pulmonaryCirculation
+        annotation (Placement(transformation(extent={{-30,14},{30,74}})));
+      Components.WattMeter wattMeter
+        annotation (Placement(transformation(extent={{56,-8},{76,12}})));
+    equation
+      connect(systemicCirculation.bloodFlowOutflow, heart.rightAtriumFlowInflow)
+        annotation (Line(
+          points={{-30.6,-54},{-40,-54},{-40,3.3},{-16.12,3.3}},
+          color={28,108,200},
+          thickness=1));
+      connect(heart.pulmonaryArteryOutflow, pulmonaryCirculation.bloodFlowInflow)
+        annotation (Line(
+          points={{-7.72,11.58},{-40,11.58},{-40,44},{-30.6,44}},
+          color={28,108,200},
+          thickness=1));
+      connect(heart.leftAtriumFlowInflow, pulmonaryCirculation.bloodFlowOutflow)
+        annotation (Line(
+          points={{6.14,11.58},{40,11.58},{40,44},{30,44}},
+          color={238,46,47},
+          thickness=1));
+      connect(wattMeter.volumeFlowInflow, heart.aortaOutflow) annotation (Line(
+            points={{56,2.2},{56,3.3},{15.38,3.3}}, color={0,0,0}));
+      connect(wattMeter.volumeFlowOutflow, systemicCirculation.bloodFlowInflow)
+        annotation (Line(points={{76,2.4},{80,2.4},{80,-54},{28.8,-54}}, color=
+              {0,0,0}));
+      annotation (
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={Ellipse(
+              extent={{-62,62},{64,-64}},
+              lineColor={255,0,0},
+              pattern=LinePattern.None,
+              lineThickness=1,
+              fillPattern=FillPattern.Sphere,
+              fillColor={244,125,35})}),
+        Diagram(coordinateSystem(preserveAspectRatio=false)),
+        experiment(
+          StopTime=10,
+          __Dymola_NumberOfIntervals=50000,
+          __Dymola_Algorithm="Dassl"));
+    end TestVanMeursHemodynamicsModelWattMeasure;
+  end Tests;
 
   package Types
     type Pressure =  Modelica.Units.SI.Pressure(displayUnit="mmHg", nominal=133.322387415);
+    type Power = Modelica.Units.SI.Power (
+                                        displayUnit="watt", nominal=1);
     type Volume =  Modelica.Units.SI.Volume (
            displayUnit="ml", nominal=1e-6, min=0);
+    type HydraulicElastance = Real(final quantity="HydraulicElastance",final unit="Pa/m3", displayUnit="mmHg/ml", nominal=(133.322387415)/(1e-6));
+    type HydraulicCompliance =  Real(final quantity="HydraulicCompliance",final unit="m3/Pa", displayUnit="ml/mmHg", nominal=(1e-6)/(133.322387415));
     type VolumeFlowRate =
         Modelica.Units.SI.VolumeFlowRate (displayUnit="ml/min", nominal=(1e-6)/60);
-    type HydraulicElastance = Real(final quantity="HydraulicElastance",final unit="Pa/m3", displayUnit="mmHg/ml", nominal=(133.322387415)/(1e-6));
     connector PressureInput =
                           input Pressure "'input Pressure' as connector"
                                                                  annotation (
@@ -1382,6 +1971,32 @@ Connector with one input signal of type Real.
 Connector with one input signal of type Real.
 </p>
 </html>"));
+    connector HydraulicComplianceInput = input
+        Physiolibrary.Types.HydraulicCompliance
+      "input HydraulicCompliance as connector"
+      annotation (defaultComponentName="hydrauliccompliance",
+      Icon(graphics={Polygon(
+              points={{-100,100},{100,0},{-100,-100},{-100,100}},
+              lineColor={0,0,127},
+              fillColor={0,0,127},
+              fillPattern=FillPattern.Solid)},
+           coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=true, initialScale=0.2)),
+      Diagram(coordinateSystem(
+            preserveAspectRatio=true, initialScale=0.2,
+            extent={{-100,-100},{100,100}},
+            grid={1,1}), graphics={Polygon(
+              points={{0,50},{100,0},{0,-50},{0,50}},
+              lineColor={0,0,127},
+              fillColor={0,0,127},
+              fillPattern=FillPattern.Solid), Text(
+              extent={{-10,85},{-10,60}},
+              lineColor={0,0,127},
+              textString="%name")}),
+        Documentation(info="<html>
+    <p>
+    Connector with one input signal of type HydraulicCompliance.
+    </p>
+    </html>"));
     connector PressureOutput =
                            output Pressure "'output Pressure' as connector"
                                                                     annotation (
@@ -1505,6 +2120,60 @@ Connector with one output signal of type Real.
 Connector with one output signal of type Real.
 </p>
 </html>"));
+    connector HydraulicComplianceOutput = output
+        Physiolibrary.Types.HydraulicCompliance
+      "output HydraulicCompliance as connector"
+      annotation (defaultComponentName="hydrauliccompliance",
+      Icon(coordinateSystem(
+            preserveAspectRatio=true,
+            extent={{-100,-100},{100,100}},
+            grid={1,1}), graphics={Polygon(
+              points={{-100,100},{100,0},{-100,-100},{-100,100}},
+              lineColor={0,0,127},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}),
+      Diagram(coordinateSystem(
+            preserveAspectRatio=true,
+            extent={{-100,-100},{100,100}},
+            grid={1,1}), graphics={Polygon(
+              points={{-100,50},{0,0},{-100,-50},{-100,50}},
+              lineColor={0,0,127},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid), Text(
+              extent={{30,110},{30,60}},
+              lineColor={0,0,127},
+              textString="%name")}),
+        Documentation(info="<html>
+  <p>
+  Connector with one output signal of type Real.
+  </p>
+  </html>"));
+    connector PowerOutput = output Power "output Power as connector"
+      annotation (defaultComponentName="power",
+      Icon(coordinateSystem(
+            preserveAspectRatio=true,
+            extent={{-100,-100},{100,100}},
+            grid={1,1}), graphics={Polygon(
+              points={{-100,100},{100,0},{-100,-100},{-100,100}},
+              lineColor={0,0,127},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}),
+      Diagram(coordinateSystem(
+            preserveAspectRatio=true,
+            extent={{-100,-100},{100,100}},
+            grid={1,1}), graphics={Polygon(
+              points={{-100,50},{0,0},{-100,-50},{-100,50}},
+              lineColor={0,0,127},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid), Text(
+              extent={{30,110},{30,60}},
+              lineColor={0,0,127},
+              textString="%name")}),
+        Documentation(info="<html>
+  <p>
+  Connector with one output signal of type Power.
+  </p>
+  </html>"));
   end Types;
 
   package MeursHemodynamicsPhysiolibrary
@@ -1679,7 +2348,7 @@ Connector with one output signal of type Real.
           pulmonaryBloodOutflow annotation (Placement(transformation(extent={{
                   82,-10},{102,10}}), iconTransformation(extent={{90,-8},{110,
                   12}})));
-        Physiolibrary.Hydraulic.Components.ElasticVesselElastance Epa(
+        Physiolibrary.Hydraulic.Components.ElasticVesselElastance pulmonaryArteries(
           useV0Input=false,
           useExternalPressureInput=false,
           useComplianceInput=false,
@@ -1687,11 +2356,12 @@ Connector with one output signal of type Real.
           ZeroPressureVolume=5e-05,
           ExternalPressure=-533.28954966,
           Elastance=31064116.267695)
-          annotation (Placement(transformation(extent={{-84,-38},{-56,-10}})));
-        Physiolibrary.Hydraulic.Components.Resistor Rpp(useConductanceInput=
-              false, Resistance(displayUnit="(mmHg.s)/ml") = 14665462.61565)
+          annotation (Placement(transformation(extent={{-82,-38},{-54,-10}})));
+        Physiolibrary.Hydraulic.Components.Resistor pulmonaryResistance(
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            14665462.61565)
           annotation (Placement(transformation(extent={{-54,-13},{-20,13}})));
-        Physiolibrary.Hydraulic.Components.ElasticVesselElastance Epv(
+        Physiolibrary.Hydraulic.Components.ElasticVesselElastance pulmonaryVeins(
           useV0Input=false,
           useExternalPressureInput=false,
           useComplianceInput=false,
@@ -1699,29 +2369,35 @@ Connector with one output signal of type Real.
           ZeroPressureVolume=0.00035,
           ExternalPressure=-533.28954966,
           Elastance=6066168.6273825)
-          annotation (Placement(transformation(extent={{-8,-40},{26,-12}})));
-        Physiolibrary.Hydraulic.Components.Resistor Rlain(useConductanceInput=
-              false, Resistance(displayUnit="(mmHg.s)/ml") = 399967.162245)
+          annotation (Placement(transformation(extent={{-6,-40},{28,-12}})));
+        Physiolibrary.Hydraulic.Components.Resistor PulmonaryVenousResistance(
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            399967.162245)
           annotation (Placement(transformation(extent={{36,-12},{66,12}})));
       equation
-        connect(pulmonaryBloodInflow, Rpp.q_in) annotation (Line(
+        connect(pulmonaryBloodInflow, pulmonaryResistance.q_in) annotation (
+            Line(
             points={{-94,0},{-54,0}},
             color={0,0,0},
             thickness=1));
-        connect(Rpp.q_out, Rlain.q_in) annotation (Line(
+        connect(pulmonaryResistance.q_out, PulmonaryVenousResistance.q_in)
+          annotation (Line(
             points={{-20,0},{36,0}},
             color={0,0,0},
             thickness=1));
-        connect(Rlain.q_out, pulmonaryBloodOutflow) annotation (Line(
+        connect(PulmonaryVenousResistance.q_out, pulmonaryBloodOutflow)
+          annotation (Line(
             points={{66,0},{92,0}},
             color={0,0,0},
             thickness=1));
-        connect(Epv.q_in, Rlain.q_in) annotation (Line(
-            points={{9,-26},{8,-26},{8,0},{36,0}},
+        connect(pulmonaryVeins.q_in, PulmonaryVenousResistance.q_in)
+          annotation (Line(
+            points={{11,-26},{8,-26},{8,0},{36,0}},
             color={0,0,0},
             thickness=1));
-        connect(Epa.q_in, Rpp.q_in) annotation (Line(
-            points={{-70,-24},{-70,0},{-54,0}},
+        connect(pulmonaryArteries.q_in, pulmonaryResistance.q_in) annotation (
+            Line(
+            points={{-68,-24},{-68,0},{-54,0}},
             color={0,0,0},
             thickness=1));
         annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -1745,7 +2421,7 @@ Connector with one output signal of type Real.
         Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b systemicBloodOutflow
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
               iconTransformation(extent={{-110,-10},{-90,10}})));
-        Physiolibrary.Hydraulic.Components.ElasticVesselElastance Eitha(
+        Physiolibrary.Hydraulic.Components.ElasticVesselElastance intrathoracicArteries(
           useV0Input=false,
           useExternalPressureInput=false,
           useComplianceInput=false,
@@ -1753,49 +2429,50 @@ Connector with one output signal of type Real.
           ZeroPressureVolume=0.00014,
           ExternalPressure=-533.28954966,
           Elastance=190651014.00345)
-          annotation (Placement(transformation(extent={{78,-36},{100,-14}})));
-        Physiolibrary.Hydraulic.Components.ElasticVesselElastance Eetha(
+          annotation (Placement(transformation(extent={{80,-46},{102,-24}})));
+        Physiolibrary.Hydraulic.Components.ElasticVesselElastance extrathoracicArteries(
           volume_start(displayUnit="ml") = 0.000526,
           useV0Input=false,
           useExternalPressureInput=false,
           useComplianceInput=false,
           ZeroPressureVolume=0.00037,
           Elastance=74127247.40274)
-          annotation (Placement(transformation(extent={{18,-36},{42,-14}})));
-        Physiolibrary.Hydraulic.Components.Resistor Retha(useConductanceInput=
-              false, Resistance(displayUnit="(mmHg.s)/ml") = 7999343.2449)
-          annotation (Placement(transformation(extent={{34,-10},{54,10}})));
-        Physiolibrary.Hydraulic.Components.Inertia inertia(I(displayUnit=
-                "mmHg.s2/ml") = 226648.0586055, volumeFlow_start(displayUnit=
-                "ml/min") = 0)                                                                                                                                             annotation(Placement(transformation(extent={{-10,-10},
-                  {10,10}},                                                                                                    rotation = 180, origin={72,0})));
-        Physiolibrary.Hydraulic.Components.Resistor Rsart(useConductanceInput=
-              false, Resistance(displayUnit="(mmHg.s)/ml") = 106657909.932)
-                                                                   annotation (
-            Placement(transformation(
-              extent={{12,-10},{-12,10}},
-              origin={16,0})));
-        Physiolibrary.Hydraulic.Components.Resistor Rsven(useConductanceInput=
-              false, Resistance(displayUnit="(mmHg.s)/ml") = 26664477.483)
-                                                                  annotation (
-            Placement(transformation(
-              extent={{13,-10},{-13,10}},
-              origin={-15,0})));
-        Physiolibrary.Hydraulic.Components.ElasticVesselElastance Est(
+          annotation (Placement(transformation(extent={{26,-44},{50,-22}})));
+        Physiolibrary.Hydraulic.Components.Resistor extrathoracicArterialResistance(
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            7999343.2449)
+          annotation (Placement(transformation(extent={{42,-10},{62,10}})));
+        Physiolibrary.Hydraulic.Components.Resistor venousResistance(
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            11999014.86735)
+          annotation (Placement(transformation(extent={{-32,-10},{-56,10}})));
+        Physiolibrary.Hydraulic.Components.Inertia aorticFlowInertia(I(
+              displayUnit="mmHg.s2/ml") = 226648.0586055, volumeFlow_start(
+              displayUnit="ml/min") = 0) annotation (Placement(transformation(
+              extent={{-10,-10},{10,10}},
+              rotation=180,
+              origin={76,0})));
+        Physiolibrary.Hydraulic.Components.Resistor systemicArteriolarResistance(
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            106657909.932) annotation (Placement(transformation(extent={{12,-10},
+                  {-12,10}}, origin={22,0})));
+        Physiolibrary.Hydraulic.Components.Resistor smallVenuleResistance(
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            26664477.483) annotation (Placement(transformation(extent={{13,-10},
+                  {-13,10}}, origin={-9,0})));
+        Physiolibrary.Hydraulic.Components.ElasticVesselElastance SystemicTissues(
           useV0Input=false,
           useExternalPressureInput=false,
           useComplianceInput=false,
           volume_start=0.000283,
           ZeroPressureVolume=0.000185,
           Elastance=34930465.50273)
-          annotation (Placement(transformation(extent={{-12,-34},{12,-12}})));
-        Physiolibrary.Hydraulic.Components.Resistor Rethv(useConductanceInput=
-              false, Resistance(displayUnit="(mmHg.s)/ml") = 11999014.86735)
-          annotation (Placement(transformation(extent={{-34,-10},{-58,10}})));
-        Physiolibrary.Hydraulic.Components.Resistor Rrain(useConductanceInput=
-              false, Resistance(displayUnit="(mmHg.s)/ml") = 399967.162245)
-          annotation (Placement(transformation(extent={{-64,-10},{-90,10}})));
-        Physiolibrary.Hydraulic.Components.ElasticVesselElastance Eithv(
+          annotation (Placement(transformation(extent={{-4,-44},{20,-22}})));
+        Physiolibrary.Hydraulic.Components.Resistor centralVenousResistance(
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            399967.162245)
+          annotation (Placement(transformation(extent={{-66,-10},{-92,10}})));
+        Physiolibrary.Hydraulic.Components.ElasticVesselElastance intrathoracicVeins(
           useV0Input=false,
           useExternalPressureInput=false,
           useComplianceInput=false,
@@ -1803,62 +2480,73 @@ Connector with one output signal of type Real.
           ZeroPressureVolume=0.00119,
           ExternalPressure=-533.28954966,
           Elastance=2426467.450953)
-          annotation (Placement(transformation(extent={{-72,-34},{-50,-12}})));
-        Physiolibrary.Hydraulic.Components.ElasticVesselElastance Eethv(
+          annotation (Placement(transformation(extent={{-72,-44},{-50,-22}})));
+        Physiolibrary.Hydraulic.Components.ElasticVesselElastance extrathoracicVeins(
           useV0Input=false,
           useExternalPressureInput=false,
           useComplianceInput=false,
           volume_start=0.00153,
           ZeroPressureVolume=0.001,
           Elastance=2253148.3473135)
-          annotation (Placement(transformation(extent={{-42,-34},{-20,-12}})));
+          annotation (Placement(transformation(extent={{-38,-44},{-16,-22}})));
       equation
-        connect(systemicBloodInflow, inertia.q_in) annotation (Line(
-            points={{100,0},{82,-1.77636e-15}},
+        connect(systemicBloodInflow, aorticFlowInertia.q_in) annotation (Line(
+            points={{100,0},{86,-1.9984e-15}},
             color={0,0,0},
             thickness=1));
-        connect(Eitha.q_in, inertia.q_in) annotation (Line(
-            points={{89,-25},{89,0},{82,0},{82,-1.77636e-15}},
+        connect(intrathoracicArteries.q_in, aorticFlowInertia.q_in) annotation
+          (Line(
+            points={{91,-35},{91,0},{86,0},{86,-1.9984e-15}},
             color={0,0,0},
             thickness=1));
-        connect(inertia.q_out, Retha.q_out) annotation (Line(
-            points={{62,4.44089e-16},{59,4.44089e-16},{59,0},{54,0}},
+        connect(systemicBloodOutflow, centralVenousResistance.q_out)
+          annotation (Line(
+            points={{-100,0},{-92,0}},
             color={0,0,0},
             thickness=1));
-        connect(Rsart.q_in, Retha.q_in) annotation (Line(
-            points={{28,0},{34,0}},
+        connect(centralVenousResistance.q_in, venousResistance.q_out)
+          annotation (Line(
+            points={{-66,0},{-56,0}},
             color={0,0,0},
             thickness=1));
-        connect(Eetha.q_in, Rsart.q_in) annotation (Line(
-            points={{30,-25},{30,2.22045e-16},{28,2.22045e-16}},
+        connect(venousResistance.q_in, smallVenuleResistance.q_out) annotation
+          (Line(
+            points={{-32,0},{-22,0}},
             color={0,0,0},
             thickness=1));
-        connect(Est.q_in, Rsart.q_out) annotation (Line(
-            points={{0,-23},{0,-1.66533e-15},{4,0}},
+        connect(smallVenuleResistance.q_in, systemicArteriolarResistance.q_out)
+          annotation (Line(
+            points={{4,0},{10,0}},
             color={0,0,0},
             thickness=1));
-        connect(Rsven.q_in, Rsart.q_out) annotation (Line(
-            points={{-2,0},{2,0},{2,-1.66533e-15},{4,0}},
+        connect(systemicArteriolarResistance.q_in,
+          extrathoracicArterialResistance.q_in) annotation (Line(
+            points={{34,0},{42,0}},
             color={0,0,0},
             thickness=1));
-        connect(systemicBloodOutflow, Rrain.q_out) annotation (Line(
-            points={{-100,0},{-100,2.22045e-16},{-90,2.22045e-16}},
+        connect(extrathoracicArterialResistance.q_out, aorticFlowInertia.q_out)
+          annotation (Line(
+            points={{62,0},{66,7.77156e-16}},
             color={0,0,0},
             thickness=1));
-        connect(Rrain.q_in, Rethv.q_out) annotation (Line(
-            points={{-64,0},{-58,0}},
+        connect(intrathoracicVeins.q_in, venousResistance.q_out) annotation (
+            Line(
+            points={{-61,-33},{-61,0},{-56,0}},
             color={0,0,0},
             thickness=1));
-        connect(Rethv.q_in, Rsven.q_out) annotation (Line(
-            points={{-34,0},{-28,0}},
+        connect(extrathoracicVeins.q_in, smallVenuleResistance.q_out)
+          annotation (Line(
+            points={{-27,-33},{-27,0},{-22,0}},
             color={0,0,0},
             thickness=1));
-        connect(Eithv.q_in, Rethv.q_out) annotation (Line(
-            points={{-61,-23},{-61,0},{-58,0}},
+        connect(SystemicTissues.q_in, systemicArteriolarResistance.q_out)
+          annotation (Line(
+            points={{8,-33},{8,0},{10,0}},
             color={0,0,0},
             thickness=1));
-        connect(Eethv.q_in, Rsven.q_out) annotation (Line(
-            points={{-31,-23},{-31,0},{-28,0}},
+        connect(extrathoracicArteries.q_in, extrathoracicArterialResistance.q_in)
+          annotation (Line(
+            points={{38,-33},{38,0},{42,0}},
             color={0,0,0},
             thickness=1));
         annotation (
@@ -2030,7 +2718,7 @@ Connector with one output signal of type Real.
       end MeursModel;
     end Components;
 
-    package Model
+    package Tests
 
       model Flat_Meurs_Physiolibrary
       extends Physiolibrary.Icons.CardioVascular;
@@ -2319,10 +3007,8 @@ Connector with one output signal of type Real.
           V0_NonSI=204)
           annotation (Placement(transformation(extent={{232,-56},
                   {252,-36}})));
-        MeursHemodynamics.Components.BloodResistor
-                      extrathoracicArterialResistance(bloodResistance_NonSI=
-              0.06)
-          annotation (Placement(transformation(
+        MeursHemodynamics.Components.Resistor extrathoracicArterialResistance(
+            bloodResistance_NonSI=0.06) annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={150,-26})));
@@ -2332,9 +3018,8 @@ Connector with one output signal of type Real.
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={198,-26})));
-        MeursHemodynamics.Components.BloodResistor
-                      systemicArteriolarResistance(bloodResistance_NonSI=0.8)
-          annotation (Placement(transformation(
+        MeursHemodynamics.Components.Resistor systemicArteriolarResistance(
+            bloodResistance_NonSI=0.8) annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={62,-26})));
@@ -2352,15 +3037,13 @@ Connector with one output signal of type Real.
           externalPressure_NonSI=0,
           V0_NonSI=283)
           annotation (Placement(transformation(extent={{10,-54},{30,-34}})));
-        MeursHemodynamics.Components.BloodResistor
-                      smallVenuleResistance(bloodResistance_NonSI=0.2)
-          annotation (Placement(transformation(
+        MeursHemodynamics.Components.Resistor smallVenuleResistance(
+            bloodResistance_NonSI=0.2) annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={-40,-26})));
-        MeursHemodynamics.Components.BloodResistor
-                      venousResistance(bloodResistance_NonSI=0.09) annotation (
-            Placement(transformation(
+        MeursHemodynamics.Components.Resistor venousResistance(
+            bloodResistance_NonSI=0.09) annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={-116,-26})));
@@ -2378,9 +3061,8 @@ Connector with one output signal of type Real.
           externalPressure_NonSI=0,
           V0_NonSI=1530)
           annotation (Placement(transformation(extent={{-92,-56},{-72,-36}})));
-        MeursHemodynamics.Components.BloodResistor
-                      centralVenousResistance(bloodResistance_NonSI=0.003)
-          annotation (Placement(transformation(
+        MeursHemodynamics.Components.Resistor centralVenousResistance(
+            bloodResistance_NonSI=0.003) annotation (Placement(transformation(
               extent={{-10,-10},{10,10}},
               rotation=180,
               origin={-208,-26})));
@@ -2411,8 +3093,8 @@ Connector with one output signal of type Real.
           externalPressure_NonSI=-4,
           V0_NonSI=106)
           annotation (Placement(transformation(extent={{-60,32},{-40,52}})));
-        MeursHemodynamics.Components.BloodResistor
-                      pulmonaryResistance(bloodResistance_NonSI=0.11)
+        MeursHemodynamics.Components.Resistor pulmonaryResistance(
+            bloodResistance_NonSI=0.11)
           annotation (Placement(transformation(extent={{-20,54},{0,74}})));
         MeursHemodynamics.Components.ElasticCompartment
                            pulmonaryVeins(
@@ -2421,8 +3103,8 @@ Connector with one output signal of type Real.
           externalPressure_NonSI=-4,
           V0_NonSI=518)
           annotation (Placement(transformation(extent={{10,34},{30,54}})));
-        MeursHemodynamics.Components.BloodResistor
-                      pulmonaryVenousResistance(bloodResistance_NonSI=0.003)
+        MeursHemodynamics.Components.Resistor pulmonaryVenousResistance(
+            bloodResistance_NonSI=0.003)
           annotation (Placement(transformation(extent={{50,54},{70,74}})));
         Modelica.Blocks.Sources.Constant HeartRate1(k=72)
           annotation (Placement(transformation(extent={{-250,74},{-230,94}})));
@@ -2948,7 +3630,6 @@ Connector with one output signal of type Real.
         parameter Physiolibrary.Types.Volume leftAtrium_initialVolume=9.3e-05;
         parameter Physiolibrary.Types.Volume leftVentricle_initialVolume=0.000144;
 
-
         annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                 Polygon(
                 points={{80,100},{40,100},{40,98},{40,60},{-60,-40},{-100,-40},{-100,-80},
@@ -2970,8 +3651,7 @@ Connector with one output signal of type Real.
       end ModelSettings;
 
       model MeursModelPhysiolobrary
-        extends
-          Physiolibrary.Icons.CardioVascular;
+        extends Physiolibrary.Icons.CardioVascular;
         Components.HeartPhysiolibrary heartPhysiolibrary
           annotation (Placement(transformation(extent={{-44,-30},{38,42}})));
         Components.PulmonaryCirculation pulmonaryCirculation
@@ -3057,7 +3737,8 @@ Connector with one output signal of type Real.
       end MeursModelNoPhysiolibrary;
 
       model testElsticVesselsWithInnerVolume
-        PhysiolibraryExpantion.ElasticVesselWithInnerVolume doubleWallElastic(
+        PhysiolibraryExpantion.Obsolent.ElasticVesselWithInnerVolume
+          doubleWallElastic(
           useV0Input=false,
           ZeroPressureVolume=0.0001,
           useComplianceInput=false,
@@ -3099,7 +3780,7 @@ Connector with one output signal of type Real.
                 extent={{-12,36},{8,56}})));
       equation
         connect(doubleWallElastic.InnerVolume, elasticVessel1.volume)
-          annotation (Line(points={{26,-42.8},{26,-44},{6,-44},{6,-28},{34,-28},
+          annotation (Line(points={{26,-42.6},{26,-44},{6,-44},{6,-28},{34,-28},
                 {34,-20}}, color={0,0,127}));
         connect(doubleWallElastic.pressure, elasticVessel1.externalPressure)
           annotation (Line(points={{31.5,-53.9},{-2,-53.9},{-2,6},{36,6},{36,-2}},
@@ -3151,7 +3832,7 @@ Connector with one output signal of type Real.
           annotation (Placement(transformation(extent={{-106,50},{-86,70}})));
         Modelica.Blocks.Math.Product product1
           annotation (Placement(transformation(extent={{-46,62},{-26,82}})));
-        PhysiolibraryExpantion.SerialElasticConnections
+        PhysiolibraryExpantion.Obsolent.SerialElasticConnections
           serialElasticConnections
           annotation (Placement(transformation(extent={{-18,-70},{2,-50}})));
         Physiolibrary.Hydraulic.Sources.UnlimitedVolume unlimitedVolume1(
@@ -3191,7 +3872,7 @@ Connector with one output signal of type Real.
           useExternalPressureInput=false,
           hardElastance=true)
           annotation (Placement(transformation(extent={{-16,-100},{4,-80}})));
-        PhysiolibraryExpantion.ElasticVesselWithInnerVolume Cw(
+        PhysiolibraryExpantion.Obsolent.ElasticVesselWithInnerVolume Cw(
           Compliance(displayUnit="l/cmH2O") = 2.0394324259559e-06,
           useInnerInput=true,
           hardElastance=true)
@@ -3272,7 +3953,7 @@ Connector with one output signal of type Real.
           annotation (Placement(transformation(extent={{-106,50},{-86,70}})));
         Modelica.Blocks.Math.Product product1
           annotation (Placement(transformation(extent={{-46,62},{-26,82}})));
-        PhysiolibraryExpantion.SerialElasticConnections
+        PhysiolibraryExpantion.Obsolent.SerialElasticConnections
           serialElasticConnections
           annotation (Placement(transformation(extent={{-18,-70},{2,-50}})));
         Physiolibrary.Hydraulic.Sources.UnlimitedVolume unlimitedVolume1(
@@ -3303,7 +3984,7 @@ Connector with one output signal of type Real.
           useExternalPressureInput=false,
           hardElastance=true)
           annotation (Placement(transformation(extent={{-16,-94},{4,-74}})));
-        PhysiolibraryExpantion.SerialElasticConnections
+        PhysiolibraryExpantion.Obsolent.SerialElasticConnections
           serialElasticConnections1
           annotation (Placement(transformation(extent={{62,8},{82,28}})));
         Physiolibrary.Hydraulic.Components.Resistor Rp2(Resistance(displayUnit=
@@ -3432,7 +4113,7 @@ Connector with one output signal of type Real.
           useExternalPressureInput=true,
           hardElastance=true)
           annotation (Placement(transformation(extent={{32,26},{52,46}})));
-        PhysiolibraryExpantion.ElasticVesselWithInnerVolume
+        PhysiolibraryExpantion.Obsolent.ElasticVesselWithInnerVolume
           elasticVesselWithInnerVolume(useInnerInput=true)
           annotation (Placement(transformation(extent={{34,-12},{54,8}})));
       equation
@@ -3516,7 +4197,7 @@ Connector with one output signal of type Real.
           annotation (Placement(transformation(extent={{-98,46},{-78,66}})));
         Modelica.Blocks.Math.Product product1
           annotation (Placement(transformation(extent={{-46,56},{-26,76}})));
-        PhysiolibraryExpantion.SerialElasticConnections
+        PhysiolibraryExpantion.Obsolent.SerialElasticConnections
           serialElasticConnections
           annotation (Placement(transformation(extent={{-10,-74},{10,-54}})));
         Physiolibrary.Hydraulic.Sources.UnlimitedVolume unlimitedVolume1(
@@ -3555,13 +4236,13 @@ Connector with one output signal of type Real.
         PhysiolibraryExpantion.ElasticVessel Cw1(
           volume_start=0.0023,
           ZeroPressureVolume=0.0023,
-          Compliance(displayUnit="l/cmH2O") = 2.0394324259559e-06,
+          Compliance(displayUnit="l/cmH2O") = 2.4881075596661e-06,
           useExternalPressureInput=false,
           hardElastance=true)
           annotation (Placement(transformation(extent={{-8,-104},{12,-84}})));
-        PhysiolibraryExpantion.ElasticVesselWithInnerVolume Cw(
+        PhysiolibraryExpantion.Obsolent.ElasticVesselWithInnerVolume Cw(
           ZeroPressureVolume=0.0023,
-          Compliance(displayUnit="l/cmH2O") = 2.0394324259559e-06,
+          Compliance(displayUnit="l/cmH2O") = 2.4881075596661e-06,
           useInnerInput=true,
           hardElastance=true)
           annotation (Placement(transformation(extent={{38,-18},{58,2}})));
@@ -3572,7 +4253,7 @@ Connector with one output signal of type Real.
               origin={8,78})));
         Physiolibrary.Hydraulic.Components.Resistor Rp2(Resistance(displayUnit=
                 "(cmH2O.s)/l") = 49033.25)
-          annotation (Placement(transformation(extent={{24,70},{44,90}})));
+          annotation (Placement(transformation(extent={{26,68},{46,88}})));
         PhysiolibraryExpantion.ElasticVessel CL2(
           volume_start=0.0023,
           ZeroPressureVolume=0.0023,
@@ -3586,15 +4267,15 @@ Connector with one output signal of type Real.
         PhysiolibraryExpantion.OuterElasticVessel outerElasticVessel(
           outer_volume_start=0,
           useV0Input=false,
-          ZeroPressureVolume=0.0036,
+          ZeroPressureVolume=0.0023,
           useComplianceInput=false,
           Compliance(displayUnit="l/cmH2O") = 2.4881075596661e-06,
           useExternalPressureInput=false,                   hardElastance=true)
           annotation (Placement(transformation(extent={{58,46},{78,66}})));
         Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
-          annotation (Placement(transformation(extent={{72,78},{92,98}})));
+          annotation (Placement(transformation(extent={{80,74},{100,94}})));
         Modelica.Blocks.Math.Feedback feedback
-          annotation (Placement(transformation(extent={{86,56},{106,76}})));
+          annotation (Placement(transformation(extent={{102,70},{122,90}})));
       equation
         connect(product1.u1,pressure. y) annotation (Line(points={{-48,72},{-60,
                 72},{-60,86},{-67,86}}, color={0,0,127}));
@@ -3655,7 +4336,7 @@ Connector with one output signal of type Real.
                 49.5,-17.9},{49.5,-28},{70,-28},{70,42},{50,42},{50,34}}, color=
                {0,0,127}));
         connect(Rc2.q_out, Rp2.q_in) annotation (Line(
-            points={{18,78},{24,78},{24,80}},
+            points={{18,78},{26,78}},
             color={0,0,0},
             thickness=1));
         connect(unlimitedVolume2.y, Rc2.q_in) annotation (Line(
@@ -3666,7 +4347,7 @@ Connector with one output signal of type Real.
           annotation (Line(points={{-28,90},{-22,66},{-22,44},{-84,44},{-84,28},
                 {-78,28}}, color={0,0,127}));
         connect(Rp2.q_out, CL2.q_in) annotation (Line(
-            points={{44,80},{64,80}},
+            points={{46,78},{54,78},{54,80},{64,80}},
             color={0,0,0},
             thickness=1));
         connect(outerElasticVessel.InnerVolume, CL2.volume) annotation (Line(
@@ -3674,13 +4355,14 @@ Connector with one output signal of type Real.
         connect(outerElasticVessel.pressure, CL2.externalPressure) annotation (
             Line(points={{80.1,54.9},{80.1,92},{72,92},{72,88}}, color={0,0,127}));
         connect(CL2.q_in, pressureMeasure.q_in) annotation (Line(
-            points={{64,80},{72,80},{72,82},{78,82}},
+            points={{64,80},{50,80},{50,98},{86,98},{86,78}},
             color={0,0,0},
             thickness=1));
-        connect(feedback.u1, CL2.externalPressure) annotation (Line(points={{88,66},
-                {76.1,66},{76.1,90},{72,90},{72,88}},     color={0,0,127}));
-        connect(feedback.u2, pressureMeasure.pressure) annotation (Line(points=
-                {{96,58},{96,52},{110,52},{110,84},{88,84}}, color={0,0,127}));
+        connect(pressureMeasure.pressure, feedback.u1)
+          annotation (Line(points={{96,80},{104,80}}, color={0,0,127}));
+        connect(feedback.u2, CL2.externalPressure) annotation (Line(points={{
+                112,72},{112,58},{80.1,58},{80.1,92},{72,92},{72,88}}, color={0,
+                0,127}));
         annotation (
           Icon(coordinateSystem(preserveAspectRatio=false)),
           Diagram(coordinateSystem(preserveAspectRatio=false)),
@@ -3700,7 +4382,7 @@ Connector with one output signal of type Real.
           annotation (Placement(transformation(extent={{46,20},{66,40}})));
         Physiolibrary.Hydraulic.Sources.UnlimitedVolume unlimitedVolume2(
             usePressureInput=false)
-          annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+          annotation (Placement(transformation(extent={{-48,20},{-28,40}})));
         PhysiolibraryExpantion.OuterElasticVessel Cw(
           outer_volume_start=0,
           useV0Input=false,
@@ -3710,40 +4392,53 @@ Connector with one output signal of type Real.
           useExternalPressureInput=true,
           hardElastance=true)
           annotation (Placement(transformation(extent={{50,-4},{70,16}})));
-        Physiolibrary.Hydraulic.Components.Resistor resistor(Resistance(
-              displayUnit="(cmH2O.s)/l") = 362846.05)
+        Physiolibrary.Hydraulic.Components.Resistor resistor(Resistance(displayUnit="(cmH2O.s)/l")=
+               362846.05)
           annotation (Placement(transformation(extent={{16,20},{36,40}})));
         MeursHemodynamics.Components.BreathInterval breathInterval1
           annotation (Placement(transformation(extent={{-40,-28},{-20,-8}})));
-        Modelica.Blocks.Sources.Constant BreathRate(k=12)
+        Modelica.Blocks.Sources.Constant BreathRate(k=6)
           annotation (Placement(transformation(extent={{-86,-28},{-66,-8}})));
-        Physiolibrary.Types.Constants.PressureConst RespiratoryMuscleAmplitude(
-            k(displayUnit="cmH2O") = -441.29925)
-          annotation (Placement(transformation(extent={{-28,4},{-20,12}})));
+        Physiolibrary.Types.Constants.PressureConst RespiratoryMuscleAmplitude(k(
+              displayUnit="cmH2O") = -441.29925)
+          annotation (Placement(transformation(extent={{-30,4},{-22,12}})));
         Modelica.Blocks.Math.Product product1
           annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+
+           Physiolibrary.Types.Pressure AlveolarPressure;
+
+        Physiolibrary.Blocks.Math.Integrator int
+          annotation (Placement(transformation(extent={{24,50},{44,70}})));
+        Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure
+          annotation (Placement(transformation(extent={{-16,20},{4,40}})));
       equation
+        AlveolarPressure=Cw.pressure+CL.q_in.pressure;
         connect(Cw.InnerVolume, CL.volume)
           annotation (Line(points={{66.2,4},{62,4},{62,20}}, color={0,0,127}));
-        connect(Cw.pressure, CL.externalPressure) annotation (Line(points={{
-                72.1,4.9},{72.1,42},{64,42},{64,38}}, color={0,0,127}));
-        connect(unlimitedVolume2.y, resistor.q_in) annotation (Line(
-            points={{8.88178e-16,30},{16,30}},
-            color={0,0,0},
-            thickness=1));
+        connect(Cw.pressure, CL.externalPressure) annotation (Line(points={{72.1,4.9},
+                {72.1,42},{64,42},{64,38}}, color={0,0,127}));
         connect(resistor.q_out, CL.q_in) annotation (Line(
             points={{36,30},{56,30}},
             color={0,0,0},
             thickness=1));
         connect(BreathRate.y, breathInterval1.RR)
           annotation (Line(points={{-65,-18},{-40.4,-18}}, color={0,0,127}));
-        connect(breathInterval1.Pm, product1.u2) annotation (Line(points={{-19,
-                -18},{-8,-18},{-8,-16},{-2,-16}}, color={0,0,127}));
-        connect(RespiratoryMuscleAmplitude.y, product1.u1) annotation (Line(
-              points={{-19,8},{-8,8},{-8,-4},{-2,-4}}, color={0,0,127}));
-        connect(product1.y, Cw.externalPressure) annotation (Line(points={{21,
-                -10},{36,-10},{36,14},{58,14},{58,10},{58.4,10}}, color={0,0,
-                127}));
+        connect(breathInterval1.Pm, product1.u2) annotation (Line(points={{-19,-18},{-8,
+                -18},{-8,-16},{-2,-16}}, color={0,0,127}));
+        connect(RespiratoryMuscleAmplitude.y, product1.u1) annotation (Line(points={{-21,
+                8},{-8,8},{-8,-4},{-2,-4}}, color={0,0,127}));
+        connect(product1.y, Cw.externalPressure) annotation (Line(points={{21,-10},{36,
+                -10},{36,14},{58,14},{58,10},{58.4,10}}, color={0,0,127}));
+        connect(flowMeasure.q_out, resistor.q_in) annotation (Line(
+            points={{4,30},{16,30}},
+            color={0,0,0},
+            thickness=1));
+        connect(flowMeasure.q_in, unlimitedVolume2.y) annotation (Line(
+            points={{-16,30},{-28,30}},
+            color={0,0,0},
+            thickness=1));
+        connect(flowMeasure.volumeFlow, int.u)
+          annotation (Line(points={{-6,42},{-6,60},{22,60}}, color={0,0,127}));
         annotation (
           Icon(coordinateSystem(preserveAspectRatio=false)),
           Diagram(coordinateSystem(preserveAspectRatio=false)),
@@ -3752,376 +4447,9 @@ Connector with one output signal of type Real.
             __Dymola_NumberOfIntervals=5000,
             __Dymola_Algorithm="Dassl"));
       end TestSimpleRespirationMechachanics;
-    end Model;
+    end Tests;
 
     package PhysiolibraryExpantion
-      model ElasticVesselWithInnerVolume
-        "Elastic container for blood vessels, bladder, lumens"
-       extends Physiolibrary.Icons.ElasticBalloon;
-      // extends SteadyStates.Interfaces.SteadyState(state_start=volume_start, storeUnit="ml");
-        Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a
-          q_in annotation (Placement(
-              transformation(extent={{-14,-14},{
-                  14,14}}), iconTransformation(extent={{
-                  -16,-32},{12,-4}})));
-
-        parameter Physiolibrary.Types.Volume outer_volume_start=1e-11
-          "Outer volume start value" annotation (Dialog(
-              group="Initialization"));                                                //default = 1e-5 ml
-        Physiolibrary.Types.Volume excessVolume
-          "Additional volume, that generate pressure";
-
-         parameter Boolean useV0Input=false
-          "=true, if zero-pressure-volume input is used"
-          annotation(Evaluate=true, HideResult=true, choices(checkBox=true),Dialog(group="External inputs/outputs"));
-
-         parameter Physiolibrary.Types.Volume ZeroPressureVolume=1e-11
-          "Maximal volume, that does not generate pressure if useV0Input=false"
-          annotation (Dialog(enable=not
-                useV0Input));                         //default = 1e-5 ml
-
-         Physiolibrary.Types.RealIO.VolumeInput zeroPressureVolume(start=
-              ZeroPressureVolume)=zpv if
-          useV0Input annotation (Placement(
-              transformation(
-              extent={{-20,-20},{20,20}},
-              rotation=270,
-              origin={-80,80})));
-        parameter Boolean useComplianceInput=false
-          "=true, if compliance input is used" annotation (
-          Evaluate=true,
-          HideResult=true,
-          choices(checkBox=true),
-          Dialog(group="External inputs/outputs"));
-        parameter Physiolibrary.Types.HydraulicCompliance Compliance=1
-          "Compliance if useComplianceInput=false" annotation (Dialog(enable=not
-                useComplianceInput), HideResult=useComplianceInput);
-
-        Physiolibrary.Types.RealIO.HydraulicComplianceInput compliance(start=
-              Compliance) = c if
-          useComplianceInput annotation (Placement(transformation(
-              extent={{-20,-20},{20,20}},
-              rotation=270,
-              origin={0,80})));
-        parameter Boolean useExternalPressureInput=false
-          "=true, if external pressure input is used" annotation (
-          Evaluate=true,
-          HideResult=true,
-          choices(checkBox=true),
-          Dialog(group="External inputs/outputs"));
-        parameter Physiolibrary.Types.Pressure ExternalPressure=0
-          "External pressure. Set zero if internal pressure is relative to external. Valid only if useExternalPressureInput=false."
-          annotation (Dialog(enable=not useExternalPressureInput), HideResult=
-              useExternalPressureInput);
-
-        Physiolibrary.Types.RealIO.PressureInput externalPressure(start=
-              ExternalPressure) = ep if
-          useExternalPressureInput annotation (Placement(transformation(
-              extent={{-20,-20},{20,20}},
-              rotation=270,
-              origin={80,80})));
-
-        Physiolibrary.Types.RealIO.VolumeOutput volume(start=InnerVolume +
-              OuterVolume, fixed=true) annotation (Placement(transformation(
-              extent={{-20,-20},{20,20}},
-              rotation=270,
-              origin={0,-100}), iconTransformation(
-              extent={{-20,-20},{20,20}},
-              rotation=270,
-              origin={60,-100})));
-        Physiolibrary.Types.Volume OuterVolume(start=outer_volume_start, fixed=true);
-        parameter Physiolibrary.Types.Volume excessVolume_min(min=-Modelica.Constants.inf)=
-             0 "Minimal pressure below zeroPressureVolume" annotation (Evaluate=true);
-        parameter Physiolibrary.Types.Pressure MinimalCollapsingPressure=-101325;
-        parameter Physiolibrary.Types.Volume CollapsingPressureVolume=1e-12
-          "Maximal volume, which generate negative collapsing pressure";
-        //default = 1e-6 ml
-
-        parameter Boolean useInnerInput=false "=true, if inner volume input is used"
-          annotation (
-          Evaluate=true,
-          HideResult=true,
-          choices(checkBox=true),
-          Dialog(group="External inputs/outputs"));
-
-          Physiolibrary.Types.RealIO.VolumeInput InnerVolume
-            annotation (Placement(
-              transformation(
-              extent={{-20,-20},{20,20}},
-              rotation=270,
-              origin={-80,80}),
-              iconTransformation(
-              extent={{-20,-20},{20,20}},
-              rotation=0,
-              origin={-40,14})));
-
-         //Physiolibrary.Types.RealIO.VolumeInput InnerVolume=iv
-         // if useInnerInput
-
-            parameter Boolean hardElastance=false;
-
-        Physiolibrary.Types.RealIO.PressureOutput
-          pressure annotation (Placement(transformation(
-                extent={{-252,-120},{-232,-100}}),
-              iconTransformation(
-              extent={{-19,-19},{19,19}},
-              rotation=270,
-              origin={15,-99})));
-      protected
-        Physiolibrary.Types.Volume zpv;
-        Physiolibrary.Types.HydraulicCompliance c;
-        Physiolibrary.Types.Pressure ep;
-        //Physiolibrary.Types.Volume iv;
-        parameter Physiolibrary.Types.Pressure a=
-            MinimalCollapsingPressure/log(
-            Modelica.Constants.eps);
-
-      equation
-        if not useV0Input then
-          zpv=ZeroPressureVolume;
-        end if;
-        if not useComplianceInput then
-          c=Compliance;
-        end if;
-        if not useExternalPressureInput then
-          ep=ExternalPressure;
-        end if;
-        if useInnerInput then
-          excessVolume = volume - zpv;
-        else
-          excessVolume = max(excessVolume_min, volume - zpv);
-        end if;
-          if hardElastance then
-          q_in.pressure = excessVolume/c + ep;
-        else
-          q_in.pressure = smooth(0, if noEvent(volume > CollapsingPressureVolume)
-             then (excessVolume/c + ep) else (a*log(max(Modelica.Constants.eps,
-            volume/CollapsingPressureVolume)) + ep));
-        end if;
-        pressure=q_in.pressure;
-        //then: normal physiological state
-        //else: abnormal collapsing state
-
-        //Collapsing state: the max function prevents the zero or negative input to logarithm, the logarithm brings more negative pressure for smaller volume
-        //However this collapsing is limited with numerical precission, which is reached relatively soon.
-
-        der(OuterVolume) =  q_in.q;
-        volume=InnerVolume+OuterVolume;
-        assert(volume>=-Modelica.Constants.eps,"Collapsing of vessels are not supported!", AssertionLevel.warning);
-       annotation (
-          Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{
-                  100,100}}), graphics={Text(
-                extent={{-316,-148},{162,-108}},
-                textString="%name",
-                lineColor={0,0,255}), Ellipse(
-                extent={{-20,28},{14,-2}},
-                lineColor={28,108,200},
-                fillColor={28,108,200},
-                fillPattern=FillPattern.Solid)}),
-                                               Documentation(revisions="<html>
-<p><i>2009-2014 - </i>Marek Matejak, Charles University, Prague, Czech Republic</p>
-<ul>
-<li>initial implementation </li>
-</ul>
-<p>4.5.2015 - Tom&aacute;&scaron; Kulh&aacute;nek, Charles University, Prague, Czech Republic</p>
-<ul>
-<li>fix of external pressure</li>
-</ul>
-</html>",   info="<html>
-<p>Pressure can be generated by an elastic tissue surrounding some accumulated volume. Typically there is a threshold volume, below which the relative pressure is equal to external pressure and the wall of the blood vessels is not stressed. But if the volume rises above this value, the pressure increases proportionally. The slope in this pressure-volume characteristic is called &ldquo;Compliance&rdquo;.</p>
-<ul>
-<li>Increassing volume above ZeroPressureVolume (V0) generate positive pressure (greater than external pressure) lineary dependent on excess volume.</li>
-<li>Decreasing volume below CollapsingPressureVolume (V00) generate negative pressure (lower than external pressure) logarithmicaly dependent on volume.</li>
-<li>Otherwise external pressure is presented as pressure inside ElasticVessel.</li>
-</ul>
-<p><br><img src=\"modelica://Physiolibrary/Resources/Images/UserGuide/ElasticVessel_PV.png\"/></p>
-</html>"));
-      end ElasticVesselWithInnerVolume;
-
-      model ElasticVessel
-        "Elastic container for blood vessels, bladder, lumens"
-       extends Physiolibrary.Icons.ElasticBalloon;
-      // extends SteadyStates.Interfaces.SteadyState(state_start=volume_start, storeUnit="ml");
-        Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in
-          annotation (Placement(transformation(extent={{-14,-14},{14,14}})));
-        parameter Physiolibrary.Types.Volume volume_start=1e-11 "Volume start value"
-          annotation (Dialog(group="Initialization"));                                 //default = 1e-5 ml
-        Physiolibrary.Types.Volume excessVolume
-          "Additional volume, that generate pressure";
-
-         parameter Boolean useV0Input = false
-          "=true, if zero-pressure-volume input is used"
-          annotation(Evaluate=true, HideResult=true, choices(checkBox=true),Dialog(group="External inputs/outputs"));
-
-         parameter Physiolibrary.Types.Volume ZeroPressureVolume=1e-11
-          "Maximal volume, that does not generate pressure if useV0Input=false"
-          annotation (Dialog(enable=not useV0Input)); //default = 1e-5 ml
-
-         Physiolibrary.Types.RealIO.VolumeInput zeroPressureVolume(start=
-              ZeroPressureVolume)=zpv if useV0Input annotation (Placement(
-              transformation(
-              extent={{-20,-20},{20,20}},
-              rotation=270,
-              origin={-80,80})));
-        parameter Boolean useComplianceInput = false
-          "=true, if compliance input is used"
-          annotation(Evaluate=true, HideResult=true, choices(checkBox=true),Dialog(group="External inputs/outputs"));
-        parameter Physiolibrary.Types.HydraulicCompliance Compliance=1
-          "Compliance if useComplianceInput=false" annotation (Dialog(enable=not
-                useComplianceInput), HideResult=useComplianceInput);
-
-        Physiolibrary.Types.RealIO.HydraulicComplianceInput compliance(start=
-              Compliance)=c if useComplianceInput annotation (Placement(
-              transformation(
-              extent={{-20,-20},{20,20}},
-              rotation=270,
-              origin={0,80})));
-        parameter Boolean useExternalPressureInput = false
-          "=true, if external pressure input is used"
-          annotation(Evaluate=true, HideResult=true, choices(checkBox=true),Dialog(group="External inputs/outputs"));
-        parameter Physiolibrary.Types.Pressure ExternalPressure=0
-          "External pressure. Set zero if internal pressure is relative to external. Valid only if useExternalPressureInput=false."
-          annotation (Dialog(enable=not useExternalPressureInput), HideResult=
-              useExternalPressureInput);
-
-        Physiolibrary.Types.RealIO.PressureInput externalPressure(start=
-              ExternalPressure)=ep if useExternalPressureInput annotation (Placement(
-              transformation(
-              extent={{-20,-20},{20,20}},
-              rotation=270,
-              origin={80,80})));
-
-        Physiolibrary.Types.RealIO.VolumeOutput volume(start=volume_start, fixed=true)
-          annotation (Placement(transformation(
-              extent={{-20,-20},{20,20}},
-              rotation=270,
-              origin={0,-100}), iconTransformation(
-              extent={{-20,-20},{20,20}},
-              rotation=270,
-              origin={60,-100})));
-         parameter Physiolibrary.Types.Volume excessVolume_min(min = -Modelica.Constants.inf) = 0 "Minimal pressure below zeroPressureVolume" annotation(Evaluate = true);
-        parameter Physiolibrary.Types.Pressure MinimalCollapsingPressure(min=-
-              Modelica.Constants.inf)=-101325;
-          parameter Physiolibrary.Types.Volume CollapsingPressureVolume(min=-Modelica.Constants.inf)=
-           1e-12 "Maximal volume, which generate negative collapsing pressure";
-                                                                         //default = 1e-6 ml
-         parameter Boolean hardElastance=false;
-
-      protected
-        Physiolibrary.Types.Volume zpv;
-        Physiolibrary.Types.HydraulicCompliance c;
-        Physiolibrary.Types.Pressure ep;
-        parameter Physiolibrary.Types.Pressure a=MinimalCollapsingPressure/log(
-            Modelica.Constants.eps);
-
-      equation
-        if not useV0Input then
-          zpv = ZeroPressureVolume;
-        end if;
-        if not useComplianceInput then
-          c = Compliance;
-        end if;
-        if not useExternalPressureInput then
-          ep = ExternalPressure;
-        end if;
-        excessVolume = max(excessVolume_min, volume - zpv);
-        if hardElastance then
-          q_in.pressure = (volume-zpv)/c + ep;
-        else
-          q_in.pressure = smooth(0, if noEvent(volume > CollapsingPressureVolume)
-             then (excessVolume/c + ep) else (a*log(max(Modelica.Constants.eps,
-            volume/CollapsingPressureVolume)) + ep));
-        end if;
-        //then: normal physiological state
-        //else: abnormal collapsing state
-
-        //Collapsing state: the max function prevents the zero or negative input to logarithm, the logarithm brings more negative pressure for smaller volume
-        //However this collapsing is limited with numerical precission, which is reached relatively soon.
-
-        der(volume) = q_in.q;
-        assert(
-          volume >= -Modelica.Constants.eps,
-          "Collapsing of vessels are not supported!",
-          AssertionLevel.warning);
-        annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-                  {100,100}}), graphics={Text(
-                extent={{-318,-140},{160,-100}},
-                textString="%name",
-                lineColor={0,0,255})}), Documentation(revisions="<html>
-<p><i>2009-2014 - </i>Marek Matejak, Charles University, Prague, Czech Republic</p>
-<ul>
-<li>initial implementation </li>
-</ul>
-<p>4.5.2015 - Tom&aacute;&scaron; Kulh&aacute;nek, Charles University, Prague, Czech Republic</p>
-<ul>
-<li>fix of external pressure</li>
-</ul>
-</html>",       info="<html>
-<p>Pressure can be generated by an elastic tissue surrounding some accumulated volume. Typically there is a threshold volume, below which the relative pressure is equal to external pressure and the wall of the blood vessels is not stressed. But if the volume rises above this value, the pressure increases proportionally. The slope in this pressure-volume characteristic is called &ldquo;Compliance&rdquo;.</p>
-<ul>
-<li>Increassing volume above ZeroPressureVolume (V0) generate positive pressure (greater than external pressure) lineary dependent on excess volume.</li>
-<li>Decreasing volume below CollapsingPressureVolume (V00) generate negative pressure (lower than external pressure) logarithmicaly dependent on volume.</li>
-<li>Otherwise external pressure is presented as pressure inside ElasticVessel.</li>
-</ul>
-<p><br><img src=\"modelica://Physiolibrary/Resources/Images/UserGuide/ElasticVessel_PV.png\"/></p>
-</html>"));
-      end ElasticVessel;
-
-      model SerialElasticConnections
-        Physiolibrary.Types.RealIO.PressureOutput pressure annotation (
-            Placement(transformation(extent={{84,2},{104,22}}),
-              iconTransformation(extent={{56,0},{76,20}})));
-        Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a Inner_a annotation (
-            Placement(transformation(extent={{-96,0},{-76,20}}),
-              iconTransformation(extent={{-4,-12},{16,8}})));
-        Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b Inner_b annotation (
-            Placement(transformation(extent={{-24,0},{-4,20}}),
-              iconTransformation(extent={{-4,16},{16,36}})));
-        Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b Outer annotation (
-            Placement(transformation(extent={{28,0},{48,20}}),
-              iconTransformation(extent={{-2,-42},{18,-22}})));
-        Physiolibrary.Hydraulic.Sources.UnlimitedPump unlimitedPump(
-            useSolutionFlowInput=true)
-          annotation (Placement(transformation(extent={{-4,0},{16,20}})));
-        Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure
-          annotation (Placement(transformation(extent={{-66,0},{-46,20}})));
-        Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
-          annotation (Placement(transformation(extent={{40,6},{60,26}})));
-      equation
-        connect(Inner_a, flowMeasure.q_in) annotation (Line(
-            points={{-86,10},{-66,10}},
-            color={0,0,0},
-            thickness=1));
-        connect(flowMeasure.q_out, Inner_b) annotation (Line(
-            points={{-46,10},{-14,10}},
-            color={0,0,0},
-            thickness=1));
-        connect(Outer, unlimitedPump.q_out) annotation (Line(
-            points={{38,10},{16,10}},
-            color={0,0,0},
-            thickness=1));
-        connect(pressureMeasure.q_in, Outer) annotation (Line(
-            points={{46,10},{38,10}},
-            color={0,0,0},
-            thickness=1));
-        connect(pressureMeasure.pressure, pressure)
-          annotation (Line(points={{56,12},{94,12}}, color={0,0,127}));
-        connect(flowMeasure.volumeFlow, unlimitedPump.solutionFlow) annotation (
-           Line(points={{-56,22},{-56,34},{6,34},{6,17}}, color={0,0,127}));
-        annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                Ellipse(
-                extent={{-48,64},{62,-44}},
-                lineColor={28,108,200},
-                lineThickness=1,
-                fillColor={170,255,255},
-                fillPattern=FillPattern.Solid), Ellipse(
-                extent={{-28,44},{40,-20}},
-                lineColor={28,108,200},
-                lineThickness=1,
-                fillColor={28,108,200},
-                fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
-                preserveAspectRatio=false)));
-      end SerialElasticConnections;
 
       model OuterElasticVessel
         "Elastic container for blood vessels, bladder, lumens"
@@ -4331,8 +4659,459 @@ Connector with one output signal of type Real.
 <p><br><img src=\"modelica://Physiolibrary/Resources/Images/UserGuide/ElasticVessel_PV.png\"/></p>
 </html>"));
       end OuterElasticVessel;
+
+      model ElasticVessel
+        "Elastic container for blood vessels, bladder, lumens"
+       extends Physiolibrary.Icons.ElasticBalloon;
+      // extends SteadyStates.Interfaces.SteadyState(state_start=volume_start, storeUnit="ml");
+        Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a q_in
+          annotation (Placement(transformation(extent={{-14,-14},{14,14}})));
+        parameter Physiolibrary.Types.Volume volume_start=1e-11 "Volume start value"
+          annotation (Dialog(group="Initialization"));                                 //default = 1e-5 ml
+        Physiolibrary.Types.Volume excessVolume
+          "Additional volume, that generate pressure";
+
+         parameter Boolean useV0Input = false
+          "=true, if zero-pressure-volume input is used"
+          annotation(Evaluate=true, HideResult=true, choices(checkBox=true),Dialog(group="External inputs/outputs"));
+
+         parameter Physiolibrary.Types.Volume ZeroPressureVolume=1e-11
+          "Maximal volume, that does not generate pressure if useV0Input=false"
+          annotation (Dialog(enable=not useV0Input)); //default = 1e-5 ml
+
+         Physiolibrary.Types.RealIO.VolumeInput zeroPressureVolume(start=
+              ZeroPressureVolume)=zpv if useV0Input annotation (Placement(
+              transformation(
+              extent={{-20,-20},{20,20}},
+              rotation=270,
+              origin={-80,80})));
+        parameter Boolean useComplianceInput = false
+          "=true, if compliance input is used"
+          annotation(Evaluate=true, HideResult=true, choices(checkBox=true),Dialog(group="External inputs/outputs"));
+        parameter Physiolibrary.Types.HydraulicCompliance Compliance=1
+          "Compliance if useComplianceInput=false" annotation (Dialog(enable=not
+                useComplianceInput), HideResult=useComplianceInput);
+
+        Physiolibrary.Types.RealIO.HydraulicComplianceInput compliance(start=
+              Compliance)=c if useComplianceInput annotation (Placement(
+              transformation(
+              extent={{-20,-20},{20,20}},
+              rotation=270,
+              origin={0,80})));
+        parameter Boolean useExternalPressureInput = false
+          "=true, if external pressure input is used"
+          annotation(Evaluate=true, HideResult=true, choices(checkBox=true),Dialog(group="External inputs/outputs"));
+        parameter Physiolibrary.Types.Pressure ExternalPressure=0
+          "External pressure. Set zero if internal pressure is relative to external. Valid only if useExternalPressureInput=false."
+          annotation (Dialog(enable=not useExternalPressureInput), HideResult=
+              useExternalPressureInput);
+
+        Physiolibrary.Types.RealIO.PressureInput externalPressure(start=
+              ExternalPressure)=ep if useExternalPressureInput annotation (Placement(
+              transformation(
+              extent={{-20,-20},{20,20}},
+              rotation=270,
+              origin={80,80})));
+
+        Physiolibrary.Types.RealIO.VolumeOutput volume(start=volume_start, fixed=true)
+          annotation (Placement(transformation(
+              extent={{-20,-20},{20,20}},
+              rotation=270,
+              origin={0,-100}), iconTransformation(
+              extent={{-20,-20},{20,20}},
+              rotation=270,
+              origin={60,-100})));
+         parameter Physiolibrary.Types.Volume excessVolume_min(min = -Modelica.Constants.inf) = 0 "Minimal pressure below zeroPressureVolume" annotation(Evaluate = true);
+        parameter Physiolibrary.Types.Pressure MinimalCollapsingPressure=-101325;
+          parameter Physiolibrary.Types.Volume CollapsingPressureVolume=1e-12
+                 "Maximal volume, which generate negative collapsing pressure";
+                                                                         //default = 1e-6 ml
+         parameter Boolean hardElastance=false;
+
+      protected
+        Physiolibrary.Types.Volume zpv;
+        Physiolibrary.Types.HydraulicCompliance c;
+        Physiolibrary.Types.Pressure ep;
+        parameter Physiolibrary.Types.Pressure a=MinimalCollapsingPressure/log(
+            Modelica.Constants.eps);
+
+      equation
+        if not useV0Input then
+          zpv = ZeroPressureVolume;
+        end if;
+        if not useComplianceInput then
+          c = Compliance;
+        end if;
+        if not useExternalPressureInput then
+          ep = ExternalPressure;
+        end if;
+        excessVolume = max(excessVolume_min, volume - zpv);
+        if hardElastance then
+          q_in.pressure = (volume-zpv)/c + ep;
+        else
+          q_in.pressure = smooth(0, if noEvent(volume > CollapsingPressureVolume)
+             then (excessVolume/c + ep) else (a*log(max(Modelica.Constants.eps,
+            volume/CollapsingPressureVolume)) + ep));
+        end if;
+        //then: normal physiological state
+        //else: abnormal collapsing state
+
+        //Collapsing state: the max function prevents the zero or negative input to logarithm, the logarithm brings more negative pressure for smaller volume
+        //However this collapsing is limited with numerical precission, which is reached relatively soon.
+
+        der(volume) = q_in.q;
+        assert(
+          volume >= -Modelica.Constants.eps,
+          "Collapsing of vessels are not supported!",
+          AssertionLevel.warning);
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+                  {100,100}}), graphics={Text(
+                extent={{-318,-140},{160,-100}},
+                textString="%name",
+                lineColor={0,0,255})}), Documentation(revisions="<html>
+<p><i>2009-2014 - </i>Marek Matejak, Charles University, Prague, Czech Republic</p>
+<ul>
+<li>initial implementation </li>
+</ul>
+<p>4.5.2015 - Tom&aacute;&scaron; Kulh&aacute;nek, Charles University, Prague, Czech Republic</p>
+<ul>
+<li>fix of external pressure</li>
+</ul>
+</html>",       info="<html>
+<p>Pressure can be generated by an elastic tissue surrounding some accumulated volume. Typically there is a threshold volume, below which the relative pressure is equal to external pressure and the wall of the blood vessels is not stressed. But if the volume rises above this value, the pressure increases proportionally. The slope in this pressure-volume characteristic is called &ldquo;Compliance&rdquo;.</p>
+<ul>
+<li>Increassing volume above ZeroPressureVolume (V0) generate positive pressure (greater than external pressure) lineary dependent on excess volume.</li>
+<li>Decreasing volume below CollapsingPressureVolume (V00) generate negative pressure (lower than external pressure) logarithmicaly dependent on volume.</li>
+<li>Otherwise external pressure is presented as pressure inside ElasticVessel.</li>
+</ul>
+<p><br><img src=\"modelica://Physiolibrary/Resources/Images/UserGuide/ElasticVessel_PV.png\"/></p>
+</html>"));
+      end ElasticVessel;
+
+      package Obsolent
+        model SerialElasticConnections
+          Physiolibrary.Types.RealIO.PressureOutput pressure annotation (
+              Placement(transformation(extent={{84,2},{104,22}}),
+                iconTransformation(extent={{56,0},{76,20}})));
+          Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a Inner_a annotation (
+              Placement(transformation(extent={{-96,0},{-76,20}}),
+                iconTransformation(extent={{-4,-12},{16,8}})));
+          Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b Inner_b annotation (
+              Placement(transformation(extent={{-24,0},{-4,20}}),
+                iconTransformation(extent={{-4,16},{16,36}})));
+          Physiolibrary.Hydraulic.Interfaces.HydraulicPort_b Outer annotation (
+              Placement(transformation(extent={{28,0},{48,20}}),
+                iconTransformation(extent={{-2,-42},{18,-22}})));
+          Physiolibrary.Hydraulic.Sources.UnlimitedPump unlimitedPump(
+              useSolutionFlowInput=true)
+            annotation (Placement(transformation(extent={{-4,0},{16,20}})));
+          Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure
+            annotation (Placement(transformation(extent={{-66,0},{-46,20}})));
+          Physiolibrary.Hydraulic.Sensors.PressureMeasure pressureMeasure
+            annotation (Placement(transformation(extent={{40,6},{60,26}})));
+        equation
+          connect(Inner_a, flowMeasure.q_in) annotation (Line(
+              points={{-86,10},{-66,10}},
+              color={0,0,0},
+              thickness=1));
+          connect(flowMeasure.q_out, Inner_b) annotation (Line(
+              points={{-46,10},{-14,10}},
+              color={0,0,0},
+              thickness=1));
+          connect(Outer, unlimitedPump.q_out) annotation (Line(
+              points={{38,10},{16,10}},
+              color={0,0,0},
+              thickness=1));
+          connect(pressureMeasure.q_in, Outer) annotation (Line(
+              points={{46,10},{38,10}},
+              color={0,0,0},
+              thickness=1));
+          connect(pressureMeasure.pressure, pressure)
+            annotation (Line(points={{56,12},{94,12}}, color={0,0,127}));
+          connect(flowMeasure.volumeFlow, unlimitedPump.solutionFlow) annotation (
+             Line(points={{-56,22},{-56,34},{6,34},{6,17}}, color={0,0,127}));
+          annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+                  Ellipse(
+                  extent={{-48,64},{62,-44}},
+                  lineColor={28,108,200},
+                  lineThickness=1,
+                  fillColor={170,255,255},
+                  fillPattern=FillPattern.Solid), Ellipse(
+                  extent={{-28,44},{40,-20}},
+                  lineColor={28,108,200},
+                  lineThickness=1,
+                  fillColor={28,108,200},
+                  fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
+                  preserveAspectRatio=false)));
+        end SerialElasticConnections;
+
+        model ElasticVesselWithInnerVolume
+          "Elastic container for blood vessels, bladder, lumens"
+         extends Physiolibrary.Icons.ElasticBalloon;
+        // extends SteadyStates.Interfaces.SteadyState(state_start=volume_start, storeUnit="ml");
+          Physiolibrary.Hydraulic.Interfaces.HydraulicPort_a
+            q_in annotation (Placement(
+                transformation(extent={{-14,-14},{
+                    14,14}}), iconTransformation(extent={{
+                    -16,-32},{12,-4}})));
+
+          parameter Physiolibrary.Types.Volume outer_volume_start=1e-11
+            "Outer volume start value" annotation (Dialog(
+                group="Initialization"));                                                //default = 1e-5 ml
+          Physiolibrary.Types.Volume excessVolume
+            "Additional volume, that generate pressure";
+
+           parameter Boolean useV0Input=false
+            "=true, if zero-pressure-volume input is used"
+            annotation(Evaluate=true, HideResult=true, choices(checkBox=true),Dialog(group="External inputs/outputs"));
+
+           parameter Physiolibrary.Types.Volume ZeroPressureVolume=1e-11
+            "Maximal volume, that does not generate pressure if useV0Input=false"
+            annotation (Dialog(enable=not
+                  useV0Input));                         //default = 1e-5 ml
+
+           Physiolibrary.Types.RealIO.VolumeInput zeroPressureVolume(start=
+                ZeroPressureVolume)=zpv if
+            useV0Input annotation (Placement(
+                transformation(
+                extent={{-20,-20},{20,20}},
+                rotation=270,
+                origin={-80,80})));
+          parameter Boolean useComplianceInput=false
+            "=true, if compliance input is used" annotation (
+            Evaluate=true,
+            HideResult=true,
+            choices(checkBox=true),
+            Dialog(group="External inputs/outputs"));
+          parameter Physiolibrary.Types.HydraulicCompliance Compliance=1
+            "Compliance if useComplianceInput=false" annotation (Dialog(enable=not
+                  useComplianceInput), HideResult=useComplianceInput);
+
+          Physiolibrary.Types.RealIO.HydraulicComplianceInput compliance(start=
+                Compliance) = c if
+            useComplianceInput annotation (Placement(transformation(
+                extent={{-20,-20},{20,20}},
+                rotation=270,
+                origin={0,80})));
+          parameter Boolean useExternalPressureInput=false
+            "=true, if external pressure input is used" annotation (
+            Evaluate=true,
+            HideResult=true,
+            choices(checkBox=true),
+            Dialog(group="External inputs/outputs"));
+          parameter Physiolibrary.Types.Pressure ExternalPressure=0
+            "External pressure. Set zero if internal pressure is relative to external. Valid only if useExternalPressureInput=false."
+            annotation (Dialog(enable=not useExternalPressureInput), HideResult=
+                useExternalPressureInput);
+
+          Physiolibrary.Types.RealIO.PressureInput externalPressure(start=
+                ExternalPressure) = ep if
+            useExternalPressureInput annotation (Placement(transformation(
+                extent={{-20,-20},{20,20}},
+                rotation=270,
+                origin={80,80})));
+
+          Physiolibrary.Types.RealIO.VolumeOutput volume(start=InnerVolume +
+                OuterVolume, fixed=true) annotation (Placement(transformation(
+                extent={{-20,-20},{20,20}},
+                rotation=270,
+                origin={0,-100}), iconTransformation(
+                extent={{-20,-20},{20,20}},
+                rotation=270,
+                origin={60,-100})));
+          Physiolibrary.Types.Volume OuterVolume(start=outer_volume_start, fixed=true);
+          parameter Physiolibrary.Types.Volume excessVolume_min(min=-Modelica.Constants.inf)=
+               0 "Minimal pressure below zeroPressureVolume" annotation (Evaluate=true);
+          parameter Physiolibrary.Types.Pressure MinimalCollapsingPressure=-101325;
+          parameter Physiolibrary.Types.Volume CollapsingPressureVolume=1e-12
+            "Maximal volume, which generate negative collapsing pressure";
+          //default = 1e-6 ml
+
+          parameter Boolean useInnerInput=false "=true, if inner volume input is used"
+            annotation (
+            Evaluate=true,
+            HideResult=true,
+            choices(checkBox=true),
+            Dialog(group="External inputs/outputs"));
+
+            Physiolibrary.Types.RealIO.VolumeInput InnerVolume
+              annotation (Placement(
+                transformation(
+                extent={{-20,-20},{20,20}},
+                rotation=270,
+                origin={-80,80}),
+                iconTransformation(
+                extent={{-20,-20},{20,20}},
+                rotation=0,
+                origin={-40,14})));
+
+           //Physiolibrary.Types.RealIO.VolumeInput InnerVolume=iv
+           // if useInnerInput
+
+              parameter Boolean hardElastance=false;
+
+          Physiolibrary.Types.RealIO.PressureOutput
+            pressure annotation (Placement(transformation(
+                  extent={{-252,-120},{-232,-100}}),
+                iconTransformation(
+                extent={{-19,-19},{19,19}},
+                rotation=270,
+                origin={15,-99})));
+        protected
+          Physiolibrary.Types.Volume zpv;
+          Physiolibrary.Types.HydraulicCompliance c;
+          Physiolibrary.Types.Pressure ep;
+          //Physiolibrary.Types.Volume iv;
+          parameter Physiolibrary.Types.Pressure a=
+              MinimalCollapsingPressure/log(
+              Modelica.Constants.eps);
+
+        equation
+          if not useV0Input then
+            zpv=ZeroPressureVolume;
+          end if;
+          if not useComplianceInput then
+            c=Compliance;
+          end if;
+          if not useExternalPressureInput then
+            ep=ExternalPressure;
+          end if;
+          if useInnerInput then
+            excessVolume = volume - zpv;
+          else
+            excessVolume = max(excessVolume_min, volume - zpv);
+          end if;
+            if hardElastance then
+            q_in.pressure = excessVolume/c + ep;
+          else
+            q_in.pressure = smooth(0, if noEvent(volume > CollapsingPressureVolume)
+               then (excessVolume/c + ep) else (a*log(max(Modelica.Constants.eps,
+              volume/CollapsingPressureVolume)) + ep));
+          end if;
+          pressure=q_in.pressure;
+          //then: normal physiological state
+          //else: abnormal collapsing state
+
+          //Collapsing state: the max function prevents the zero or negative input to logarithm, the logarithm brings more negative pressure for smaller volume
+          //However this collapsing is limited with numerical precission, which is reached relatively soon.
+
+          der(OuterVolume) =  q_in.q;
+          volume=InnerVolume+OuterVolume;
+          assert(volume>=-Modelica.Constants.eps,"Collapsing of vessels are not supported!", AssertionLevel.warning);
+         annotation (
+            Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{
+                    100,100}}), graphics={Text(
+                  extent={{-316,-148},{162,-108}},
+                  textString="%name",
+                  lineColor={0,0,255}), Ellipse(
+                  extent={{-20,28},{14,-2}},
+                  lineColor={28,108,200},
+                  fillColor={28,108,200},
+                  fillPattern=FillPattern.Solid)}),
+                                                 Documentation(revisions="<html>
+<p><i>2009-2014 - </i>Marek Matejak, Charles University, Prague, Czech Republic</p>
+<ul>
+<li>initial implementation </li>
+</ul>
+<p>4.5.2015 - Tom&aacute;&scaron; Kulh&aacute;nek, Charles University, Prague, Czech Republic</p>
+<ul>
+<li>fix of external pressure</li>
+</ul>
+</html>",     info="<html>
+<p>Pressure can be generated by an elastic tissue surrounding some accumulated volume. Typically there is a threshold volume, below which the relative pressure is equal to external pressure and the wall of the blood vessels is not stressed. But if the volume rises above this value, the pressure increases proportionally. The slope in this pressure-volume characteristic is called &ldquo;Compliance&rdquo;.</p>
+<ul>
+<li>Increassing volume above ZeroPressureVolume (V0) generate positive pressure (greater than external pressure) lineary dependent on excess volume.</li>
+<li>Decreasing volume below CollapsingPressureVolume (V00) generate negative pressure (lower than external pressure) logarithmicaly dependent on volume.</li>
+<li>Otherwise external pressure is presented as pressure inside ElasticVessel.</li>
+</ul>
+<p><br><img src=\"modelica://Physiolibrary/Resources/Images/UserGuide/ElasticVessel_PV.png\"/></p>
+</html>"));
+        end ElasticVesselWithInnerVolume;
+      end Obsolent;
     end PhysiolibraryExpantion;
   end MeursHemodynamicsPhysiolibrary;
+
+  package Model
+    model VanMeursHemodynamicsModel
+      Components.Heart heart
+        annotation (Placement(transformation(extent={{-22,-22},{20,24}})));
+      Components.SystemicCirculation systemicCirculation
+        annotation (Placement(transformation(extent={{-30,-84},{30,-24}})));
+      Components.PulmonaryCirculation pulmonaryCirculation
+        annotation (Placement(transformation(extent={{-30,14},{30,74}})));
+    equation
+      connect(systemicCirculation.bloodFlowOutflow, heart.rightAtriumFlowInflow)
+        annotation (Line(
+          points={{-30.6,-54},{-40,-54},{-40,3.3},{-16.12,3.3}},
+          color={28,108,200},
+          thickness=1));
+      connect(heart.pulmonaryArteryOutflow, pulmonaryCirculation.bloodFlowInflow)
+        annotation (Line(
+          points={{-7.72,11.58},{-40,11.58},{-40,44},{-30.6,44}},
+          color={28,108,200},
+          thickness=1));
+      connect(systemicCirculation.bloodFlowInflow, heart.aortaOutflow)
+        annotation (Line(
+          points={{28.8,-54},{40,-54},{40,3.3},{15.38,3.3}},
+          color={255,0,0},
+          thickness=1));
+      connect(heart.leftAtriumFlowInflow, pulmonaryCirculation.bloodFlowOutflow)
+        annotation (Line(
+          points={{6.14,11.58},{40,11.58},{40,44},{30,44}},
+          color={238,46,47},
+          thickness=1));
+      annotation (
+        Icon(coordinateSystem(preserveAspectRatio=false), graphics={Ellipse(
+              extent={{-62,62},{64,-64}},
+              lineColor={255,0,0},
+              pattern=LinePattern.None,
+              lineThickness=1,
+              fillPattern=FillPattern.Sphere,
+              fillColor={244,125,35})}),
+        Diagram(coordinateSystem(preserveAspectRatio=false)),
+        experiment(
+          StopTime=10,
+          __Dymola_NumberOfIntervals=50000,
+          __Dymola_Algorithm="Dassl"));
+    end VanMeursHemodynamicsModel;
+
+    model MeurtHemodynamicsWithPhysiolobrary
+      extends Physiolibrary.Icons.CardioVascular;
+      MeursHemodynamicsPhysiolibrary.Components.HeartPhysiolibrary heartPhysiolibrary
+        annotation (Placement(transformation(extent={{-44,-30},{38,42}})));
+      MeursHemodynamicsPhysiolibrary.Components.PulmonaryCirculation pulmonaryCirculation
+        annotation (Placement(transformation(extent={{-62,24},{60,116}})));
+      MeursHemodynamicsPhysiolibrary.Components.SystemicCirculation systemicCirculation
+        annotation (Placement(transformation(extent={{-60,-104},{60,2}})));
+    equation
+      connect(heartPhysiolibrary.pulmonaryArteryOutflow, pulmonaryCirculation.pulmonaryBloodInflow)
+        annotation (Line(
+          points={{-26.78,16.8},{-86,16.8},{-86,70},{-62,70}},
+          color={0,0,0},
+          thickness=1));
+      connect(systemicCirculation.systemicBloodOutflow, heartPhysiolibrary.RightAtriumInflow)
+        annotation (Line(
+          points={{-60,-51},{-60,-52},{-88,-52},{-88,-1.2},{-26.78,-1.2}},
+          color={0,0,0},
+          thickness=1));
+      connect(systemicCirculation.systemicBloodInflow, heartPhysiolibrary.AortaOutflow)
+        annotation (Line(
+          points={{60,-51},{84,-51},{84,-2.64},{24.06,-2.64}},
+          color={0,0,0},
+          thickness=1));
+      connect(heartPhysiolibrary.leftAtriumInflow, pulmonaryCirculation.pulmonaryBloodOutflow)
+        annotation (Line(
+          points={{24.06,14.64},{86,14.64},{86,70.92},{60,70.92}},
+          color={0,0,0},
+          thickness=1));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+            coordinateSystem(preserveAspectRatio=false)),
+        experiment(
+          StopTime=20,
+          __Dymola_NumberOfIntervals=5000,
+          __Dymola_Algorithm="Dassl"));
+    end MeurtHemodynamicsWithPhysiolobrary;
+  end Model;
   annotation (uses(        Modelica(version="4.0.0"), Physiolibrary(version=
             "2.4.1")),
     version="3",
