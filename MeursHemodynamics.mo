@@ -1,4 +1,4 @@
-within ;
+﻿within ;
 package MeursHemodynamics
   package Components
     model HeartInterval
@@ -2358,7 +2358,7 @@ Connector with one output signal of type Real.
           Elastance=31064116.267695)
           annotation (Placement(transformation(extent={{-82,-38},{-54,-10}})));
         Physiolibrary.Hydraulic.Components.Resistor pulmonaryResistance(
-            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml")=
             14665462.61565)
           annotation (Placement(transformation(extent={{-54,-13},{-20,13}})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance pulmonaryVeins(
@@ -2371,7 +2371,7 @@ Connector with one output signal of type Real.
           Elastance=6066168.6273825)
           annotation (Placement(transformation(extent={{-6,-40},{28,-12}})));
         Physiolibrary.Hydraulic.Components.Resistor PulmonaryVenousResistance(
-            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml")=
             399967.162245)
           annotation (Placement(transformation(extent={{36,-12},{66,12}})));
       equation
@@ -2429,7 +2429,7 @@ Connector with one output signal of type Real.
           ZeroPressureVolume=0.00014,
           ExternalPressure=-533.28954966,
           Elastance=190651014.00345)
-          annotation (Placement(transformation(extent={{80,-46},{102,-24}})));
+          annotation (Placement(transformation(extent={{80,-36},{102,-14}})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance extrathoracicArteries(
           volume_start(displayUnit="ml") = 0.000526,
           useV0Input=false,
@@ -2437,13 +2437,13 @@ Connector with one output signal of type Real.
           useComplianceInput=false,
           ZeroPressureVolume=0.00037,
           Elastance=74127247.40274)
-          annotation (Placement(transformation(extent={{26,-44},{50,-22}})));
+          annotation (Placement(transformation(extent={{26,-36},{50,-14}})));
         Physiolibrary.Hydraulic.Components.Resistor extrathoracicArterialResistance(
-            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml")=
             7999343.2449)
           annotation (Placement(transformation(extent={{42,-10},{62,10}})));
         Physiolibrary.Hydraulic.Components.Resistor venousResistance(
-            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml")=
             11999014.86735)
           annotation (Placement(transformation(extent={{-32,-10},{-56,10}})));
         Physiolibrary.Hydraulic.Components.Inertia aorticFlowInertia(I(
@@ -2453,11 +2453,11 @@ Connector with one output signal of type Real.
               rotation=180,
               origin={76,0})));
         Physiolibrary.Hydraulic.Components.Resistor systemicArteriolarResistance(
-            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml")=
             106657909.932) annotation (Placement(transformation(extent={{12,-10},
                   {-12,10}}, origin={22,0})));
         Physiolibrary.Hydraulic.Components.Resistor smallVenuleResistance(
-            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml")=
             26664477.483) annotation (Placement(transformation(extent={{13,-10},
                   {-13,10}}, origin={-9,0})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance SystemicTissues(
@@ -2467,9 +2467,9 @@ Connector with one output signal of type Real.
           volume_start=0.000283,
           ZeroPressureVolume=0.000185,
           Elastance=34930465.50273)
-          annotation (Placement(transformation(extent={{-4,-44},{20,-22}})));
+          annotation (Placement(transformation(extent={{-6,18},{18,40}})));
         Physiolibrary.Hydraulic.Components.Resistor centralVenousResistance(
-            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml") =
+            useConductanceInput=false, Resistance(displayUnit="(mmHg.s)/ml")=
             399967.162245)
           annotation (Placement(transformation(extent={{-66,-10},{-92,10}})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance intrathoracicVeins(
@@ -2480,7 +2480,7 @@ Connector with one output signal of type Real.
           ZeroPressureVolume=0.00119,
           ExternalPressure=-533.28954966,
           Elastance=2426467.450953)
-          annotation (Placement(transformation(extent={{-72,-44},{-50,-22}})));
+          annotation (Placement(transformation(extent={{-72,14},{-50,36}})));
         Physiolibrary.Hydraulic.Components.ElasticVesselElastance extrathoracicVeins(
           useV0Input=false,
           useExternalPressureInput=false,
@@ -2488,15 +2488,15 @@ Connector with one output signal of type Real.
           volume_start=0.00153,
           ZeroPressureVolume=0.001,
           Elastance=2253148.3473135)
-          annotation (Placement(transformation(extent={{-38,-44},{-16,-22}})));
+          annotation (Placement(transformation(extent={{-38,-40},{-16,-18}})));
       equation
         connect(systemicBloodInflow, aorticFlowInertia.q_in) annotation (Line(
             points={{100,0},{86,-1.9984e-15}},
             color={0,0,0},
             thickness=1));
-        connect(intrathoracicArteries.q_in, aorticFlowInertia.q_in) annotation
-          (Line(
-            points={{91,-35},{91,0},{86,0},{86,-1.9984e-15}},
+        connect(intrathoracicArteries.q_in, aorticFlowInertia.q_in) annotation (
+           Line(
+            points={{91,-25},{91,0},{86,0},{86,-1.9984e-15}},
             color={0,0,0},
             thickness=1));
         connect(systemicBloodOutflow, centralVenousResistance.q_out)
@@ -2509,8 +2509,8 @@ Connector with one output signal of type Real.
             points={{-66,0},{-56,0}},
             color={0,0,0},
             thickness=1));
-        connect(venousResistance.q_in, smallVenuleResistance.q_out) annotation
-          (Line(
+        connect(venousResistance.q_in, smallVenuleResistance.q_out) annotation (
+           Line(
             points={{-32,0},{-22,0}},
             color={0,0,0},
             thickness=1));
@@ -2531,22 +2531,22 @@ Connector with one output signal of type Real.
             thickness=1));
         connect(intrathoracicVeins.q_in, venousResistance.q_out) annotation (
             Line(
-            points={{-61,-33},{-61,0},{-56,0}},
+            points={{-61,25},{-62,0},{-56,0}},
             color={0,0,0},
             thickness=1));
         connect(extrathoracicVeins.q_in, smallVenuleResistance.q_out)
           annotation (Line(
-            points={{-27,-33},{-27,0},{-22,0}},
+            points={{-27,-29},{-28,0},{-22,0}},
             color={0,0,0},
             thickness=1));
         connect(SystemicTissues.q_in, systemicArteriolarResistance.q_out)
           annotation (Line(
-            points={{8,-33},{8,0},{10,0}},
+            points={{6,29},{6,0},{10,0}},
             color={0,0,0},
             thickness=1));
         connect(extrathoracicArteries.q_in, extrathoracicArterialResistance.q_in)
           annotation (Line(
-            points={{38,-33},{38,0},{42,0}},
+            points={{38,-25},{38,0},{42,0}},
             color={0,0,0},
             thickness=1));
         annotation (
@@ -2716,6 +2716,430 @@ Connector with one output signal of type Real.
             __Dymola_NumberOfIntervals=5000,
             __Dymola_Algorithm="Dassl"));
       end MeursModel;
+
+      model UnlimitedGasStorage "Constant ideal gas source"
+        extends Physiolibrary.Chemical.Interfaces.ConditionalHeatPort;
+        Physiolibrary.Chemical.Interfaces.ChemicalPort_b q_out
+          "constant gas concentration with any possible flow"
+          annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
+        parameter Boolean usePartialPressureInput = false
+          "=true, if fixed partial pressure is from input instead of parameter"
+        annotation(Evaluate=true, HideResult=true, choices(checkBox=true),Dialog(group="External inputs/outputs"));
+
+         parameter Physiolibrary.Types.Pressure PartialPressure=0
+          "Fixed partial pressure if usePartialPressureInput=false"
+          annotation (Dialog(enable=not usePartialPressureInput));
+
+        Physiolibrary.Types.RealIO.PressureInput partialPressure(start=
+              PartialPressure)=p if usePartialPressureInput
+          "Partial pressure of Gas = air pressure * gas fraction"
+          annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
+
+       parameter Boolean isIsolatedInSteadyState = true
+          "=true, if there is no flow at port in steady state"
+          annotation (Evaluate=true, HideResult=true, Dialog(group="Simulation",tab="Equilibrium"));
+
+        parameter Physiolibrary.Types.SimulationType Simulation=Physiolibrary.Types.SimulationType.NormalInit
+          "If in equilibrium, then zero-flow equation is added." annotation (
+          Evaluate=true,
+          HideResult=true,
+          Dialog(group="Simulation", tab="Equilibrium"));
+
+        DeathVolume deathVolume
+          annotation (Placement(transformation(extent={{-244,20},{-224,40}})));
+      protected
+        Physiolibrary.Types.Pressure p "Current partial pressure";
+
+      initial equation
+        if isIsolatedInSteadyState and (Simulation == Physiolibrary.Types.SimulationType.InitSteadyState) then
+          q_out.q = 0;
+        end if;
+
+      equation
+        if not usePartialPressureInput then
+          p=PartialPressure;
+        end if;
+
+        q_out.conc = p / (Modelica.Constants.R * T_heatPort);  //ideal gas equation
+
+        if isIsolatedInSteadyState and (Simulation == Physiolibrary.Types.SimulationType.SteadyState) then
+           q_out.q = 0;
+        end if;
+
+        lossHeat=0; //only read temperature from heat port
+
+        annotation ( Icon(coordinateSystem(
+                preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
+              graphics={
+              Rectangle(
+              extent={{-100,100},{100,-100}},
+              lineColor={0,0,0},
+              pattern=LinePattern.None,
+              fillColor={170,255,255},
+              fillPattern=FillPattern.Backward),
+              Polygon(
+                points={{-100,100},{100,-100},{100,100},{-100,100}},
+                fillColor={159,159,223},
+                fillPattern=FillPattern.Backward,
+                pattern=LinePattern.None,
+                lineColor={0,0,0}),
+              Text(
+                extent={{0,0},{-100,-100}},
+                lineColor={0,0,0},
+                textString="P,T"),
+              Line(
+                points={{-62,0},{56,0}},
+                color={191,0,0},
+                thickness=0.5),
+              Polygon(
+                points={{38,-20},{38,20},{78,0},{38,-20}},
+                lineColor={191,0,0},
+                fillColor={191,0,0},
+                fillPattern=FillPattern.Solid),
+              Text(
+                extent={{-150,150},{150,110}},
+                textString="%name",
+                lineColor={0,0,255}),
+              Text(
+                extent={{-150,-110},{150,-140}},
+                lineColor={0,0,0},
+                textString="T=%T")}),
+          Documentation(revisions="<html>
+<p><i>2009-2010</i></p>
+<p>Marek Matejak, Charles University, Prague, Czech Republic </p>
+</html>"));
+      end UnlimitedGasStorage;
+
+      model GasEquation
+
+        Physiolibrary.Types.RealIO.VolumeInput
+                                           V1(
+                                         displayUnit="ml") annotation (Placement(transformation(extent={
+                  {-118,42},{-78,82}}), iconTransformation(extent={{-100,66},{-72,94}})));
+        Physiolibrary.Types.RealIO.PressureInput
+                                           P1(
+                                         displayUnit="mmHg") annotation (Placement(transformation(extent={
+                  {-118,42},{-78,82}}), iconTransformation(extent={{-100,6},{
+                -72,34}})));
+        Physiolibrary.Types.RealIO.TemperatureInput
+                                           T1(
+                                         displayUnit="degC") annotation (Placement(transformation(extent={
+                  {-118,42},{-78,82}}), iconTransformation(extent={{-100,-54},{-72,
+                  -26}})));
+        Physiolibrary.Types.RealIO.PressureInput
+                                           P2(
+                                        displayUnit="mmHg") annotation (Placement(transformation(extent={
+                  {-118,42},{-78,82}}), iconTransformation(
+              extent={{-14,-14},{14,14}},
+              rotation=180,
+              origin={86,20})));
+        Physiolibrary.Types.RealIO.TemperatureInput
+                                           T2(
+                                         displayUnit="degC") annotation (Placement(transformation(extent={
+                  {-118,42},{-78,82}}), iconTransformation(
+              extent={{-14,-14},{14,14}},
+              rotation=180,
+              origin={86,-40})));
+        Physiolibrary.Types.RealIO.VolumeOutput
+                                            V2(
+                                          displayUnit="ml") annotation (Placement(transformation(extent=
+                  {{56,54},{96,94}}), iconTransformation(extent={{72,66},{100,94}})));
+      equation
+        (P1*V1)/(T1)=(P2*V2)/(T2);
+        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+                  -100},{100,100}}), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                fillColor={170,213,255},
+                fillPattern=FillPattern.Solid),
+              Rectangle(
+                extent={{0,100},{0,-100}},
+                lineColor={0,0,0},
+                fillColor={170,213,255},
+                fillPattern=FillPattern.Solid),
+              Text(
+                extent={{-98,136},{100,100}},
+                lineColor={0,0,0},
+                fillColor={170,213,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name"),
+            Text(
+              extent={{-66,34},{132,8}},
+              textColor={28,108,200},
+              textString="P1",
+              horizontalAlignment=TextAlignment.Left),
+            Text(
+              extent={{-68,92},{132,66}},
+              textColor={28,108,200},
+              textString="V1",
+              horizontalAlignment=TextAlignment.Left),
+            Text(
+              extent={{-68,-26},{130,-54}},
+              textColor={28,108,200},
+              textString="T1",
+              horizontalAlignment=TextAlignment.Left),
+            Text(
+              extent={{-130,92},{70,66}},
+              textColor={28,108,200},
+              horizontalAlignment=TextAlignment.Right,
+              textString="V2"),
+            Text(
+              extent={{-128,32},{70,6}},
+              textColor={28,108,200},
+              horizontalAlignment=TextAlignment.Right,
+              textString="P2"),
+            Text(
+              extent={{-128,-26},{70,-54}},
+              textColor={28,108,200},
+              horizontalAlignment=TextAlignment.Right,
+              textString="T2")}));
+      end GasEquation;
+
+      model UnlimitedGasSource
+        Physiolibrary.Types.RealIO.PressureInput partialPressure annotation (
+            Placement(transformation(extent={{-92,16},{-52,56}}),
+              iconTransformation(extent={{-124,60},{-84,100}})));
+        Physiolibrary.Types.RealIO.TemperatureInput temperature annotation (
+            Placement(transformation(extent={{-122,-64},{-82,-24}}),
+              iconTransformation(extent={{-118,-80},{-78,-40}})));
+        Physiolibrary.Chemical.Interfaces.ChemicalPort_a port_a annotation (
+            Placement(transformation(extent={{80,4},{100,24}}),
+              iconTransformation(extent={{90,-16},{110,4}})));
+        Physiolibrary.Chemical.Sources.UnlimitedGasStorage unlimitedGasStorage(
+            useHeatPort=true, usePartialPressureInput=true)
+          annotation (Placement(transformation(extent={{14,12},{34,32}})));
+        Physiolibrary.Thermal.Sources.UnlimitedHeat unlimitedHeat(
+            useTemperatureInput=true)
+          annotation (Placement(transformation(extent={{-48,-52},{-28,-32}})));
+      equation
+        connect(port_a, unlimitedGasStorage.q_out) annotation (Line(
+            points={{90,14},{40,14},{40,22},{34,22}},
+            color={107,45,134},
+            thickness=1));
+        connect(unlimitedHeat.temperature, temperature) annotation (Line(points
+              ={{-48,-42},{-78,-42},{-78,-44},{-102,-44}}, color={0,0,127}));
+        connect(unlimitedHeat.port, unlimitedGasStorage.heatPort) annotation (
+            Line(
+            points={{-28,-42},{2,-42},{2,-48},{24,-48},{24,22}},
+            color={191,0,0},
+            thickness=1));
+        connect(unlimitedGasStorage.partialPressure, partialPressure)
+          annotation (Line(points={{14,22},{-46,22},{-46,36},{-72,36}}, color={
+                0,0,127}));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+                Polygon(
+                points={{-100,100},{-100,-100},{100,-40},{100,20},{-100,100}},
+                lineColor={28,108,200},
+                fillColor={255,255,0},
+                fillPattern=FillPattern.Solid), Text(
+                extent={{-198,-96},{188,-136}},
+                textColor={28,108,200},
+                textString="%name")}), Diagram(coordinateSystem(
+                preserveAspectRatio=false)));
+      end UnlimitedGasSource;
+
+      model PartialPressureMeasure
+          extends Modelica.Icons.RoundSensor;
+        Physiolibrary.Types.RealIO.TemperatureInput temperature annotation (Placement(
+              transformation(extent={{-148,34},{-108,74}}), iconTransformation(extent=
+                 {{-104,26},{-64,66}})));
+        Physiolibrary.Types.RealIO.ConcentrationInput concentration annotation (
+            Placement(transformation(extent={{-150,-20},{-110,20}}),
+              iconTransformation(extent={{-108,-56},{-68,-16}})));
+        Physiolibrary.Types.RealIO.PressureOutput pressure annotation (Placement(
+              transformation(extent={{-134,-42},{-114,-22}}), iconTransformation(
+                extent={{92,-8},{112,12}})));
+      equation
+       concentration = pressure / (Modelica.Constants.R * temperature);  //ideal gas equation
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
+                extent={{12,28},{80,-60}},
+                textColor={28,108,200},
+                textString="P")}),                                     Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+      end PartialPressureMeasure;
+
+      model VaporPressure
+
+        Physiolibrary.Types.RealIO.TemperatureInput
+                                           T(
+                                        displayUnit="degC")   annotation (Placement(transformation(extent={
+                  {-118,42},{-78,82}}), iconTransformation(extent={{-100,-14},{-72,14}})));
+        Physiolibrary.Types.RealIO.PressureOutput
+                                            VaporPressure_(
+                                                    displayUnit="mmHg")
+                                                          annotation (Placement(transformation(extent=
+                  {{56,54},{96,94}}), iconTransformation(extent={{100,-12},{128,
+                16}})));
+      equation
+       VaporPressure_ =  if T<273.15 then 0 else if T>373.15 then 101325 else
+                          (101325/760)*exp(18.6686-(4030.183/(T-273.15+235)));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+                  -100},{100,100}}), graphics={Rectangle(
+                extent={{-100,46},{100,-42}},
+                lineColor={0,0,0},
+                fillColor={170,213,255},
+                fillPattern=FillPattern.Solid), Text(
+              extent={{-186,28},{192,-16}},
+              textColor={28,108,200},
+              textString="Vapor
+pressure")}));
+      end VaporPressure;
+
+      model IdealValveChemical
+        extends Physiolibrary.Chemical.Interfaces.OnePort;
+        parameter Boolean useChatteringProtection = false annotation(Evaluate = true);
+        parameter Physiolibrary.Types.Time chatteringProtectionTime(displayUnit="ms") = 0 "Minimal period of time, in which a closed valve stays closed";
+        Physiolibrary.Types.Time lastChange(start = 0);
+         Boolean open(start=true) "Switching state";
+         Real passableVariable(start=0, final unit="1")
+          "Auxiliary variable for actual position on the ideal diode characteristic";
+        /*  = 0: knee point
+      < 0: below knee point, diode locking
+      > 0: above knee point, diode conducting */
+        parameter Physiolibrary.Types.HydraulicConductance _Gon(
+          final min=0,
+          displayUnit="l/(mmHg.min)")=1.2501026264094e-02
+          "Forward state-on conductance (open valve conductance)"
+          annotation (Dialog(enable=not useLimitationInputs)); //= the same as resistance 1e-5 mmHg/(l/min)
+        parameter Physiolibrary.Types.HydraulicConductance _Goff(
+          final min=0,
+          displayUnit="l/(mmHg.min)")=1.2501026264094e-12
+          "Backward state-off conductance (closed valve conductance)"
+          annotation (Dialog(enable=not useLimitationInputs)); //= 1e-5 (l/min)/mmHg
+        parameter Physiolibrary.Types.Pressure Pknee(final min=0)=0
+          "Forward threshold pressure";
+        parameter Boolean useLimitationInputs = false
+          "=true, if Gon and Goff are from inputs"
+          annotation(Evaluate=true, HideResult=true, choices(checkBox=true),Dialog(group="External inputs/outputs"));
+        Physiolibrary.Types.RealIO.HydraulicConductanceInput Gon(start=_Gon)=gon if
+          useLimitationInputs "open valve conductance = infinity for ideal case"
+          annotation (Placement(transformation(
+              extent={{-20,-20},{20,20}},
+              rotation=270,
+              origin={-60,100})));
+        Physiolibrary.Types.RealIO.HydraulicConductanceInput Goff(start=_Goff)=goff if
+             useLimitationInputs "closed valve conductance = zero for ideal case"
+          annotation (Placement(transformation(
+              extent={{-20,-20},{20,20}},
+              rotation=270,
+              origin={60,100})));
+      protected
+        Physiolibrary.Types.HydraulicConductance gon;
+        Physiolibrary.Types.HydraulicConductance goff;
+        constant Physiolibrary.Types.Pressure unitPressure=1;
+        constant Physiolibrary.Types.VolumeFlowRate unitFlow=1;
+      equation
+        if not useLimitationInputs then
+          gon = _Gon;
+          goff = _Goff;
+        end if;
+        when useChatteringProtection and change(open) then
+          lastChange = time;
+        end when;
+
+        if not useChatteringProtection then
+          open = passableVariable > 0;
+        else
+          if pre(lastChange) + chatteringProtectionTime > time then
+            // under protection
+            open = pre(open);
+          else
+            // protection expired
+            open = passableVariable > 0;
+          end if;
+        end if;
+
+        dp = (passableVariable*unitFlow)*(if open then 1/gon else 1) + Pknee;
+        volumeFlowRate = (passableVariable*unitPressure)*(if open then 1 else goff) + goff*Pknee;
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+                  -100},{100,100}}),
+                               graphics={Polygon(
+                points={{-76,66},{-76,-82},{34,-10},{34,12},{-66,68},{-76,74},{
+                    -76,66}},
+                lineColor={0,0,127},
+                fillColor={0,0,255},
+                fillPattern=FillPattern.Solid), Rectangle(
+                extent={{40,96},{68,-94}},
+                lineColor={0,0,127},
+                fillColor={0,0,255},
+                fillPattern=FillPattern.Solid),
+              Text(
+                extent={{-188,-96},{192,-118}},
+                lineColor={255,0,0},
+                fillPattern=FillPattern.Sphere,
+                fillColor={255,85,85},
+                textString="%name")}),
+          Documentation(info="<html>
+<p>Ideal Valve allows a volumetric flow in one direction in case of pressure gradient is greater. </p>
+</html>",   revisions="<html>
+<p><i>2014</i></p>
+<p>Tomas Kulhanek, Charles University, Prague, Czech Republic </p>
+</html>"));
+      end IdealValveChemical;
+
+      model DeathVolume
+        Physiolibrary.Chemical.Interfaces.ChemicalPort_a environmentalFlow annotation (Placement(
+              transformation(extent={{-8,78},{12,98}}),    iconTransformation(extent={
+                  {-16,66},{4,86}})));
+        Physiolibrary.Chemical.Interfaces.ChemicalPort_b alveolarFlow annotation (Placement(
+              transformation(extent={{-10,-94},{10,-74}}),    iconTransformation(
+                extent={{-12,-100},{8,-80}})));
+        Physiolibrary.Types.RealIO.VolumeInput volume annotation (Placement(
+              transformation(extent={{-112,26},{-72,66}}), iconTransformation(extent={{-118,0},
+                  {-78,40}})));
+        Physiolibrary.Types.RealIO.VolumeFlowRateInput volumeFlow annotation (
+            Placement(transformation(extent={{-110,-44},{-70,-4}}),
+              iconTransformation(extent={{-118,-60},{-78,-20}})));
+        Physiolibrary.Types.RealIO.ConcentrationOutput concentration annotation (
+            Placement(transformation(extent={{84,6},{104,26}}),
+              iconTransformation(extent={{100,-24},{134,10}})));
+        Physiolibrary.Types.AmountOfSubstance solute(start=0, fixed=true);
+      equation
+        /*
+   der( solute) = environmentalFlow.q+alveolarFlow.q;
+   concentration=solute/volume;
+  if volumeFlow>0 then
+    environmentalFlow.q=volumeFlow*environmentalFlow.conc;
+    alveolarFlow.conc=concentration;
+    alveolarFlow.q=-concentration*volumeFlow; //záporné vytéká
+  else
+    alveolarFlow.q=-volumeFlow*alveolarFlow.conc; //kladné vtéká
+    environmentalFlow.conc=concentration;
+    environmentalFlow.q=concentration*volumeFlow;
+    end if;//záporné vytéká
+    */
+
+          der(solute)=environmentalFlow.q+alveolarFlow.q;
+          concentration=solute/volume;
+          if volumeFlow>0 then
+             alveolarFlow.conc=concentration;
+             environmentalFlow.q=environmentalFlow.conc*volumeFlow; //vtéká kladné
+          else
+             environmentalFlow.conc=concentration;
+             alveolarFlow.q=-alveolarFlow.conc*volumeFlow; //vtékaá kladné
+          end if;
+
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+              Ellipse(
+                extent={{-100,-40},{100,-96}},
+                lineColor={28,108,200},
+                fillColor={255,255,170},
+                fillPattern=FillPattern.Solid),
+              Rectangle(
+                extent={{-100,70},{100,-70}},
+                fillColor={255,255,170},
+                fillPattern=FillPattern.Solid,
+                pattern=LinePattern.None,
+                lineColor={0,0,0}),
+              Ellipse(
+                extent={{-100,100},{100,44}},
+                lineColor={28,108,200},
+                fillColor={196,196,196},
+                fillPattern=FillPattern.Solid)}), Diagram(coordinateSystem(
+                preserveAspectRatio=false)));
+      end DeathVolume;
     end Components;
 
     package Tests
@@ -4397,7 +4821,7 @@ Connector with one output signal of type Real.
           annotation (Placement(transformation(extent={{16,20},{36,40}})));
         MeursHemodynamics.Components.BreathInterval breathInterval1
           annotation (Placement(transformation(extent={{-40,-28},{-20,-8}})));
-        Modelica.Blocks.Sources.Constant BreathRate(k=6)
+        Modelica.Blocks.Sources.Constant BreathRate(k=12)
           annotation (Placement(transformation(extent={{-86,-28},{-66,-8}})));
         Physiolibrary.Types.Constants.PressureConst RespiratoryMuscleAmplitude(k(
               displayUnit="cmH2O") = -441.29925)
@@ -4447,6 +4871,807 @@ Connector with one output signal of type Real.
             __Dymola_NumberOfIntervals=5000,
             __Dymola_Algorithm="Dassl"));
       end TestSimpleRespirationMechachanics;
+
+      model TestVentilationPhysiomodel
+        PhysiolibraryExpantion.AlveolarVentilation_ATPD
+          alveolarVentilation_ATPD
+          annotation (Placement(transformation(extent={{-26,-22},{22,16}})));
+        Physiolibrary.Types.Constants.TemperatureConst AmbientTemperature(k=
+              296.15)
+          annotation (Placement(transformation(extent={{-72,32},{-64,40}})));
+        Physiolibrary.Types.Constants.PressureConst AmbientPressure(k=
+              101325.0144354)
+          annotation (Placement(transformation(extent={{-88,8},{-80,16}})));
+        Physiolibrary.Types.Constants.FractionConst fraction(k=0.8)
+          annotation (Placement(transformation(extent={{-76,-28},{-68,-20}})));
+        Physiolibrary.Types.Constants.VolumeConst tidalVolume(k=0.0005)
+          annotation (Placement(transformation(
+              extent={{-4,-4},{4,4}},
+              rotation=180,
+              origin={48,46})));
+        Physiolibrary.Types.Constants.VolumeConst deadSpace(k=0.00015)
+          annotation (Placement(transformation(
+              extent={{-4,-4},{4,4}},
+              rotation=180,
+              origin={54,10})));
+        Physiolibrary.Types.Constants.FrequencyConst respirationRate(k=0.2)
+          annotation (Placement(transformation(
+              extent={{-4,-4},{4,4}},
+              rotation=180,
+              origin={62,-4})));
+        Physiolibrary.Types.Constants.TemperatureConst BodyTemperature(k=310.15)
+          annotation (Placement(transformation(
+              extent={{-4,-4},{4,4}},
+              rotation=180,
+              origin={64,-22})));
+      equation
+        connect(AmbientTemperature.y, alveolarVentilation_ATPD.AmbientTemperature)
+          annotation (Line(points={{-63,36},{-8.85714,36},{-8.85714,16}}, color=
+               {0,0,127}));
+        connect(AmbientPressure.y, alveolarVentilation_ATPD.EnvironmentPressure)
+          annotation (Line(points={{-79,12},{-32,12},{-32,5.63636},{-8.85714,
+                5.63636}}, color={0,0,127}));
+        connect(fraction.y, alveolarVentilation_ATPD.EnvironmentRelativeHumidity)
+          annotation (Line(points={{-67,-24},{-32,-24},{-32,-4.72727},{-8.85714,
+                -4.72727}}, color={0,0,127}));
+        connect(alveolarVentilation_ATPD.TidalVolume, tidalVolume.y)
+          annotation (Line(points={{18.5714,16},{32,16},{32,46},{43,46}}, color=
+               {0,0,127}));
+        connect(deadSpace.y, alveolarVentilation_ATPD.DeadSpace) annotation (
+            Line(points={{49,10},{49,9.09091},{18.5714,9.09091}}, color={0,0,
+                127}));
+        connect(respirationRate.y, alveolarVentilation_ATPD.RespRate)
+          annotation (Line(points={{57,-4},{38,-4},{38,2.18182},{18.5714,
+                2.18182}}, color={0,0,127}));
+        connect(BodyTemperature.y, alveolarVentilation_ATPD.core_T) annotation (
+           Line(points={{59,-22},{30,-22},{30,-4.72727},{18.5714,-4.72727}},
+              color={0,0,127}));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+      end TestVentilationPhysiomodel;
+
+      model TestSimpleDeathVolume
+        PhysiolibraryExpantion.ElasticVessel CL(
+          volume_start=0.0023,
+          ZeroPressureVolume=0.0013,
+          Compliance(displayUnit="l/cmH2O") = 2.0394324259559e-06,
+          useExternalPressureInput=true,
+          hardElastance=true)
+          annotation (Placement(transformation(extent={{40,48},{60,68}})));
+        Physiolibrary.Hydraulic.Sources.UnlimitedVolume unlimitedVolume2(
+            usePressureInput=false)
+          annotation (Placement(transformation(extent={{-54,48},{-34,68}})));
+        PhysiolibraryExpantion.OuterElasticVessel Cw(
+          outer_volume_start=0,
+          useV0Input=false,
+          ZeroPressureVolume=0.00352,
+          useComplianceInput=false,
+          Compliance(displayUnit="l/cmH2O") = 2.4881075596661e-06,
+          useExternalPressureInput=true,
+          hardElastance=true)
+          annotation (Placement(transformation(extent={{44,24},{64,44}})));
+        Physiolibrary.Hydraulic.Components.Resistor resistor(Resistance(displayUnit="(cmH2O.s)/l")=
+               362846.05)
+          annotation (Placement(transformation(extent={{10,48},{30,68}})));
+        MeursHemodynamics.Components.BreathInterval breathInterval1
+          annotation (Placement(transformation(extent={{-46,0},{-26,20}})));
+        Modelica.Blocks.Sources.Constant BreathRate(k=12)
+          annotation (Placement(transformation(extent={{-82,0},{-62,20}})));
+        Physiolibrary.Types.Constants.PressureConst RespiratoryMuscleAmplitude(k(
+              displayUnit="cmH2O") = 441.29925)
+          annotation (Placement(transformation(extent={{-54,32},{-46,40}})));
+        Modelica.Blocks.Math.Product product1
+          annotation (Placement(transformation(extent={{-6,8},{14,28}})));
+
+           Physiolibrary.Types.Pressure AlveolarPressure;
+
+        Physiolibrary.Blocks.Math.Integrator int
+          annotation (Placement(transformation(extent={{8,76},{28,96}})));
+        Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure
+          annotation (Placement(transformation(extent={{-22,48},{-2,68}})));
+        Physiolibrary.Types.Constants.TemperatureConst BodyTemperature(k=310.15)
+          annotation (Placement(transformation(
+              extent={{-4,-4},{4,4}},
+              rotation=0,
+              origin={-84,-84})));
+        Physiolibrary.Types.Constants.PressureConst Pressure(k=101325.0144354)
+          annotation (Placement(transformation(extent={{-88,-42},{-80,-34}})));
+        Modelica.Blocks.Math.Feedback minus_pH2O annotation (Placement(
+              transformation(
+              extent={{-7,-7},{7,7}},
+              rotation=0,
+              origin={-49,-39})));
+        Physiolibrary.Types.Constants.FractionConst FiO2(k=0.21)
+          annotation (Placement(transformation(extent={{-90,-24},{-82,-16}})));
+        Modelica.Blocks.Math.Product PiO2
+          annotation (Placement(transformation(extent={{-28,-36},{-18,-26}})));
+        Physiolibrary.Types.Constants.PressureConst PAO2(k=13332.2387415)
+          annotation (Placement(transformation(extent={{26,-22},{34,-14}})));
+        Components.UnlimitedGasSource unlimitedGasSource
+          annotation (Placement(transformation(extent={{0,-58},{20,-38}})));
+        Components.UnlimitedGasSource unlimitedGasSource1
+          annotation (Placement(transformation(extent={{54,-36},{74,-16}})));
+        Components.VaporPressure vaporPressure
+          annotation (Placement(transformation(extent={{-64,-78},{-44,-58}})));
+        Physiolibrary.Chemical.Sensors.ConcentrationMeasure
+          concentrationMeasure
+          annotation (Placement(transformation(extent={{24,-78},{44,-58}})));
+        Physiolibrary.Chemical.Sensors.ConcentrationMeasure
+          concentrationMeasure1
+          annotation (Placement(transformation(extent={{72,-76},{92,-56}})));
+        Components.PartialPressureMeasure partialPressureMeasure
+          annotation (Placement(transformation(extent={{22,-112},{42,-92}})));
+        Components.PartialPressureMeasure partialPressureMeasure1
+          annotation (Placement(transformation(extent={{74,-96},{94,-76}})));
+      equation
+        AlveolarPressure=Cw.pressure+CL.q_in.pressure;
+        connect(Cw.InnerVolume, CL.volume)
+          annotation (Line(points={{60.2,32},{56,32},{56,48}},
+                                                             color={0,0,127}));
+        connect(Cw.pressure, CL.externalPressure) annotation (Line(points={{66.1,
+                32.9},{66.1,70},{58,70},{58,66}},
+                                            color={0,0,127}));
+        connect(resistor.q_out, CL.q_in) annotation (Line(
+            points={{30,58},{50,58}},
+            color={0,0,0},
+            thickness=1));
+        connect(BreathRate.y, breathInterval1.RR)
+          annotation (Line(points={{-61,10},{-46.4,10}},   color={0,0,127}));
+        connect(breathInterval1.Pm, product1.u2) annotation (Line(points={{-25,10},
+                {-14,10},{-14,12},{-8,12}},
+                                         color={0,0,127}));
+        connect(RespiratoryMuscleAmplitude.y, product1.u1) annotation (Line(points={{-45,36},
+                {-14,36},{-14,24},{-8,24}}, color={0,0,127}));
+        connect(product1.y, Cw.externalPressure) annotation (Line(points={{15,18},
+                {30,18},{30,42},{52,42},{52,38},{52.4,38}},
+                                                         color={0,0,127}));
+        connect(flowMeasure.q_out, resistor.q_in) annotation (Line(
+            points={{-2,58},{10,58}},
+            color={0,0,0},
+            thickness=1));
+        connect(flowMeasure.q_in, unlimitedVolume2.y) annotation (Line(
+            points={{-22,58},{-34,58}},
+            color={0,0,0},
+            thickness=1));
+        connect(flowMeasure.volumeFlow, int.u)
+          annotation (Line(points={{-12,70},{-12,86},{6,86}},color={0,0,127}));
+        connect(Pressure.y, minus_pH2O.u1)
+          annotation (Line(points={{-79,-38},{-54.6,-39}}, color={0,0,127}));
+        connect(minus_pH2O.y, PiO2.u2) annotation (Line(points={{-42.7,-39},{
+                -29,-39},{-29,-34}}, color={0,0,127}));
+        connect(PiO2.u1, FiO2.y) annotation (Line(points={{-29,-28},{-64,-28},{
+                -64,-20},{-81,-20}}, color={0,0,127}));
+        connect(unlimitedGasSource.partialPressure, PiO2.y) annotation (Line(
+              points={{0.4,-42.8},{-12,-42.8},{-12,-31},{-17.5,-31}},  color={0,
+                0,127}));
+        connect(BodyTemperature.y, unlimitedGasSource.temperature) annotation (
+            Line(points={{-79,-84},{-6,-84},{-6,-52},{0.2,-52}},  color={0,0,
+                127}));
+        connect(PAO2.y, unlimitedGasSource1.partialPressure) annotation (Line(
+              points={{35,-18},{48,-18},{48,-20.8},{54.4,-20.8}}, color={0,0,
+                127}));
+        connect(unlimitedGasSource1.temperature, unlimitedGasSource.temperature)
+          annotation (Line(points={{54.2,-30},{52,-30},{52,-88},{48,-88},{48,
+                -87.8},{-20,-87.8},{-20,-84},{-6,-84},{-6,-52},{0.2,-52}},
+              color={0,0,127}));
+        connect(vaporPressure.T, unlimitedGasSource.temperature) annotation (
+            Line(points={{-62.6,-68},{-72,-68},{-72,-84},{-6,-84},{-6,-52},{0.2,
+                -52}}, color={0,0,127}));
+        connect(vaporPressure.VaporPressure_, minus_pH2O.u2) annotation (Line(
+              points={{-42.6,-67.8},{-38,-67.8},{-38,-54},{-49,-54},{-49,-44.6}},
+              color={0,0,127}));
+        connect(concentrationMeasure.q_in, unlimitedGasSource.port_a)
+          annotation (Line(
+            points={{34,-68},{34,-48},{20,-48},{20,-48.8}},
+            color={107,45,134},
+            thickness=1));
+        connect(concentrationMeasure1.q_in, unlimitedGasSource1.port_a)
+          annotation (Line(
+            points={{82,-66},{84,-66},{84,-26.8},{74,-26.8}},
+            color={107,45,134},
+            thickness=1));
+        connect(partialPressureMeasure.temperature, unlimitedGasSource.temperature)
+          annotation (Line(points={{23.6,-97.4},{-20,-97.4},{-20,-84},{-6,-84},
+                {-6,-52},{0.2,-52}}, color={0,0,127}));
+        connect(partialPressureMeasure1.temperature, unlimitedGasSource.temperature)
+          annotation (Line(points={{75.6,-81.4},{52,-81.4},{52,-88},{48,-88},{
+                48,-87.8},{-20,-87.8},{-20,-84},{-6,-84},{-6,-52},{0.2,-52}},
+              color={0,0,127}));
+        connect(partialPressureMeasure.concentration, concentrationMeasure.concentration)
+          annotation (Line(points={{23.2,-105.6},{10,-105.6},{10,-80},{34,-80},
+                {34,-76}}, color={0,0,127}));
+        connect(partialPressureMeasure1.concentration, concentrationMeasure1.concentration)
+          annotation (Line(points={{75.2,-89.6},{60,-89.6},{60,-74},{82,-74}},
+              color={0,0,127}));
+        annotation (
+          Icon(coordinateSystem(preserveAspectRatio=false)),
+          Diagram(coordinateSystem(preserveAspectRatio=false)),
+          experiment(
+            StopTime=4,
+            __Dymola_NumberOfIntervals=5000,
+            __Dymola_Algorithm="Dassl"));
+      end TestSimpleDeathVolume;
+
+      model TwoConcentrationCompartments
+        extends Modelica.Icons.Example;
+
+        Physiolibrary.Chemical.Components.Substance substance(
+            useNormalizedVolume=false, solute_start=0.001)
+          annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+        Physiolibrary.Chemical.Components.Substance substance1(solute_start=0,
+            useNormalizedVolume=false)
+          annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+        Physiolibrary.Chemical.Components.AdvectionStream advectionStream(
+          useSolutionFlowInput=true,
+          length=1,
+          diffusion_coefficient=1)
+          annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+        Physiolibrary.Hydraulic.Components.ElasticVessel elasticVessel(
+            volume_start=0.001)
+          annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+        Physiolibrary.Hydraulic.Components.ElasticVessel elasticVessel1(
+            volume_start=0.0005)
+          annotation (Placement(transformation(extent={{60,40},{80,60}})));
+        Physiolibrary.Hydraulic.Components.Resistor resistor(Resistance=1.0)
+          annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+        Physiolibrary.Hydraulic.Components.Inertia inertia(volumeFlow_start=0.0,
+            I=10.0)
+          annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+        Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure
+          annotation (Placement(transformation(extent={{20,60},{40,40}})));
+      equation
+        connect(substance.q_out, advectionStream.q_in) annotation (Line(
+            points={{-90,-10},{-20,-10}},
+            color={107,45,134},
+            thickness=1));
+        connect(advectionStream.q_out, substance1.q_out) annotation (Line(
+            points={{0,-10},{70,-10}},
+            color={107,45,134},
+            thickness=1));
+        connect(elasticVessel.q_in, resistor.q_in) annotation (Line(
+            points={{-90,50},{-76,50},{-76,50},{-60,50}},
+            color={0,0,0},
+            thickness=1));
+        connect(resistor.q_out, inertia.q_in) annotation (Line(
+            points={{-40,50},{-20,50}},
+            color={0,0,0},
+            thickness=1));
+        connect(inertia.q_out, flowMeasure.q_in) annotation (Line(
+            points={{0,50},{20,50}},
+            color={0,0,0},
+            thickness=1));
+        connect(flowMeasure.q_out, elasticVessel1.q_in) annotation (Line(
+            points={{40,50},{70,50}},
+            color={0,0,0},
+            thickness=1));
+        connect(elasticVessel.volume, substance.solutionVolume) annotation (Line(
+              points={{-84,40},{-90,40},{-90,-6},{-94,-6}}, color={0,0,127}));
+        connect(elasticVessel1.volume, substance1.solutionVolume) annotation (
+            Line(points={{76,40},{72,40},{72,-6},{66,-6}}, color={0,0,127}));
+        connect(flowMeasure.volumeFlow, advectionStream.solutionFlow) annotation (
+           Line(points={{30,38},{10,38},{10,-3},{-10,-3}}, color={0,0,127}));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+              coordinateSystem(preserveAspectRatio=false)),
+          Documentation(info="<html>
+<p>This simple model demonstrates combination of hydraulics and chemical domain. It is model of two elastic vessels, with back and forth oscillating volume. In addition, each vessel does have some initial solute concentration, represented by the chemical domain. Both vessels are connected using resistive tube with large inertance, which introduces advection dead-space with diffusion capabilities.</p>
+<p>The units are demonstrative and thus not to any scale of any real-world physical system.</p>
+</html>"),   Documentation(revisions="<html>
+<p><i>2018</i></p>
+<p>Filip Jezek, Charles University, Prague, Czech Republic </p>
+</html>"),experiment(StopTime=20));
+      end TwoConcentrationCompartments;
+
+      model test_valves
+        Physiolibrary.Hydraulic.Components.Conductor conductor(Conductance=
+              1.2501026264094e-10)
+          annotation (Placement(transformation(extent={{-38,82},{-18,102}})));
+        Physiolibrary.Hydraulic.Sources.UnlimitedVolume unlimitedVolume(P=0)
+          annotation (Placement(transformation(extent={{30,68},{50,88}})));
+        Physiolibrary.Hydraulic.Components.Conductor conductor1(Conductance=
+              1.2501026264094e-10)
+          annotation (Placement(transformation(extent={{-32,46},{-12,66}})));
+        Physiolibrary.Hydraulic.Components.IdealValve idealValve
+          annotation (Placement(transformation(extent={{-10,82},{10,102}})));
+        Physiolibrary.Hydraulic.Components.IdealValve idealValve1(_Gon=
+              1.2501026264094e+92, _Goff=0) annotation (Placement(
+              transformation(
+              extent={{-10,-10},{10,10}},
+              rotation=180,
+              origin={4,56})));
+        Physiolibrary.Hydraulic.Sources.UnlimitedPump unlimitedPump(
+            SolutionFlow=1.6666666666667e-06)
+          annotation (Placement(transformation(extent={{-84,64},{-64,84}})));
+        Physiolibrary.Hydraulic.Components.Conductor conductor2(Conductance=
+              1.2501026264094e-10)
+          annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+        Physiolibrary.Hydraulic.Sources.UnlimitedVolume unlimitedVolume1(P=0)
+          annotation (Placement(transformation(extent={{30,4},{50,24}})));
+        Physiolibrary.Hydraulic.Components.Conductor conductor3(Conductance=
+              1.2501026264094e-10)
+          annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
+        Physiolibrary.Hydraulic.Sources.UnlimitedPump unlimitedPump1(
+            SolutionFlow=1.6666666666667e-06)
+          annotation (Placement(transformation(extent={{-84,0},{-64,20}})));
+        Components.UnlimitedGasSource unlimitedGasSource
+          annotation (Placement(transformation(extent={{-44,-50},{-24,-30}})));
+        Modelica.Blocks.Math.Product PiO2
+          annotation (Placement(transformation(extent={{-62,-38},{-52,-28}})));
+        Components.VaporPressure vaporPressure
+          annotation (Placement(transformation(extent={{-88,-74},{-68,-54}})));
+        Physiolibrary.Types.Constants.PressureConst Pressure(k=101325.0144354)
+          annotation (Placement(transformation(extent={{-94,-46},{-86,-38}})));
+        Physiolibrary.Types.Constants.FractionConst FiO2(k=0.21)
+          annotation (Placement(transformation(extent={{-88,-30},{-80,-22}})));
+        Physiolibrary.Types.Constants.TemperatureConst BodyTemperature(k=310.15)
+          annotation (Placement(transformation(
+              extent={{-4,-4},{4,4}},
+              rotation=0,
+              origin={-88,-84})));
+        Modelica.Blocks.Math.Feedback minus_pH2O annotation (Placement(
+              transformation(
+              extent={{-7,-7},{7,7}},
+              rotation=0,
+              origin={-73,-43})));
+        Physiolibrary.Chemical.Components.Substance substance(
+            useNormalizedVolume=false)
+          annotation (Placement(transformation(extent={{26,-52},{46,-32}})));
+        Physiolibrary.Chemical.Components.Stream Stream(SolutionFlow(
+              displayUnit="l/s") = 0.00015)
+          annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+        Physiolibrary.Chemical.Components.Stream Stream1(SolutionFlow=
+              0.00016666666666667)
+          annotation (Placement(transformation(extent={{56,-52},{76,-32}})));
+        Physiolibrary.Chemical.Components.Substance substance1
+          annotation (Placement(transformation(extent={{86,-52},{106,-32}})));
+        Physiolibrary.Types.Constants.VolumeConst volume(k=0.00015)
+          annotation (Placement(transformation(extent={{-8,-24},{0,-16}})));
+      equation
+        connect(conductor1.q_in, conductor.q_in) annotation (Line(
+            points={{-32,56},{-44,56},{-44,92},{-38,92}},
+            color={0,0,0},
+            thickness=1));
+        connect(conductor.q_out, idealValve.q_in) annotation (Line(
+            points={{-18,92},{-10,92}},
+            color={0,0,0},
+            thickness=1));
+        connect(conductor1.q_out, idealValve1.q_out) annotation (Line(
+            points={{-12,56},{-6,56}},
+            color={0,0,0},
+            thickness=1));
+        connect(unlimitedVolume.y, idealValve.q_out) annotation (Line(
+            points={{50,78},{54,78},{54,92},{10,92}},
+            color={0,0,0},
+            thickness=1));
+        connect(unlimitedVolume.y, idealValve1.q_in) annotation (Line(
+            points={{50,78},{54,78},{54,92},{20,92},{20,56},{14,56}},
+            color={0,0,0},
+            thickness=1));
+        connect(unlimitedPump.q_out, conductor.q_in) annotation (Line(
+            points={{-64,74},{-44,74},{-44,92},{-38,92}},
+            color={0,0,0},
+            thickness=1));
+        connect(conductor3.q_in, conductor2.q_in) annotation (Line(
+            points={{-36,-6},{-44,-6},{-44,40},{-40,40}},
+            color={0,0,0},
+            thickness=1));
+        connect(unlimitedPump1.q_out, conductor2.q_in) annotation (Line(
+            points={{-64,10},{-44,10},{-44,40},{-40,40}},
+            color={0,0,0},
+            thickness=1));
+        connect(conductor3.q_out, unlimitedVolume1.y) annotation (Line(
+            points={{-16,-6},{56,-6},{56,14},{50,14}},
+            color={0,0,0},
+            thickness=1));
+        connect(conductor2.q_out, unlimitedVolume1.y) annotation (Line(
+            points={{-20,40},{54,40},{54,14},{50,14}},
+            color={0,0,0},
+            thickness=1));
+        connect(PiO2.u1, FiO2.y) annotation (Line(points={{-63,-30},{-79,-30},{
+                -79,-26}}, color={0,0,127}));
+        connect(PiO2.y, unlimitedGasSource.partialPressure) annotation (Line(
+              points={{-51.5,-33},{-48,-33},{-48,-34.8},{-43.6,-34.8}}, color={
+                0,0,127}));
+        connect(Pressure.y, minus_pH2O.u1)
+          annotation (Line(points={{-85,-42},{-78.6,-43}}, color={0,0,127}));
+        connect(minus_pH2O.y, PiO2.u2) annotation (Line(points={{-66.7,-43},{
+                -63,-43},{-63,-36}}, color={0,0,127}));
+        connect(vaporPressure.VaporPressure_, minus_pH2O.u2) annotation (Line(
+              points={{-66.6,-63.8},{-66.6,-52},{-73,-52},{-73,-48.6}}, color={
+                0,0,127}));
+        connect(BodyTemperature.y, vaporPressure.T) annotation (Line(points={{
+                -83,-84},{-80,-84},{-80,-74},{-94,-74},{-94,-64},{-86.6,-64}},
+              color={0,0,127}));
+        connect(unlimitedGasSource.temperature, vaporPressure.T) annotation (
+            Line(points={{-43.8,-44},{-62,-44},{-62,-84},{-80,-84},{-80,-74},{
+                -94,-74},{-94,-64},{-86.6,-64}}, color={0,0,127}));
+        connect(unlimitedGasSource.port_a, Stream.q_in) annotation (Line(
+            points={{-24,-40.8},{-18,-40.8},{-18,-40},{-10,-40}},
+            color={107,45,134},
+            thickness=1));
+        connect(Stream.q_out, substance.q_out) annotation (Line(
+            points={{10,-40},{24,-40},{24,-42},{36,-42}},
+            color={107,45,134},
+            thickness=1));
+        connect(substance.q_out, Stream1.q_in) annotation (Line(
+            points={{36,-42},{22,-42},{22,-28},{56,-28},{56,-42}},
+            color={107,45,134},
+            thickness=1));
+        connect(Stream1.q_out, substance1.q_out) annotation (Line(
+            points={{76,-42},{96,-42}},
+            color={107,45,134},
+            thickness=1));
+        connect(volume.y, substance.solutionVolume) annotation (Line(points={{1,
+                -20},{32,-20},{32,-38}}, color={0,0,127}));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+      end test_valves;
+
+      model test_respiration_valves
+        Components.UnlimitedGasSource unlimitedGasSource
+          annotation (Placement(transformation(extent={{-44,-50},{-24,-30}})));
+        Modelica.Blocks.Math.Product PiO2
+          annotation (Placement(transformation(extent={{-62,-38},{-52,-28}})));
+        Components.VaporPressure vaporPressure
+          annotation (Placement(transformation(extent={{-88,-74},{-68,-54}})));
+        Physiolibrary.Types.Constants.PressureConst Pressure(k=101325.0144354)
+          annotation (Placement(transformation(extent={{-94,-46},{-86,-38}})));
+        Physiolibrary.Types.Constants.FractionConst FiO2(k=0.21)
+          annotation (Placement(transformation(extent={{-88,-30},{-80,-22}})));
+        Physiolibrary.Types.Constants.TemperatureConst BodyTemperature(k=310.15)
+          annotation (Placement(transformation(
+              extent={{-4,-4},{4,4}},
+              rotation=0,
+              origin={-88,-84})));
+        Modelica.Blocks.Math.Feedback minus_pH2O annotation (Placement(
+              transformation(
+              extent={{-7,-7},{7,7}},
+              rotation=0,
+              origin={-73,-43})));
+        Physiolibrary.Chemical.Components.Substance substance(
+            useNormalizedVolume=false)
+          annotation (Placement(transformation(extent={{26,-52},{46,-32}})));
+        Physiolibrary.Chemical.Components.Stream Stream(useSolutionFlowInput=
+              true, SolutionFlow=1.6666666666667e-06)
+          annotation (Placement(transformation(extent={{-4,-52},{16,-32}})));
+        PhysiolibraryExpantion.ElasticVessel CL(
+          volume_start=0.0023,
+          ZeroPressureVolume=0.0013,
+          Compliance(displayUnit="l/cmH2O") = 2.0394324259559e-06,
+          useExternalPressureInput=true,
+          hardElastance=true)
+          annotation (Placement(transformation(extent={{38,50},{58,70}})));
+        Physiolibrary.Hydraulic.Sources.UnlimitedVolume unlimitedVolume2(
+            usePressureInput=false)
+          annotation (Placement(transformation(extent={{-56,50},{-36,70}})));
+        PhysiolibraryExpantion.OuterElasticVessel Cw(
+          outer_volume_start=0,
+          useV0Input=false,
+          ZeroPressureVolume=0.00352,
+          useComplianceInput=false,
+          Compliance(displayUnit="l/cmH2O") = 2.4881075596661e-06,
+          useExternalPressureInput=true,
+          hardElastance=true)
+          annotation (Placement(transformation(extent={{42,26},{62,46}})));
+        Physiolibrary.Hydraulic.Components.Resistor resistor(Resistance(
+              displayUnit="(cmH2O.s)/l") = 362846.05)
+          annotation (Placement(transformation(extent={{8,50},{28,70}})));
+        MeursHemodynamics.Components.BreathInterval breathInterval1
+          annotation (Placement(transformation(extent={{-48,2},{-28,22}})));
+        Modelica.Blocks.Sources.Constant BreathRate(k=12)
+          annotation (Placement(transformation(extent={{-84,2},{-64,22}})));
+        Physiolibrary.Types.Constants.PressureConst RespiratoryMuscleAmplitude(k(
+              displayUnit="cmH2O") = 441.29925)
+          annotation (Placement(transformation(extent={{-56,34},{-48,42}})));
+        Modelica.Blocks.Math.Product product1
+          annotation (Placement(transformation(extent={{-8,10},{12,30}})));
+        Physiolibrary.Blocks.Math.Integrator int
+          annotation (Placement(transformation(extent={{6,78},{26,98}})));
+        Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure
+          annotation (Placement(transformation(extent={{-24,50},{-4,70}})));
+        Physiolibrary.Types.Constants.VolumeConst volume(k=0.00015)
+          annotation (Placement(transformation(extent={{18,-14},{26,-6}})));
+        Physiolibrary.Chemical.Components.Stream Stream1(useSolutionFlowInput=
+              true, SolutionFlow=1.6666666666667e-06)
+          annotation (Placement(transformation(extent={{58,-52},{78,-32}})));
+        Physiolibrary.Chemical.Components.Substance substance1(
+            useNormalizedVolume=false, solute_start=0.001*(5.17*2300))
+          annotation (Placement(transformation(extent={{86,-52},{106,-32}})));
+        Components.UnlimitedGasSource unlimitedGasSource1
+          annotation (Placement(transformation(extent={{56,-92},{76,-72}})));
+        Physiolibrary.Types.Constants.PressureConst Pressure1(k=13332.2387415)
+          annotation (Placement(transformation(extent={{24,-78},{32,-70}})));
+      equation
+        connect(PiO2.u1, FiO2.y) annotation (Line(points={{-63,-30},{-79,-30},{
+                -79,-26}}, color={0,0,127}));
+        connect(PiO2.y, unlimitedGasSource.partialPressure) annotation (Line(
+              points={{-51.5,-33},{-48,-33},{-48,-32},{-44.4,-32}}, color={0,0,
+                127}));
+        connect(Pressure.y, minus_pH2O.u1)
+          annotation (Line(points={{-85,-42},{-78.6,-43}}, color={0,0,127}));
+        connect(minus_pH2O.y, PiO2.u2) annotation (Line(points={{-66.7,-43},{
+                -63,-43},{-63,-36}}, color={0,0,127}));
+        connect(vaporPressure.VaporPressure_, minus_pH2O.u2) annotation (Line(
+              points={{-66.6,-63.8},{-66.6,-52},{-73,-52},{-73,-48.6}}, color={
+                0,0,127}));
+        connect(BodyTemperature.y, vaporPressure.T) annotation (Line(points={{
+                -83,-84},{-80,-84},{-80,-74},{-94,-74},{-94,-64},{-86.6,-64}},
+              color={0,0,127}));
+        connect(unlimitedGasSource.temperature, vaporPressure.T) annotation (
+            Line(points={{-43.8,-46},{-62,-46},{-62,-84},{-80,-84},{-80,-74},{
+                -94,-74},{-94,-64},{-86.6,-64}}, color={0,0,127}));
+        connect(unlimitedGasSource.port_a, Stream.q_in) annotation (Line(
+            points={{-24,-40.6},{-18,-40.6},{-18,-42},{-4,-42}},
+            color={107,45,134},
+            thickness=1));
+        connect(Stream.q_out, substance.q_out) annotation (Line(
+            points={{16,-42},{36,-42}},
+            color={107,45,134},
+            thickness=1));
+        connect(Cw.InnerVolume,CL. volume)
+          annotation (Line(points={{58.2,34},{54,34},{54,50}},
+                                                             color={0,0,127}));
+        connect(Cw.pressure,CL. externalPressure) annotation (Line(points={{64.1,
+                34.9},{64.1,72},{56,72},{56,68}},
+                                            color={0,0,127}));
+        connect(resistor.q_out,CL. q_in) annotation (Line(
+            points={{28,60},{48,60}},
+            color={0,0,0},
+            thickness=1));
+        connect(BreathRate.y,breathInterval1. RR)
+          annotation (Line(points={{-63,12},{-48.4,12}},   color={0,0,127}));
+        connect(breathInterval1.Pm,product1. u2) annotation (Line(points={{-27,12},
+                {-16,12},{-16,14},{-10,14}},
+                                         color={0,0,127}));
+        connect(RespiratoryMuscleAmplitude.y,product1. u1) annotation (Line(points={{-47,38},
+                {-16,38},{-16,26},{-10,26}},color={0,0,127}));
+        connect(product1.y,Cw. externalPressure) annotation (Line(points={{13,20},
+                {28,20},{28,44},{50,44},{50,40},{50.4,40}},
+                                                         color={0,0,127}));
+        connect(flowMeasure.q_out,resistor. q_in) annotation (Line(
+            points={{-4,60},{8,60}},
+            color={0,0,0},
+            thickness=1));
+        connect(flowMeasure.q_in,unlimitedVolume2. y) annotation (Line(
+            points={{-24,60},{-36,60}},
+            color={0,0,0},
+            thickness=1));
+        connect(flowMeasure.volumeFlow,int. u)
+          annotation (Line(points={{-14,72},{-14,88},{4,88}},color={0,0,127}));
+        connect(flowMeasure.volumeFlow, Stream.solutionFlow) annotation (Line(
+              points={{-14,72},{28,72},{28,74},{86,74},{86,0},{6,0},{6,-35}},
+              color={0,0,127}));
+        connect(substance.solutionVolume, volume.y) annotation (Line(points={{
+                32,-38},{32,-10},{27,-10}}, color={0,0,127}));
+        connect(substance.q_out, Stream1.q_in) annotation (Line(
+            points={{36,-42},{22,-42},{22,-60},{52,-60},{52,-42},{58,-42}},
+            color={107,45,134},
+            thickness=1));
+        connect(Stream1.solutionFlow, Stream.solutionFlow) annotation (Line(
+              points={{68,-35},{68,0},{6,0},{6,-35}}, color={0,0,127}));
+        connect(Stream1.q_out, substance1.q_out) annotation (Line(
+            points={{78,-42},{96,-42}},
+            color={107,45,134},
+            thickness=1));
+        connect(substance1.solutionVolume, CL.volume) annotation (Line(points={
+                {92,-38},{92,46},{54,46},{54,50}}, color={0,0,127}));
+        connect(Pressure1.y, unlimitedGasSource1.partialPressure) annotation (
+            Line(points={{33,-74},{50,-74},{50,-74},{55.6,-74}}, color={0,0,127}));
+        connect(unlimitedGasSource1.temperature, vaporPressure.T) annotation (
+            Line(points={{56.2,-88},{-2,-88},{-2,-84},{-80,-84},{-80,-74},{-94,
+                -74},{-94,-64},{-86.6,-64}}, color={0,0,127}));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+      end test_respiration_valves;
+
+      model DeathVolumeTesting
+        Components.UnlimitedGasSource unlimitedGasSource
+          annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+        Physiolibrary.Types.Constants.FractionConst FiO2(k=0.21)
+          annotation (Placement(transformation(extent={{-94,76},{-86,84}})));
+        Modelica.Blocks.Math.Product PiO2
+          annotation (Placement(transformation(extent={{-46,62},{-36,72}})));
+        Physiolibrary.Types.Constants.PressureConst Pressure(k=101325.0144354)
+          annotation (Placement(transformation(extent={{-98,56},{-90,64}})));
+        Modelica.Blocks.Math.Feedback minus_pH2O annotation (Placement(
+              transformation(
+              extent={{-7,-7},{7,7}},
+              rotation=0,
+              origin={-71,59})));
+        Components.VaporPressure vaporPressure
+          annotation (Placement(transformation(extent={{-96,24},{-76,44}})));
+        Physiolibrary.Types.Constants.TemperatureConst BodyTemperature(k=310.15)
+          annotation (Placement(transformation(
+              extent={{-4,-4},{4,4}},
+              rotation=0,
+              origin={-78,-40})));
+        Physiolibrary.Types.Constants.VolumeConst volume(k=0.00015)
+          annotation (Placement(transformation(extent={{-48,-12},{-40,-4}})));
+        Physiolibrary.Types.Constants.VolumeFlowRateConst volumeFlowRate(k(
+              displayUnit="l/min") = 0.0001)
+          annotation (Placement(transformation(extent={{-52,-28},{-44,-20}})));
+        Physiolibrary.Chemical.Components.Substance substance1(
+            useNormalizedVolume=false, solute_start=0.001*(5.17*2300))
+          annotation (Placement(transformation(extent={{2,-96},{22,-76}})));
+        Components.DeathVolume deathVolume
+          annotation (Placement(transformation(extent={{0,-26},{26,2}})));
+        Physiolibrary.Types.Constants.VolumeConst volume1(k=0.0023)
+          annotation (Placement(transformation(extent={{-68,-68},{-60,-60}})));
+        Physiolibrary.Chemical.Components.Stream Stream(useSolutionFlowInput=
+              true) annotation (Placement(transformation(
+              extent={{-10,-10},{10,10}},
+              rotation=270,
+              origin={10,-48})));
+      equation
+        connect(unlimitedGasSource.temperature, vaporPressure.T) annotation (
+            Line(points={{-19.8,34},{-52,34},{-52,18},{-86,18},{-86,34},{-94.6,
+                34}}, color={0,0,127}));
+        connect(vaporPressure.VaporPressure_, minus_pH2O.u2) annotation (Line(
+              points={{-74.6,34.2},{-68,34.2},{-68,48},{-71,48},{-71,53.4}},
+              color={0,0,127}));
+        connect(Pressure.y, minus_pH2O.u1)
+          annotation (Line(points={{-89,60},{-76.6,59}}, color={0,0,127}));
+        connect(minus_pH2O.y, PiO2.u2) annotation (Line(points={{-64.7,59},{-47,
+                59},{-47,64}}, color={0,0,127}));
+        connect(FiO2.y, PiO2.u1) annotation (Line(points={{-85,80},{-52,80},{
+                -52,70},{-47,70}}, color={0,0,127}));
+        connect(PiO2.y, unlimitedGasSource.partialPressure) annotation (Line(
+              points={{-35.5,67},{-24,67},{-24,48},{-20.4,48}}, color={0,0,127}));
+        connect(BodyTemperature.y, vaporPressure.T) annotation (Line(points={{
+                -73,-40},{-68,-40},{-68,18},{-86,18},{-86,34},{-94.6,34}},
+              color={0,0,127}));
+        connect(deathVolume.environmentalFlow, unlimitedGasSource.port_a)
+          annotation (Line(
+            points={{12.22,-1.36},{12.22,39.4},{0,39.4}},
+            color={107,45,134},
+            thickness=1));
+        connect(volume.y, deathVolume.volume) annotation (Line(points={{-39,-8},
+                {-39,-9.2},{0.26,-9.2}}, color={0,0,127}));
+        connect(volumeFlowRate.y, deathVolume.volumeFlow) annotation (Line(
+              points={{-43,-24},{-6,-24},{-6,-17.6},{0.26,-17.6}}, color={0,0,
+                127}));
+        connect(volume1.y, substance1.solutionVolume) annotation (Line(points={
+                {-59,-64},{-2,-64},{-2,-82},{8,-82}}, color={0,0,127}));
+        connect(Stream.q_in, deathVolume.alveolarFlow) annotation (Line(
+            points={{10,-38},{10,-30},{12.74,-30},{12.74,-24.6}},
+            color={107,45,134},
+            thickness=1));
+        connect(Stream.q_out, substance1.q_out) annotation (Line(
+            points={{10,-58},{10,-72},{12,-72},{12,-86}},
+            color={107,45,134},
+            thickness=1));
+        connect(Stream.solutionFlow, deathVolume.volumeFlow) annotation (Line(
+              points={{17,-48},{30,-48},{30,-50},{46,-50},{46,-42},{-20,-42},{
+                -20,-24},{-6,-24},{-6,-17.6},{0.26,-17.6}}, color={0,0,127}));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+      end DeathVolumeTesting;
+
+      model TestDeathVolume
+        Components.UnlimitedGasSource unlimitedGasSource
+          annotation (Placement(transformation(extent={{-34,-42},{-14,-22}})));
+        Physiolibrary.Types.Constants.PressureConst Pressure(k=101325.0144354)
+          annotation (Placement(transformation(extent={{-94,-40},{-86,-32}})));
+        Modelica.Blocks.Math.Feedback minus_pH2O annotation (Placement(
+              transformation(
+              extent={{-7,-7},{7,7}},
+              rotation=0,
+              origin={-67,-27})));
+        Physiolibrary.Types.Constants.FractionConst FiO2(k=0.21)
+          annotation (Placement(transformation(extent={{-90,-18},{-82,-10}})));
+        Modelica.Blocks.Math.Product PiO2
+          annotation (Placement(transformation(extent={{-54,-30},{-44,-20}})));
+        Physiolibrary.Types.Constants.TemperatureConst BodyTemperature(k=310.15)
+          annotation (Placement(transformation(
+              extent={{-4,-4},{4,4}},
+              rotation=0,
+              origin={-86,-64})));
+        Physiolibrary.Types.Constants.VolumeConst volume(k=0.00015)
+          annotation (Placement(transformation(extent={{-32,-68},{-24,-60}})));
+        Physiolibrary.Types.Constants.VolumeFlowRateConst volumeFlowRate(k(
+              displayUnit="l/min") = 0.0001)
+          annotation (Placement(transformation(extent={{-36,-84},{-28,-76}})));
+        Components.DeathVolume deathVolume
+          annotation (Placement(transformation(extent={{16,-82},{42,-54}})));
+      equation
+        connect(minus_pH2O.y, PiO2.u2) annotation (Line(points={{-60.7,-27},{
+                -60.7,-28},{-55,-28}}, color={0,0,127}));
+        connect(Pressure.y, minus_pH2O.u1)
+          annotation (Line(points={{-85,-36},{-72.6,-27}}, color={0,0,127}));
+        connect(BodyTemperature.y, minus_pH2O.u2) annotation (Line(points={{-81,
+                -64},{-67,-64},{-67,-32.6}}, color={0,0,127}));
+        connect(PiO2.u1, FiO2.y) annotation (Line(points={{-55,-22},{-55,-14},{
+                -81,-14}}, color={0,0,127}));
+        connect(PiO2.y, unlimitedGasSource.partialPressure) annotation (Line(
+              points={{-43.5,-25},{-38,-25},{-38,-24},{-34.4,-24}}, color={0,0,
+                127}));
+        connect(unlimitedGasSource.temperature, minus_pH2O.u2) annotation (Line(
+              points={{-33.8,-38},{-50,-38},{-50,-40},{-67,-40},{-67,-32.6}},
+              color={0,0,127}));
+        connect(volume.y, deathVolume.volume) annotation (Line(points={{-23,-64},
+                {-23,-65.2},{16.26,-65.2}}, color={0,0,127}));
+        connect(volumeFlowRate.y, deathVolume.volumeFlow) annotation (Line(
+              points={{-27,-80},{10,-80},{10,-73.6},{16.26,-73.6}}, color={0,0,
+                127}));
+        connect(unlimitedGasSource.port_a, deathVolume.environmentalFlow)
+          annotation (Line(
+            points={{-14,-32.6},{-2,-32.6},{-2,-34},{28.22,-34},{28.22,-57.36}},
+
+            color={107,45,134},
+            thickness=1));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+      end TestDeathVolume;
+
+      model test_respiration
+        PhysiolibraryExpantion.ElasticVessel CL(
+          volume_start=0.0023,
+          ZeroPressureVolume=0.0013,
+          Compliance(displayUnit="l/cmH2O") = 2.0394324259559e-06,
+          useExternalPressureInput=true,
+          hardElastance=true)
+          annotation (Placement(transformation(extent={{38,50},{58,70}})));
+        Physiolibrary.Hydraulic.Sources.UnlimitedVolume unlimitedVolume2(
+            usePressureInput=false)
+          annotation (Placement(transformation(extent={{-56,50},{-36,70}})));
+        PhysiolibraryExpantion.OuterElasticVessel Cw(
+          outer_volume_start=0,
+          useV0Input=false,
+          ZeroPressureVolume=0.00352,
+          useComplianceInput=false,
+          Compliance(displayUnit="l/cmH2O") = 2.4881075596661e-06,
+          useExternalPressureInput=true,
+          hardElastance=true)
+          annotation (Placement(transformation(extent={{42,26},{62,46}})));
+        Physiolibrary.Hydraulic.Components.Resistor resistor(Resistance(
+              displayUnit="(cmH2O.s)/l") = 362846.05)
+          annotation (Placement(transformation(extent={{8,50},{28,70}})));
+        MeursHemodynamics.Components.BreathInterval breathInterval1
+          annotation (Placement(transformation(extent={{-48,2},{-28,22}})));
+        Modelica.Blocks.Sources.Constant BreathRate(k=12)
+          annotation (Placement(transformation(extent={{-84,2},{-64,22}})));
+        Physiolibrary.Types.Constants.PressureConst RespiratoryMuscleAmplitude(k(
+              displayUnit="cmH2O") = 441.29925)
+          annotation (Placement(transformation(extent={{-56,34},{-48,42}})));
+        Modelica.Blocks.Math.Product product1
+          annotation (Placement(transformation(extent={{-8,10},{12,30}})));
+        Physiolibrary.Blocks.Math.Integrator int
+          annotation (Placement(transformation(extent={{6,78},{26,98}})));
+        Physiolibrary.Hydraulic.Sensors.FlowMeasure flowMeasure
+          annotation (Placement(transformation(extent={{-24,50},{-4,70}})));
+      equation
+        connect(Cw.InnerVolume,CL. volume)
+          annotation (Line(points={{58.2,34},{54,34},{54,50}},
+                                                             color={0,0,127}));
+        connect(Cw.pressure,CL. externalPressure) annotation (Line(points={{64.1,
+                34.9},{64.1,72},{56,72},{56,68}},
+                                            color={0,0,127}));
+        connect(resistor.q_out,CL. q_in) annotation (Line(
+            points={{28,60},{48,60}},
+            color={0,0,0},
+            thickness=1));
+        connect(BreathRate.y,breathInterval1. RR)
+          annotation (Line(points={{-63,12},{-48.4,12}},   color={0,0,127}));
+        connect(breathInterval1.Pm,product1. u2) annotation (Line(points={{-27,12},
+                {-16,12},{-16,14},{-10,14}},
+                                         color={0,0,127}));
+        connect(RespiratoryMuscleAmplitude.y,product1. u1) annotation (Line(points={{-47,38},
+                {-16,38},{-16,26},{-10,26}},color={0,0,127}));
+        connect(product1.y,Cw. externalPressure) annotation (Line(points={{13,20},
+                {28,20},{28,44},{50,44},{50,40},{50.4,40}},
+                                                         color={0,0,127}));
+        connect(flowMeasure.q_out,resistor. q_in) annotation (Line(
+            points={{-4,60},{8,60}},
+            color={0,0,0},
+            thickness=1));
+        connect(flowMeasure.q_in,unlimitedVolume2. y) annotation (Line(
+            points={{-24,60},{-36,60}},
+            color={0,0,0},
+            thickness=1));
+        connect(flowMeasure.volumeFlow,int. u)
+          annotation (Line(points={{-14,72},{-14,88},{4,88}},color={0,0,127}));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+      end test_respiration;
     end Tests;
 
     package PhysiolibraryExpantion
@@ -5028,6 +6253,337 @@ Connector with one output signal of type Real.
 </html>"));
         end ElasticVesselWithInnerVolume;
       end Obsolent;
+
+      model GasEquation
+
+        Physiolibrary.Types.RealIO.VolumeInput
+                                           V1(
+                                         displayUnit="ml") annotation (Placement(transformation(extent={
+                  {-118,42},{-78,82}}), iconTransformation(extent={{-100,66},{-72,94}})));
+        Physiolibrary.Types.RealIO.PressureInput
+                                           P1(
+                                         displayUnit="mmHg") annotation (Placement(transformation(extent={
+                  {-118,42},{-78,82}}), iconTransformation(extent={{-100,6},{
+                -72,34}})));
+        Physiolibrary.Types.RealIO.TemperatureInput
+                                           T1(
+                                         displayUnit="degC") annotation (Placement(transformation(extent={
+                  {-118,42},{-78,82}}), iconTransformation(extent={{-100,-54},{-72,
+                  -26}})));
+        Physiolibrary.Types.RealIO.PressureInput
+                                           P2(
+                                        displayUnit="mmHg") annotation (Placement(transformation(extent={
+                  {-118,42},{-78,82}}), iconTransformation(
+              extent={{-14,-14},{14,14}},
+              rotation=180,
+              origin={86,20})));
+        Physiolibrary.Types.RealIO.TemperatureInput
+                                           T2(
+                                         displayUnit="degC") annotation (Placement(transformation(extent={
+                  {-118,42},{-78,82}}), iconTransformation(
+              extent={{-14,-14},{14,14}},
+              rotation=180,
+              origin={86,-40})));
+        Physiolibrary.Types.RealIO.VolumeOutput
+                                            V2(
+                                          displayUnit="ml") annotation (Placement(transformation(extent=
+                  {{56,54},{96,94}}), iconTransformation(extent={{72,66},{100,94}})));
+      equation
+        (P1*V1)/(T1)=(P2*V2)/(T2);
+        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+                  -100},{100,100}}), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                fillColor={170,213,255},
+                fillPattern=FillPattern.Solid),
+              Rectangle(
+                extent={{0,100},{0,-100}},
+                lineColor={0,0,0},
+                fillColor={170,213,255},
+                fillPattern=FillPattern.Solid),
+              Text(
+                extent={{-98,136},{100,100}},
+                lineColor={0,0,0},
+                fillColor={170,213,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name"),
+            Text(
+              extent={{-66,34},{132,8}},
+              textColor={28,108,200},
+              textString="P1",
+              horizontalAlignment=TextAlignment.Left),
+            Text(
+              extent={{-68,92},{132,66}},
+              textColor={28,108,200},
+              textString="V1",
+              horizontalAlignment=TextAlignment.Left),
+            Text(
+              extent={{-68,-26},{130,-54}},
+              textColor={28,108,200},
+              textString="T1",
+              horizontalAlignment=TextAlignment.Left),
+            Text(
+              extent={{-130,92},{70,66}},
+              textColor={28,108,200},
+              horizontalAlignment=TextAlignment.Right,
+              textString="V2"),
+            Text(
+              extent={{-128,32},{70,6}},
+              textColor={28,108,200},
+              horizontalAlignment=TextAlignment.Right,
+              textString="P2"),
+            Text(
+              extent={{-128,-26},{70,-54}},
+              textColor={28,108,200},
+              horizontalAlignment=TextAlignment.Right,
+              textString="T2")}));
+      end GasEquation;
+
+      model AlveolarVentilation_ATPD
+        extends Physiolibrary.Icons.Lungs;
+      //  parameter Real EnvironmentPressure(final displayUnit="mmHg");
+      //  parameter Real EnvironmentTemperature(final displayUnit="degC");
+
+        Physiolibrary.Types.RealIO.FrequencyInput RespRate
+                                               annotation (Placement(transformation(
+                extent={{34,80},{48,94}}),    iconTransformation(
+              extent={{-20,-20},{20,20}},
+              rotation=180,
+              origin={80,20})));
+        Physiolibrary.Types.RealIO.VolumeInput TidalVolume
+                                                  annotation (Placement(
+              transformation(
+              extent={{-18,-18},{10,10}},
+              origin={-54,-34}), iconTransformation(
+              extent={{-20,-20},{20,20}},
+              rotation=180,
+              origin={80,100})));
+        Physiolibrary.Types.RealIO.VolumeInput DeadSpace
+                                                annotation (Placement(transformation(
+                extent={{-72,-78},{-44,-50}}), iconTransformation(
+              extent={{-20,-20},{20,20}},
+              rotation=180,
+              origin={80,60})));
+        Physiolibrary.Types.RealIO.TemperatureInput core_T
+                                               annotation (Placement(
+              transformation(
+              extent={{-20,-20},{8,8}},
+              origin={-74,-86},
+            rotation=0),         iconTransformation(
+              extent={{-20,-20},{20,20}},
+              rotation=180,
+              origin={80,-20})));
+        Physiomodel.Gases.Ventilation.GasEquation tidalVolume(V2(start=400))
+          annotation (Placement(transformation(extent={{-12,-56},{12,-32}})));
+        Physiomodel.Gases.Ventilation.GasEquation deadVolume(V2(start=150))
+          annotation (Placement(transformation(extent={{-12,-86},{12,-62}})));
+        Modelica.Blocks.Math.Product alveolarVentilation annotation (Placement(
+            transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=270,
+            origin={54,52})));
+        Physiomodel.Gases.Ventilation.VaporPressure vaporPressure annotation (
+            Placement(transformation(
+              extent={{-10,-10},{10,10}},
+              rotation=180,
+              origin={6,88})));
+        Modelica.Blocks.Math.Division vaporPart annotation (Placement(
+              transformation(
+              extent={{-6,-6},{6,6}},
+              rotation=270,
+              origin={-20,34})));
+        Modelica.Blocks.Math.Feedback added_pH2O annotation (Placement(
+              transformation(
+              extent={{-7,-7},{7,7}},
+              rotation=270,
+              origin={-15,61})));
+        Physiomodel.Gases.Ventilation.VaporPressure vaporPressure1 annotation (
+            Placement(transformation(extent={{-10,-10},{10,10}}, origin={-56,64})));
+        Modelica.Blocks.Math.Product air_pH2O
+          annotation (Placement(transformation(extent={{-36,68},{-26,78}})));
+        Physiolibrary.Types.RealIO.TemperatureInput AmbientTemperature
+                                               annotation (Placement(
+              transformation(
+              extent={{-20,-20},{8,8}},
+              origin={-124,70}), iconTransformation(
+              extent={{-20,-20},{20,20}},
+              origin={-80,100})));
+        Physiolibrary.Types.RealIO.PressureInput EnvironmentPressure
+                                               annotation (Placement(
+              transformation(
+              extent={{-20,-20},{8,8}},
+              origin={-86,-4}),  iconTransformation(
+              extent={{-20,-20},{20,20}},
+              origin={-80,40})));
+        Physiolibrary.Types.RealIO.FractionInput EnvironmentRelativeHumidity
+                                               annotation (Placement(
+              transformation(
+              extent={{-20,-20},{8,8}},
+              origin={-124,92}), iconTransformation(
+              extent={{-20,-20},{20,20}},
+              origin={-80,-20})));
+        Modelica.Blocks.Math.Feedback alveolarVolume
+        annotation (Placement(transformation(extent={{60,-44},{80,-24}})));
+        Modelica.Blocks.Math.Feedback airPressureWitoutVapor
+          annotation (Placement(transformation(extent={{-62,0},{-42,-20}})));
+        Physiolibrary.Types.RealIO.VolumeFlowRateOutput AlveolarVentilation
+        annotation (Placement(transformation(extent={{70,22},{84,36}}),
+            iconTransformation(
+            extent={{-20,-20},{20,20}},
+            origin={100,-60})));
+        Modelica.Blocks.Math.Feedback dilution
+          annotation (Placement(transformation(extent={{-30,20},{-10,0}})));
+      Physiolibrary.Types.Constants.FractionConst Constant(k=1)
+        annotation (Placement(transformation(extent={{-48,6},{-40,14}})));
+        Physiolibrary.Types.RealIO.FractionOutput BronchiDilution
+                                               annotation (Placement(transformation(
+                extent={{6,4},{18,16}}),      iconTransformation(
+              extent={{-20,-20},{20,20}},
+              origin={100,-100})));
+      equation
+
+        connect(TidalVolume,tidalVolume. V1) annotation (Line(
+            points={{-58,-38},{-32,-38},{-32,-34.4},{-10.32,-34.4}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(DeadSpace, deadVolume.V1)   annotation (Line(
+            points={{-58,-64},{-10.32,-64},{-10.32,-64.4}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      connect(RespRate, alveolarVentilation.u2) annotation (Line(
+          points={{41,87},{40,87},{40,70},{48,70},{48,64}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(core_T, vaporPressure.T)   annotation (Line(
+            points={{-80,-92},{32,-92},{32,88},{14.6,88}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(air_pH2O.y, added_pH2O.u2) annotation (Line(
+            points={{-25.5,73},{-25.5,61},{-20.6,61}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(added_pH2O.y, vaporPart.u1) annotation (Line(
+            points={{-15,54.7},{-50,54.7},{-50,52},{-16,52},{-16,46},{-16.4,46},
+              {-16.4,41.2}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(AmbientTemperature, vaporPressure1.T) annotation (Line(
+            points={{-130,64},{-94,64},{-94,64},{-64.6,64}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(EnvironmentRelativeHumidity, air_pH2O.u1) annotation (Line(
+            points={{-130,86},{-90,86},{-90,76},{-37,76}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(core_T, deadVolume.T1) annotation (Line(
+            points={{-80,-92},{-40,-92},{-40,-78.8},{-10.32,-78.8}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      connect(alveolarVolume.y, alveolarVentilation.u1) annotation (Line(
+          points={{79,-34},{90,-34},{90,80},{60,80},{60,64}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(tidalVolume.V2, alveolarVolume.u1) annotation (Line(
+          points={{10.32,-34.4},{62,-34.4},{62,-34}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(alveolarVolume.u2, deadVolume.V2) annotation (Line(
+          points={{70,-42},{70,-64},{10.32,-64},{10.32,-64.4}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(EnvironmentPressure, airPressureWitoutVapor.u1) annotation (Line(
+            points={{-92,-10},{-60,-10}},
+            color={0,0,127},
+            smooth=Smooth.None));
+
+        connect(airPressureWitoutVapor.y, tidalVolume.P1) annotation (Line(
+            points={{-43,-10},{-28,-10},{-28,-41.6},{-10.32,-41.6}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(airPressureWitoutVapor.y, deadVolume.P1) annotation (Line(
+            points={{-43,-10},{-28,-10},{-28,-71.6},{-10.32,-71.6}},
+            color={0,0,127},
+            smooth=Smooth.None));
+
+      connect(Constant.y, dilution.u1) annotation (Line(
+          points={{-39,10},{-28,10}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(vaporPart.y, dilution.u2) annotation (Line(
+            points={{-20,27.4},{-20,18}},
+            color={0,0,127},
+            smooth=Smooth.None));
+        connect(dilution.y, BronchiDilution) annotation (Line(
+            points={{-11,10},{12,10}},
+            color={0,0,127},
+            smooth=Smooth.None));
+      connect(vaporPressure1.VaporPressure_, air_pH2O.u2) annotation (Line(
+          points={{-44.6,64.2},{-40,64.2},{-40,70},{-37,70}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(vaporPressure.VaporPressure_, added_pH2O.u1) annotation (Line(
+          points={{-5.4,87.8},{-15,87.8},{-15,66.6}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(alveolarVentilation.y, AlveolarVentilation) annotation (Line(
+          points={{54,41},{54,29},{77,29}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(added_pH2O.y, airPressureWitoutVapor.u2) annotation (Line(
+          points={{-15,54.7},{-52,54.7},{-52,-2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(EnvironmentPressure, vaporPart.u2) annotation (Line(
+          points={{-92,-10},{-70,-10},{-70,46},{-23.6,46},{-23.6,41.2}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(EnvironmentPressure, tidalVolume.P2) annotation (Line(
+          points={{-92,-10},{-70,-10},{-70,-22},{20,-22},{20,-41.6},{10.32,
+              -41.6}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(EnvironmentPressure, deadVolume.P2) annotation (Line(
+          points={{-92,-10},{-70,-10},{-70,-22},{20,-22},{20,-71.6},{10.32,
+              -71.6}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(tidalVolume.T1, deadVolume.T1) annotation (Line(points={{-10.32,
+              -48.8},{-40,-48.8},{-40,-78.8},{-10.32,-78.8}}, color={0,0,127}));
+      connect(deadVolume.T2, vaporPressure1.T) annotation (Line(points={{10.32,
+              -78.8},{24,-78.8},{24,-102},{-114,-102},{-114,64},{-64.6,64}},
+            color={0,0,127}));
+      connect(tidalVolume.T2, vaporPressure1.T) annotation (Line(points={{10.32,
+              -48.8},{24,-48.8},{24,-102},{-114,-102},{-114,64},{-64.6,64}},
+            color={0,0,127}));
+       annotation (
+          Icon(coordinateSystem(preserveAspectRatio=true, extent={{-180,-120},{
+                100,100}}),   graphics={Text(
+                extent={{-100,-100},{76,-70}},
+                textString="%name",
+                lineColor={0,0,255})}), Diagram(coordinateSystem(extent={{-180,
+                -120},{100,100}}), graphics={
+            Text(
+              extent={{-50,18},{-40,16}},
+              textColor={28,108,200},
+              textString="100"),
+            Text(
+              extent={{-48,-34},{-32,-36}},
+              textColor={28,108,200},
+              textString="BTPS"),
+            Text(
+              extent={{-20,-24},{-4,-26}},
+              textColor={28,108,200},
+              textString="BTPS"),
+            Text(
+              extent={{2,-24},{18,-26}},
+              textColor={28,108,200},
+              textString="ATPD"),
+            Text(
+              extent={{66,22},{82,20}},
+              textColor={28,108,200},
+              textString="ATPD")}));
+      end AlveolarVentilation_ATPD;
     end PhysiolibraryExpantion;
   end MeursHemodynamicsPhysiolibrary;
 
@@ -5113,7 +6669,8 @@ Connector with one output signal of type Real.
     end MeurtHemodynamicsWithPhysiolobrary;
   end Model;
   annotation (uses(        Modelica(version="4.0.0"), Physiolibrary(version=
-            "2.4.1")),
+            "2.4.1"),
+      Physiomodel(version="2")),
     version="3",
     conversion(noneFromVersion="", noneFromVersion="2"));
 end MeursHemodynamics;
