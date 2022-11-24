@@ -3106,14 +3106,12 @@ pressure")}));
 
         if volumeFlow > 0 then
           //inspirium
-          //alveolarFlow.conc = concentration;
-          alveolarFlow.q = concentration*volumeFlow;
+          alveolarFlow.q = -concentration*volumeFlow;
           environmentalFlow.q = environmentalFlow.conc*volumeFlow;
         else
           //expirium
-          //environmentalFlow.conc = concentration;
           environmentalFlow.q = concentration*volumeFlow;
-          alveolarFlow.q = alveolarFlow.conc*volumeFlow;
+          alveolarFlow.q = -alveolarFlow.conc*volumeFlow;
 
        end if;
         annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -5555,7 +5553,7 @@ pressure")}));
         Components.DeadVolume deadVolume(solute(start=0.001))
           annotation (Placement(transformation(extent={{-2,-70},{28,-42}})));
         Physiolibrary.Chemical.Components.Substance Alveolus(
-            useNormalizedVolume=false, solute_start=0.001*(5.17*2300))
+            useNormalizedVolume=false, solute_start=0.001*(5.17*2.300))
           annotation (Placement(transformation(extent={{2,-100},{22,-80}})));
         Physiolibrary.Types.Constants.VolumeConst volume1(k=0.0023)
           annotation (Placement(transformation(extent={{-38,-84},{-30,-76}})));
@@ -5594,8 +5592,8 @@ pressure")}));
             Line(points={{-82.6,-26},{-90,-26},{-90,-44},{-50,-44},{-50,-20},{
                 -33.8,-20}}, color={0,0,127}));
         connect(vaporPressure.VaporPressure_, minus_pH2O.u2) annotation (Line(
-              points={{-62.6,-25.8},{-58,-25.8},{-58,-14.6},{-67,-14.6}}, color
-              ={0,0,127}));
+              points={{-62.6,-25.8},{-58,-25.8},{-58,-14.6},{-67,-14.6}}, color=
+               {0,0,127}));
         annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
               coordinateSystem(preserveAspectRatio=false)));
       end TestDeadVolume;
